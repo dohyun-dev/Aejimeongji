@@ -173,15 +173,16 @@ class RunningGeolocation extends React.Component {
           <View style={styles.subContainer}>
             <View style={styles.distanceContainer}>
               <Text style={{fontSize: 25}}>
-                {parseFloat(this.state.distanceTravelled).toFixed(2) * 100} m
+                {parseFloat(this.state.distanceTravelled * 100).toFixed(2)} m
               </Text>
               <Text>거리</Text>
             </View>
 
             <View style={styles.calorieContainer}>
               <Text style={{fontSize: 25}}>
-                {(parseFloat(this.state.distanceTravelled).toFixed(2) / 0.1) *
-                  7}{' '}
+                {parseFloat((this.state.distanceTravelled / 0.1) * 7).toFixed(
+                  2,
+                )}
                 kcal
               </Text>
               <Text>칼로리</Text>
