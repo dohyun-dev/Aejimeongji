@@ -8,6 +8,12 @@ import {
   View,
   FlatList,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+
 import {Colors} from '../../constants/styles';
 import RunButton3 from '../../components/ui/RunButton3';
 import RunningSelect from '../../components/Running/RunningSelect';
@@ -68,8 +74,8 @@ const styles = StyleSheet.create({
   },
   ProfileSelect: {
     backgroundColor: Colors.back200,
-    width: 350,
-    height: 400,
+    width: '85%',
+    height: '50%',
     justifyContent: 'center',
     borderRadius: 20,
     shadowColor: '#000',

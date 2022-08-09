@@ -1,4 +1,10 @@
 import React from 'react';
+import {Pressable, View, Button, StyleSheet, Image} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import Animated, {
   useSharedValue,
   withSpring,
@@ -6,7 +12,6 @@ import Animated, {
   Extrapolate,
   interpolate,
 } from 'react-native-reanimated';
-import {Pressable, View, Button, StyleSheet, Image} from 'react-native';
 
 const LikeButton = () => {
   const liked = useSharedValue(0);

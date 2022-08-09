@@ -39,6 +39,7 @@
     "react-native-numeric-input": "^1.9.1",
     "react-native-paper": "^4.12.4",
     "react-native-reanimated": "^2.9.1",
+    "react-native-responsive-dimensions": "^3.1.1",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
     "react-native-snap-carousel": "^3.9.1",

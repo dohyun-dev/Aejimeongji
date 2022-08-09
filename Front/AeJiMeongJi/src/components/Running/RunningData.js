@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import RunningDataItem from './RunningDataItem';
 import data from './data';

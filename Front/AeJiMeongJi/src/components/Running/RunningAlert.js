@@ -1,6 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {Component, useState} from 'react';
 import {StyleSheet, View, Text, Alert} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import RunButton from '../../components/ui/RunButton';
 
 const RunningAlert = () => {

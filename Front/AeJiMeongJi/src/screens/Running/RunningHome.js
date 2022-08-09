@@ -8,6 +8,11 @@ import {
   View,
   Image,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import RunButton from '../../components/ui/RunButton';
 import RunButton2 from '../../components/ui/RunButton2';
@@ -39,16 +44,16 @@ const RunningHome = ({navigation}) => {
               <View>
                 <View style={styles.infoBox}>
                   <View style={styles.infoName}>
-                    <Text style={{fontSize: 30, fontWeight: 'bold'}}>앵두</Text>
+                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>앵두</Text>
                   </View>
                   <View style={styles.infoCate}>
-                    <Text style={{fontSize: 17}}>10살, 5kg, 푸들</Text>
+                    <Text style={{fontSize: 10}}>10살, 5kg, 푸들</Text>
                   </View>
                 </View>
               </View>
             </View>
             <View style={styles.RunTime}>
-              <Text style={{fontSize: 15}}>
+              <Text style={{fontSize: 12}}>
                 권장 산책시간은 1일 30분입니다.
               </Text>
             </View>
@@ -161,8 +166,8 @@ const styles = StyleSheet.create({
   profileImg: {
     backgroundColor: 'orange',
     borderRadius: 130,
-    height: 130,
-    width: 130,
+    height: '98%',
+    width: '30%',
     marginLeft: 40,
     justifyContent: 'center',
     alignItems: 'center',
@@ -213,7 +218,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    margin: 10,
     backgroundColor: Colors.back100,
     borderRadius: 20,
     padding: 35,
@@ -233,7 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalTitle: {
-    fontSize: 26,
+    fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
@@ -241,11 +246,11 @@ const styles = StyleSheet.create({
   modalSubtitle: {
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 20,
+    fontSize: 13,
     textAlign: 'center',
   },
   modalText: {
-    fontSize: 17,
+    fontSize: 11,
     marginBottom: 15,
     textAlign: 'center',
   },

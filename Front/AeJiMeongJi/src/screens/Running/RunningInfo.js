@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import RunButton3 from '../../components/ui/RunButton3';
 import RunningData from '../../components/Running/RunningData';
@@ -34,8 +39,8 @@ const styles = StyleSheet.create({
   },
   InfoList: {
     backgroundColor: Colors.back200,
-    width: 350,
-    height: 550,
+    width: '85%',
+    height: '80%',
     justifyContent: 'center',
     borderRadius: 20,
     shadowColor: '#000',

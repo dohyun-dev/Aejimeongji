@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Share, View, TouchableOpacity, Image} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 
 class GuideShare extends Component {
   onShare = async () => {

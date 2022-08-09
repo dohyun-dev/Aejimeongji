@@ -6,7 +6,11 @@ import {
   View,
   TouchableHighlight,
 } from 'react-native';
-
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 // importing library to use Stopwatch and Timer
 import {Stopwatch, Timer} from 'react-native-stopwatch-timer';
 import RunButton3 from '../ui/RunButton3';

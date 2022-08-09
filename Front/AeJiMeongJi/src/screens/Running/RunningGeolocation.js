@@ -10,6 +10,12 @@ import {
   TouchableHighlight,
   Alert,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+
 import MapView, {
   Marker,
   AnimatedRegion,
@@ -172,14 +178,14 @@ class RunningGeolocation extends React.Component {
             style={{width: '10%', backgroundColor: 'yellow'}}></RunningTimer>
           <View style={styles.subContainer}>
             <View style={styles.distanceContainer}>
-              <Text style={{fontSize: 25}}>
+              <Text style={{fontSize: 17}}>
                 {parseFloat(this.state.distanceTravelled * 100).toFixed(2)} m
               </Text>
               <Text>거리</Text>
             </View>
 
             <View style={styles.calorieContainer}>
-              <Text style={{fontSize: 25}}>
+              <Text style={{fontSize: 17}}>
                 {parseFloat((this.state.distanceTravelled / 0.1) * 7).toFixed(
                   2,
                 )}

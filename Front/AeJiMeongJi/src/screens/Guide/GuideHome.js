@@ -1,5 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, View, Text} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import {SafeAreaView, ScrollView} from 'react-native';
 import CarouselCards from '../../components/Guide/CarouselCards';

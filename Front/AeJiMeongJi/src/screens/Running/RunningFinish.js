@@ -1,5 +1,10 @@
 import React, {Component, useState} from 'react';
 import {StyleSheet, View, Text, Alert, Image} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import RunButton from '../../components/ui/RunButton';
 import RunButton2 from '../../components/ui/RunButton2';
 import {Colors} from '../../constants/styles';
@@ -7,11 +12,17 @@ import {Colors} from '../../constants/styles';
 const RunningFinish = ({navigation}) => {
   return (
     <View style={styles.Container}>
-      <Text style={{fontSize: 30, fontWeight: 'bold', marginBottom: 8}}>
+      <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 8}}>
         오늘의 산책기록
       </Text>
       <View style={styles.DataContainer}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 30}}>
+        <Text
+          style={{
+            fontSize: 17,
+            fontWeight: 'bold',
+            marginTop: 30,
+            marginBottom: 20,
+          }}>
           8월 8일의 산책
         </Text>
         <View style={styles.RunningContent}>
@@ -65,16 +76,15 @@ const styles = StyleSheet.create({
   },
   image: {
     marginBottom: 30,
-    borderRadius: 130,
-    height: 150,
-    width: 150,
+    height: '40%',
+    width: '40%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   DataContainer: {
     backgroundColor: Colors.back100,
-    width: 350,
-    height: 400,
+    width: '85%',
+    height: '50%',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 20,
@@ -92,9 +102,10 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end',
   },
   ContentItem: {
-    width: 80,
-    height: 80,
-    margin: 12,
+    width: '23%',
+    height: '55 %',
+    marginTop: 20,
+    marginHorizontal: 5,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   itemFont: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   runButton: {
