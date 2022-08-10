@@ -66,6 +66,12 @@ dependencies {
 	// Jpa Spatial Type
 	implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '5.6.10.Final'
 
+	// FCM
+	implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
+
+	// okHttp
+	implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+
 }
 
 tasks.named('test') {
