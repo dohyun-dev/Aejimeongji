@@ -63,6 +63,7 @@ const AuthenticatedStack = () => {
         }}>
         <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
       </Stack.Group>
+      <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
     </Stack.Navigator>
   );
 };
@@ -115,6 +116,7 @@ import ProfileEditScreen from './src/screens/Profile/ProfileEditScreen';
 import MyInfoScreen from './src/screens/Profile/MyInfoScreen';
 import PlaceHome from './src/screens/Place/PlaceHome';
 import PlaceCategory from './src/screens/Place/PlaceCategory';
+import PlaceDetail from './src/screens/Place/PlaceDetail';
 export default function App() {
   return (
     <Provider store={store}>

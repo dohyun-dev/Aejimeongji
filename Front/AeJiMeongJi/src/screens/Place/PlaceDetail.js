@@ -1,0 +1,134 @@
+import React, {useEffect, useState} from 'react';
+import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+import {View, Pressable, Text, Image} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native';
+import {Colors} from '../../constants/styles';
+import DetailInfo from '../../components/Place/DetailInfo';
+import PlaceMap from '../../components/Place/PlaceMap';
+import {getPlaceImage, searchPlace} from '../../utils/place';
+
+const DummyData = [
+  {
+    id: 1,
+    source:
+      'https://cdn.pixabay.com/photo/2018/07/14/15/27/cafe-3537801_960_720.jpg',
+  },
+  {
+    id: 2,
+    source:
+      'https://cdn.pixabay.com/photo/2017/04/10/22/28/residence-2219972_960_720.jpg',
+  },
+  {
+    id: 3,
+    source:
+      'https://cdn.pixabay.com/photo/2013/04/11/19/46/building-102840__340.jpg',
+  },
+  {
+    id: 4,
+    source:
+      'https://cdn.pixabay.com/photo/2015/11/17/18/59/architecture-1048092__340.jpg',
+  },
+  {
+    id: 5,
+    source:
+      'https://cdn.pixabay.com/photo/2017/03/05/00/34/panorama-2117310__340.jpg',
+  },
+  {
+    id: 6,
+    source:
+      'https://cdn.pixabay.com/photo/2017/10/17/19/11/fantasy-2861815__340.jpg',
+  },
+  {
+    id: 7,
+    source:
+      'https://cdn.pixabay.com/photo/2016/09/19/22/46/lake-1681485__340.jpg',
+  },
+];
+
+const renderItem = ({item, index}, parallaxProps) => {
+  return (
+    <View style={styles.item}>
+      <ParallaxImage
+        source={{uri: item.source}}
+        containerStyle={styles.imageContainer}
+        style={styles.image}
+        parallaxFactor={0.4}
+        {...parallaxProps}
+      />
+    </View>
+  );
+};
+
+const PlaceDetail = () => {
+  const [source, setSource] = useState();
+
+  // useEffect(() => {
+  //   const getLocation = async () => {
+  //     const res = await searchPlace('경상북도 구미시 여헌로 87-8');
+  //     if (res) {
+  //       const src = await getPlaceImage();
+  //       setSource(`data:image/jpg;base64,${src}`);
+  //     }
+  //   };
+  //   getLocation();
+  // }, []);
+
+  return (
+    <ScrollView style={styles.rootContainer}>
+      <Text>이것은 detail</Text>
+      <Carousel
+        sliderWidth={responsiveWidth(100)}
+        sliderHeight={responsiveHeight(10)}
+        itemWidth={responsiveWidth(29)}
+        data={DummyData}
+        renderItem={renderItem}
+        showSpinner={true}
+        firstItem={3}
+        hasParallaxImages={true}
+      />
+      <View>
+        <DetailInfo />
+      </View>
+      <View>
+        <PlaceMap />
+        <Image
+          style={{
+            width: 100,
+            height: 50,
+            resizeMode: 'contain',
+            borderWidth: 1,
+            borderColor: 'red',
+          }}
+          source={{uri: source}}
+        />
+      </View>
+    </ScrollView>
+  );
+};
+
+export default PlaceDetail;
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    backgroundColor: Colors.back100,
+  },
+  item: {
+    width: responsiveWidth(30),
+    height: responsiveWidth(30),
+  },
+  imageContainer: {
+    flex: 1,
+    marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
+    backgroundColor: 'white',
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
+  },
+});

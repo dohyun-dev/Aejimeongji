@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from './index';
 import jwt_decode from 'jwt-decode';
 import {Alert} from 'react-native';
-import instance from '.';
 import {getMemberId} from './auth';
 
 // import axios from 'axios';

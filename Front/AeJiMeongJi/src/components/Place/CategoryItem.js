@@ -13,8 +13,8 @@ import {useNavigation} from '@react-navigation/native';
 const CategoryItem = ({source, title, rating, info}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    console.log('placeDetail');
-    // navigation.navigate('PlaceDetail')
+    // console.log('placeDetail');
+    navigation.navigate('PlaceDetail')
   };
 
   return (
