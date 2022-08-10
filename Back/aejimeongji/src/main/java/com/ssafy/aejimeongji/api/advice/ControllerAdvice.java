@@ -28,7 +28,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(DogNotFoundException.class)
     public ResponseEntity<ErrorDTO> dogNotFoundExHandler(DogNotFoundException ex) {
-        log.error("{}번 강아지 프로필 조회 중 오류 발생, ex : {}", ex.getMessage(), ex.getClass().getName());
+        log.error("메시지 = {}, ex : {}", ex.getMessage(), ex.getClass().getName());
         return ResponseEntity.badRequest().body(new ErrorDTO(400, ex.getMessage()));
     }
 
