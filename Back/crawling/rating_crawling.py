@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 URL = "https://map.naver.com/v5/"
 
 options = Options()
-# options.add_argument("headless")
+options.add_argument("headless")
 
 # ===== 해당 펫 플레이스 찾기 =====
 def find_place(driver, name):
@@ -40,8 +40,9 @@ def get_rating(address, name):
     driver.get(URL)
 
     # 펫 플레이스 주소 검색
+    sido = address.split()[0]
     input_box = driver.find_element(By.CSS_SELECTOR, "input.input_search")
-    input_box.send_keys(address + " " + name, Keys.ENTER)
+    input_box.send_keys(sido + " " + name, Keys.ENTER)
     time.sleep(1)
 
     # frame 변경
