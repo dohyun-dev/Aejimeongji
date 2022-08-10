@@ -22,8 +22,6 @@ services:
     restart: always
     ports:
       - 6379:6379
-    volumes:
-      - ./redis:/var/lib/mysql
     expose:
       - 6379
 
