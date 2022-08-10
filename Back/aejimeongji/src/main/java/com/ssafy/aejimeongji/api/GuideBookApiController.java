@@ -1,17 +1,14 @@
 package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookResponse;
-import com.ssafy.aejimeongji.domain.entity.Dog;
+import com.ssafy.aejimeongji.domain.entity.Category;
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
-import com.ssafy.aejimeongji.domain.service.DogService;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,86 +16,52 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/guide")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class GuideBookApiController {
 
-    private final DogService dogService;
     private final GuideBookService guideBookService;
 
-    public int calculateNumberOfMonths(LocalDate dogDate) {
-        Period period = Period.between(dogDate, LocalDate.now());
-        return period.getYears() * 12 + period.getMonths();
-    }
-
-    public int criterionNumberOfMonths(int dogMonths) {
-        int[] criteria = {3, 6, 12, 24, 60, 96, 132};
-        for(int c : criteria){
-            if (dogMonths <= c) return c;
-        }
-        return 9999;
-    }
-
-    public int criterionWeight(double dogWeight) {
-        int[] criteria = {5, 10, 25};
-        for(int c : criteria){
-            if (dogWeight <= c) return c;
-        }
-        return 9999;
-    }
-
-    @GetMapping(params = "dog")
+    @GetMapping(value = "/guide", params = {"dog"})
     public ResponseEntity<Map<String, List<GuideBookResponse>>> getCustomizedGuideBookList(@RequestParam(value = "dog") Long dogId) {
         log.info("강아지 {} 맞춤 가이드 목록 요청", dogId);
-
-        List<GuideBook> fixedGuideBookList = guideBookService.fixedGuideBookList();
-        List<GuideBookResponse> guideBookResponseList = fixedGuideBookList.stream()
-                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
-
-        Dog dog = dogService.findDog(dogId);
-        int dogMonths = calculateNumberOfMonths(dog.getBirthday());
-        int targetAge = criterionNumberOfMonths(dogMonths);
-        List<GuideBook> ageGuideBookList = guideBookService.ageCustomizedGuideBookList(targetAge);
-        List<GuideBookResponse> ageGuideBookResponseList = ageGuideBookList.stream()
-                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
-
-        double dogWeight = dog.getWeight();
-        int targetWeight = criterionWeight(dogWeight);
-        List<GuideBook> weightGuideBookList = guideBookService.weightCustomizedGuideBookList(targetWeight);
-        List<GuideBookResponse> weightGuideBookResponseList = weightGuideBookList.stream()
-                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
-
-        Map<String, List<GuideBookResponse>> list = new HashMap<>();
-        list.put("fixedGuideList", guideBookResponseList);
-        list.put("ageGuideList", ageGuideBookResponseList);
-        list.put("weightGuideList", weightGuideBookResponseList);
-
-        return ResponseEntity.ok().body(list);
+        Map<String, List<GuideBook>> guideBookMap = guideBookService.customizedGuideBookList(dogId);
+        return ResponseEntity.ok().body(getCustomizedGuideResult(guideBookMap));
     }
 
-    @GetMapping(params = "category")
-    public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam(value = "category") String categoryName) {
+    @GetMapping(value = "/guide", params = "category")
+    public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam("category") String categoryName) {
         log.info("'{}' 카테고리 가이드 목록 요청", categoryName);
-        List<GuideBook> guideBookList = guideBookService.categorizedGuideBookList(categoryName);
-        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
-                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+        List<GuideBookResponse> guideBookResponseList = guideBookService.categorizedGuideBookList(categoryName).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
         return ResponseEntity.ok().body(guideBookResponseList);
     }
 
-    @GetMapping(params = "member")
-    public ResponseEntity<List<GuideBookResponse>> getLikedGuideBookList(@RequestParam(value = "member") Long memberId) {
+    @GetMapping(value = "/guide", params = "member")
+    public ResponseEntity<List<GuideBookResponse>> getLikedGuideBookList(@RequestParam("member") Long memberId) {
         log.info("사용자 {} 좋아요 가이드 목록 요청", memberId);
-        List<GuideBook> guideBookList = guideBookService.likedGuideBookList(memberId);
-        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
-                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+        List<GuideBookResponse> guideBookResponseList = guideBookService.likedGuideBookList(memberId).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
         return ResponseEntity.ok().body(guideBookResponseList);
     }
 
-    @GetMapping("/{guideId}")
+    @GetMapping("/guide/{guideId}")
     public ResponseEntity<GuideBookResponse> getGuideBook(@PathVariable Long guideId) {
         log.info("가이드북 {}번 상세 정보 요청", guideId);
         GuideBook guideBook = guideBookService.findGuideBook(guideId);
         return ResponseEntity.ok().body(new GuideBookResponse(guideBook));
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<String>> getCategories() {
+        List<String> result = guideBookService.getCategories().stream().map(Category::getName).collect(Collectors.toList());
+        return ResponseEntity.ok().body(result);
+    }
+
+    private Map<String, List<GuideBookResponse>> getCustomizedGuideResult(Map<String, List<GuideBook>> guideBookMap) {
+        Map<String, List<GuideBookResponse>> result = new HashMap<>();
+        result.put("fixedGuideList", guideBookMap.get("fixedGuideList").stream().map(GuideBookResponse::new).collect(Collectors.toList()));
+        result.put("ageGuideList", guideBookMap.get("ageGuideList").stream().map(GuideBookResponse::new).collect(Collectors.toList()));
+        result.put("weightGuideList", guideBookMap.get("weightGuideList").stream().map(GuideBookResponse::new).collect(Collectors.toList()));
+        return result;
     }
 }
 

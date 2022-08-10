@@ -24,16 +24,11 @@ const ProfileHomeScreen2 = ({route}) => {
   };
 
   const submitHandler = async () => {
-    console.log(inputValues);
     // const res = await fetchDogImage(inputValues.image);
     const res = await fetchDog(inputValues);
 
     navigation.replace('ProfileChoice');
-    if (res) {
-      // const res2 = await fetchDogImage(res, inputValues.image);
-      // if (res2) {
-      // }
-    }
+
   };
 
   const [inputValues, setInputValues] = useState({
@@ -78,7 +73,7 @@ const ProfileHomeScreen2 = ({route}) => {
               inputChangeHandler={inputChangeHandler}
               inputValues={inputValues}
               title="반려견 입양일"
-              indentifier="adoptiondDay"
+              indentifier="adoptionDay"
             />
           </View>
         </View>

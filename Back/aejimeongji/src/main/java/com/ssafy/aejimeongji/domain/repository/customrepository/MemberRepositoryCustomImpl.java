@@ -1,7 +1,6 @@
 package com.ssafy.aejimeongji.domain.repository.customrepository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.entity.QMember;
@@ -15,7 +14,7 @@ import static com.ssafy.aejimeongji.domain.entity.QMember.*;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class MemberCustomRepositoryImpl implements MemberCustomRepository {
+public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 

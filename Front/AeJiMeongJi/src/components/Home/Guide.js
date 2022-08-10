@@ -7,9 +7,22 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {Colors} from '../../constants/styles';
+import img1 from '../../Assets/image/banner1.jpg';
+import img2 from '../../Assets/image/banner2.jpg';
+import img3 from '../../Assets/image/banner3.jpg';
+import img4 from '../../Assets/image/banner4.jpg';
+import img5 from '../../Assets/image/banner5.jpg';
+const imageArr = [img1, img2, img3, img4, img5];
 
 const Guide = () => {
+  const navigation = useNavigation();
+
+  const random = Math.floor(Math.random() * 5 + 1);
+  console.log(random);
+
   return (
     <View style={styles.box}>
       <View
@@ -24,16 +37,23 @@ const Guide = () => {
       </View>
 
       <View style={styles.guideclickbox}>
-        <Image
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 20,
-            marginTop: -10,
+        <TouchableOpacity
+          onPress={() => {
+            console.log('클릭');
+            navigation.navigate('Guide');
           }}
-          resizeMode="contain"
-          source={require('../../Assets/image/banner1.jpg')}
-        />
+          style={{width: '100%'}}>
+          <Image
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: 20,
+              marginTop: -10,
+            }}
+            resizeMode="contain"
+            source={imageArr[Math.floor(Math.random() * 5)]}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

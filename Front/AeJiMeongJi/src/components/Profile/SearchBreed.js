@@ -23,7 +23,7 @@ const SearchBreed = ({setBreed}) => {
     const fetchValue = async () => {
       const res = await fetchBreed();
       setItems(res);
-      console.log(res);
+      // console.log(res);
       return res;
     };
 

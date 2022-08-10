@@ -2,10 +2,12 @@ package com.ssafy.aejimeongji.domain.entity;
 
 import com.ssafy.aejimeongji.domain.entity.image.GuideThumbnail;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,45 +24,41 @@ public class GuideBook extends BaseTimeEntity {
 
     private String category;
 
-    private int dogAge;
+    private int monthMin;
 
-    private int dogWeight;
+    private int monthMax;
+
+    private int weightMin;
+
+    private int weightMax;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "thumbnail_id")
     private GuideThumbnail thumbnail;
 
-    public GuideBook(String title, String content, String category, int dogAge, int dogWeight) {
+    @Builder
+    public GuideBook(String title, String content, String category, int monthMin, int monthMax, int weightMin, int weightMax) throws IOException {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.dogAge = dogAge;
-        this.dogWeight = dogWeight;
+        this.monthMin = monthMin;
+        this.monthMax = monthMax;
+        this.weightMin = weightMin;
+        this.weightMax = weightMax;
     }
 
-    public GuideBook(String title, String content, String category, int dogAge, int dogWeight, GuideThumbnail thumbnail) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.dogAge = dogAge;
-        this.dogWeight = dogWeight;
-        this.thumbnail = thumbnail;
+    public void updateGuideBook(GuideBook guideBookUpdateParam, GuideThumbnail thumbnail) throws IOException {
+        this.title = guideBookUpdateParam.getTitle();
+        this.content = guideBookUpdateParam.getContent();
+        this.category = guideBookUpdateParam.getCategory();
+        this.monthMin = guideBookUpdateParam.getMonthMin();
+        this.monthMax = guideBookUpdateParam.getMonthMax();
+        this.weightMin = guideBookUpdateParam.getWeightMin();
+        this.weightMax = guideBookUpdateParam.getWeightMax();
+        saveGuideThumbnail(thumbnail);
     }
 
-    public void updateGuideBook(String title, String content, String category, int dogAge, int dogWeight) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.dogAge = dogAge;
-        this.dogWeight = dogWeight;
-    }
-
-    public void updateGuideBook(String title, String content, String category, int dogAge, int dogWeight, GuideThumbnail thumbnail) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.dogAge = dogAge;
-        this.dogWeight = dogWeight;
+    public void saveGuideThumbnail(GuideThumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 }

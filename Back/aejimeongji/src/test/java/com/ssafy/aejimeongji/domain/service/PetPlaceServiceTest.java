@@ -64,7 +64,7 @@ class PetPlaceServiceTest {
     void findPetPlace() {
         //given
         PetPlace petPlace = new PetPlace("펫플", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d",  "d", 0.0, "d");
         em.persist(petPlace);
         Long petPlaceId = petPlace.getId();
 
@@ -83,11 +83,11 @@ class PetPlaceServiceTest {
         em.persist(member);
 
         PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace1);
 
         PetPlace petPlace2 = new PetPlace("펫플2", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d","d", 0.0, "d");
         em.persist(petPlace2);
 
         Bookmark bookmark1 = new Bookmark(member, petPlace1);
@@ -113,11 +113,11 @@ class PetPlaceServiceTest {
         em.persist(member);
 
         PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace1);
 
         PetPlace petPlace2 = new PetPlace("펫플2", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace2);
 
         Bookmark bookmark1 = new Bookmark(member, petPlace1);
@@ -141,11 +141,11 @@ class PetPlaceServiceTest {
         em.persist(member);
 
         PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace1);
 
         PetPlace petPlace2 = new PetPlace("펫플2", "내용", "주소"
-                , "전화벊", "카테", null, "d", null);
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace2);
 
         Bookmark bookmark1 = new Bookmark(member, petPlace1);

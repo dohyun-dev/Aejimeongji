@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {useEffect, useLayoutEffect} from 'react';
-import {StatusBar, Text, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import MainHome from './src/screens/Home/MainHome';
 import Initial from './src/screens/Initial';
 import LoginScreen from './src/screens/Auth/LoginScreen';
@@ -51,6 +51,18 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="GuideDetail" component={GuideDetail} />
       <Stack.Screen name="CalendarHome" component={CalendarHome} />
       <Stack.Screen name="TodoUpload" component={TodoUpload} />
+      <Stack.Screen name="PlaceHome" component={PlaceHome} />
+      <Stack.Group
+        screenOptions={{
+          headerShown: true,
+          headerStyle: styles.profileHeader,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {color: 'black'},
+          headerTintColor: '#90560D',
+          headerShadowVisible: false,
+        }}>
+        <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
@@ -101,6 +113,8 @@ import {getMemberId} from './src/utils/auth';
 import {fetchDogs} from './src/utils/profile';
 import ProfileEditScreen from './src/screens/Profile/ProfileEditScreen';
 import MyInfoScreen from './src/screens/Profile/MyInfoScreen';
+import PlaceHome from './src/screens/Place/PlaceHome';
+import PlaceCategory from './src/screens/Place/PlaceCategory';
 export default function App() {
   return (
     <Provider store={store}>
@@ -109,3 +123,9 @@ export default function App() {
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  profileHeader: {
+    backgroundColor: '#FBEDD3',
+  },
+});

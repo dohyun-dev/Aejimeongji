@@ -64,7 +64,7 @@ public class DogApiController {
     public ResponseEntity<ResponseDTO> updateDog(@PathVariable("memberId") Long memberId, @PathVariable("dogId") Long dogId, @RequestBody DogUpdateRequest request) {
         log.info("강아지 프로필 {} 수정 요청", dogId);
         Breed breed = breedService.findBreed(request.getBreed().getBreedName());
-        Long updatedId = dogService.updateDog(dogId, request.getName(), request.getWeight(), request.getBirthdate(), request.getAdoptedDay(), breed);
+        Long updatedId = dogService.updateDog(dogId, request.getName(), request.getWeight(), request.getBirthday(), request.getAdoptionDay(), breed);
         return ResponseEntity.ok(new ResponseDTO("강아지 프로필 "+ updatedId + " 수정이 완료되었습니다."));
     }
 

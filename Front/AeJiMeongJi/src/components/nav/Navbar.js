@@ -10,16 +10,25 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/styles';
 
-const navbar = () => {
+const navbar = props => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.nav}>
-      <Image
-        style={styles.profilelogo}
-        resizeMode="contain"
-        source={require('../../Assets/image/박베리.png')}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CalendarHome');
+        }}
+        style={{marginLeft: 15, paddingLeft: 24}}>
+        <Image
+          style={styles.profilelogo}
+          resizeMode="cover"
+          source={{
+            uri: `http://i7d203.p.ssafy.io:8080/api/image/6dc3b89b-8d61-4672-9be7-26510d2d378e.jpg`,
+          }}
+        />
+      </TouchableOpacity>
+
       <Image
         style={styles.logo}
         resizeMode="contain"
@@ -67,9 +76,10 @@ const styles = StyleSheet.create({
   },
   profilelogo: {
     marginTop: 5,
-    marginRight: 10,
-    maxWidth: '22%',
-    maxHeight: '60%',
+
+    marginRight: 30,
+    width: 30,
+    height: '70%',
   },
   logo: {
     marginTop: 5,

@@ -1,9 +1,10 @@
 package com.ssafy.aejimeongji.api.dto.calendar;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.aejimeongji.domain.entity.Calendar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -13,9 +14,17 @@ import java.time.LocalDate;
 public class CalendarRequest {
 
     private String content;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Boolean isActive;
     private Boolean isAlert;
 
+    public Calendar toEntity() {
+        return Calendar.builder()
+                .content(content)
+                .date(date)
+                .isActive(isActive)
+                .isAlert(isAlert)
+                .build();
+    }
 }

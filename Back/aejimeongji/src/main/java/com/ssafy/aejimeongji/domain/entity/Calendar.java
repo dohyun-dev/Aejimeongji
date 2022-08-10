@@ -1,8 +1,6 @@
 package com.ssafy.aejimeongji.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,6 +26,7 @@ public class Calendar extends BaseTimeEntity {
     @JoinColumn(name = "dog_id")
     private Dog dog;
 
+    @Builder
     public Calendar(Dog dog, String content, LocalDate date, Boolean isActive, Boolean isAlert) {
         this.dog = dog;
         this.content = content;
@@ -41,5 +40,9 @@ public class Calendar extends BaseTimeEntity {
         this.date = date;
         this.isActive = isActive;
         this.isAlert = isAlert;
+    }
+
+    public void setDog(Dog dog) {
+        this.dog = dog;
     }
 }

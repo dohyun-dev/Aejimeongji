@@ -9,7 +9,14 @@ import {
 } from 'react-native';
 import {Colors} from '../../constants/styles';
 
-const Profile = () => {
+const Profile = props => {
+  const dogInfo = props.dogInfo;
+  const setDate = new Date(dogInfo.adoptionDay);
+
+  const now = new Date();
+  const distance = now.getTime() - setDate.getTime();
+  const day = Math.floor(distance / (1000 * 60 * 60 * 24)) + 1;
+
   return (
     <View style={styles.profile}>
       <View style={styles.profile1}>
@@ -26,7 +33,7 @@ const Profile = () => {
           </View>
           <View style={styles.name2}>
             <Text style={[styles.font, styles.font18, styles.line40]}>
-              박베리
+              {dogInfo.name}
             </Text>
           </View>
         </View>
@@ -34,7 +41,8 @@ const Profile = () => {
           <Text style={[styles.font, styles.font18, styles.line40]}>
             가족이 된 지
           </Text>
-          <Text style={[styles.font, styles.dday]}>D+2039</Text>
+          {/* 현재날짜 - adoptionDay */}
+          <Text style={[styles.font, styles.dday]}>D+{day}</Text>
         </View>
       </View>
       <View style={styles.profile2}>
@@ -47,7 +55,13 @@ const Profile = () => {
             borderWidth: 2,
           }}
           resizeMode="contain"
-          source={require('../../Assets/image/박베리.png')}
+          source={
+            dogInfo.imageName
+              ? {
+                  uri: `http://i7d203.p.ssafy.io:8080/api/image/${dogInfo.imageName}`,
+                }
+              : dogInfo.imageName
+          }
         />
       </View>
     </View>

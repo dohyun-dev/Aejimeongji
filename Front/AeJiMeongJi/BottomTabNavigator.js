@@ -5,8 +5,13 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
+  TouchableOpacity  ,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -26,9 +31,9 @@ function BottomTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.contentBox,
-          height: 70,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          height: responsiveHeight(7),
+          borderTopLeftRadius: responsiveWidth(4.5),
+          borderTopRightRadius: responsiveWidth(4.5),
         },
       }}
       initialRouteName="Initial">
@@ -40,8 +45,8 @@ function BottomTabNavigator() {
             return (
               <Image
                 style={{
-                  width: '60%',
-                  height: '60%',
+                  width: responsiveWidth(7),
+                  height: responsiveWidth(7),
                 }}
                 resizeMode="contain"
                 source={require('./src/Assets/image/navbar/place.png')}
@@ -59,8 +64,8 @@ function BottomTabNavigator() {
             return (
               <Image
                 style={{
-                  width: '60%',
-                  height: '60%',
+                  width: responsiveWidth(7),
+                  height: responsiveWidth(7),
                 }}
                 resizeMode="contain"
                 source={require('./src/Assets/image/navbar/running.png')}
@@ -77,8 +82,8 @@ function BottomTabNavigator() {
             return (
               <Image
                 style={{
-                  width: '60%',
-                  height: '60%',
+                  width: responsiveWidth(7),
+                  height: responsiveWidth(7),
                 }}
                 resizeMode="contain"
                 source={require('./src/Assets/image/navbar/guide.png')}
@@ -96,8 +101,8 @@ function BottomTabNavigator() {
             return (
               <Image
                 style={{
-                  width: 80,
-                  height: 80,
+                  width: responsiveWidth(15),
+                  height: responsiveWidth(15),
                 }}
                 resizeMode="contain"
                 source={require('./src/Assets/image/home-logo.png')}

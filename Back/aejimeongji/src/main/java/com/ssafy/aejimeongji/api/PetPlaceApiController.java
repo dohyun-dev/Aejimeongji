@@ -11,6 +11,8 @@ import org.locationtech.jts.geom.Point;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,17 +25,22 @@ public class PetPlaceApiController {
 
     private final PetPlaceService petPlaceService;
 
-    @GetMapping
-    public ResponseEntity<List<PetPlaceResponse>> getNearPetPlaceList(@RequestParam(value = "lat", defaultValue = "") String lat,
-                                                                      @RequestParam(value = "lng", defaultValue = "") String lng,
-                                                                      @RequestParam(value = "dist", defaultValue = "") String dist) {
+    @GetMapping("/category/{category}")
+    public ResponseEntity<?> getNearPetPlaceList(@PathVariable String category,
+                                                 @RequestParam(value = "lat", defaultValue = "") String lat,
+                                                 @RequestParam(value = "lng", defaultValue = "") String lng,
+                                                 @RequestParam(value = "dist", defaultValue = "") String dist,
+                                                 @RequestParam(value = "count", defaultValue = "10") int conut) {
 
         log.info("반경 {}km 안의 펫플레이스 리스트", dist);
 
         if (lat.isEmpty() || lng.isEmpty() || dist.isEmpty()) {
             List<PetPlace> list = petPlaceService.findPetPlaceList();
+            Collections.shuffle(list);
             List<PetPlaceResponse> result = list.stream()
+                    .filter(o -> o.getCategory().equals(category))
                     .map(o -> new PetPlaceResponse(o))
+                    .limit(conut)
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok().body(result);
@@ -41,9 +48,10 @@ public class PetPlaceApiController {
         } else {
             List<PetPlace> list = petPlaceService.getNearPetPlaceList(Double.parseDouble(lat), Double.parseDouble(lng), Double.parseDouble(dist));
             List<PetPlaceResponse> result = list.stream()
+                    .filter(o -> o.getCategory().equals(category))
                     .map(o -> new PetPlaceResponse(o, Double.parseDouble(lat), Double.parseDouble(lng), o.getPoint().getX(), o.getPoint().getY()))
                     .sorted(Comparator.comparing(PetPlaceResponse::getDistance))
-                    .limit(5)
+                    .limit(conut)
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok().body(result);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -14,14 +14,44 @@ import Navbar from './../../components/nav/Navbar';
 import Place from '../../components/Home/Place';
 import Guide from '../../components/Home/Guide';
 import Todo from '../../components/Home/Todo';
+import {useSelector} from 'react-redux';
+import {getMemberId} from '../../utils/auth';
+import jwt_decode from 'jwt-decode';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+const url = 'http://i7d203.p.ssafy.io:8080';
 
 const MainHome = ({navigation}) => {
+  const [dogInfo, setDogInfo] = useState({});
+  const [id, setId] = useState();
+
+  const dogId = useSelector(state => state.profile.id);
+
+  useEffect(() => {
+    const getMember = async () => {
+      const res = await getMemberId();
+
+      axios
+        .get(url + `/api/member/${res}/dog/${dogId}/profile`)
+        .then(response => {
+          console.log('reponse찍기');
+          console.log(response);
+          if (response.status == 200) {
+            setDogInfo(response.data);
+          } else {
+            console.log(error.response + '회원정보받기에러');
+          }
+        });
+    };
+    getMember();
+  }, []);
+
   return (
     <ScrollView>
       <View style={styles.rootContainer}>
-        <Navbar />
+        <Navbar imageName={dogInfo.imageName} />
         <View style={styles.contentbox}>
-          <Profile />
+          <Profile dogInfo={dogInfo} />
 
           <View style={styles.guidebox}>
             <View style={styles.guidecontent}>

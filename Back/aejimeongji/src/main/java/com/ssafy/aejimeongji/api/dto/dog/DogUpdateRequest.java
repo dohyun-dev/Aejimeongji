@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class DogUpdateRequest {
     private String name;
     private double weight;
-    private LocalDate birthdate;
-    private LocalDate adoptedDay;
+    private LocalDate birthday;
+    private LocalDate adoptionDay;
     private Breed breed;
 }

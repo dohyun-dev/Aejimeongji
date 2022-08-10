@@ -69,7 +69,6 @@ export const fetchDog = async ({
     name: 'abcd.jpg',
     type: 'multipart/form-data', // or photo.type
   };
-  console.log(data, '이것이 data');
 
   formData.append('image', data);
 
@@ -87,12 +86,10 @@ export const fetchDog = async ({
         'Content-Type': 'multipart/form-data',
       },
       transformRequest: formData => {
-        console.log(formData, 'form');
         return formData;
       },
       data: formData,
     });
-    console.log(res);
     return res.data.dogId;
   } catch (error) {
     console.log(error.response);
@@ -277,8 +274,6 @@ export const getImage = async imageName => {
 export const fetchDogs = async () => {
   const memberId = await getMemberId();
   const path = `/api/member/${memberId}/dog`;
-  console.log('fetchdogs 진입');
-  console.log(memberId);
   try {
     const res = await axios({
       method: 'get',

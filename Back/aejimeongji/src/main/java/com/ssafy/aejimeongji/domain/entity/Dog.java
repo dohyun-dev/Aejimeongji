@@ -46,24 +46,24 @@ public class Dog extends BaseTimeEntity {
     private Breed breed;
 
     @Builder
-    public Dog(String name, double weight, LocalDate birthdate, Gender gender, Boolean neutering, Boolean gone, LocalDate adoptedDay, Member member, DogImage image, Breed breed) {
+    public Dog(String name, double weight, LocalDate birthday, Gender gender, Boolean neutering, Boolean gone, LocalDate adoptionDay, Member member, DogImage image, Breed breed) {
         this.name = name;
         this.weight = weight;
-        this.birthday = birthdate;
+        this.birthday = birthday;
         this.gender = gender;
         this.neutering = neutering;
         this.gone = gone;
-        this.adoptionDay = adoptedDay;
+        this.adoptionDay = adoptionDay;
         this.member = member;
         this.image = image;
         this.breed = breed;
     }
 
-    public void updateDog(String name, double weight, LocalDate birthdate, LocalDate adoptedDay, Breed breed) {
+    public void updateDog(String name, double weight, LocalDate birthday, LocalDate adoptionDay, Breed breed) {
         this.name = name;
         this.weight = weight;
-        this.birthday = birthdate;
-        this.adoptionDay = adoptedDay;
+        this.birthday = birthday;
+        this.adoptionDay = adoptionDay;
         this.breed = breed;
     }
 

@@ -18,10 +18,13 @@ public class PetPlaceResponse {
     private String address;
     private String tel;
     private String category;
+    private String homePage;
+    private String detail;
     private String openingHours;
     @JsonBackReference
     private Point point;
     private Double distance;
+    private Double rating;
 
     public PetPlaceResponse(PetPlace petPlace, Double lat, Double lng, Double x, Double y) {
         id = petPlace.getId();
@@ -30,6 +33,9 @@ public class PetPlaceResponse {
         address = petPlace.getAddress();
         tel = petPlace.getTel();
         category = petPlace.getCategory();
+        detail = petPlace.getDetail();
+        homePage = petPlace.getHomePage();
+        rating = petPlace.getRating();
         openingHours = petPlace.getOpeningHours();
         point = petPlace.getPoint();
         distance = (6371 * acos(cos(toRadians(lat)) * cos(toRadians(x)) * cos(toRadians(y) - toRadians(lng)) + sin(toRadians(lat)) * sin(toRadians(x))));
@@ -43,6 +49,8 @@ public class PetPlaceResponse {
         this.address = petPlace.getAddress();
         this.tel = petPlace.getTel();
         this.category = petPlace.getCategory();
+        this.homePage = petPlace.getHomePage();
+        this.detail = petPlace.getDetail();
         this.openingHours = petPlace.getOpeningHours();
     }
 }

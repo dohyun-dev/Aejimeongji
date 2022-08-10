@@ -18,9 +18,9 @@ public class DogSaveRequest {
     private String name;
     private Double weight;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthdate;
+    private LocalDate birthday;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate adoptedDay;
+    private LocalDate adoptionDay;
     private Gender gender;
     private Boolean neutering;
     private Boolean gone;
@@ -28,7 +28,7 @@ public class DogSaveRequest {
     private MultipartFile image;
 
     public Dog toEntity(Member member, Breed breed, DogImage image){
-        return new Dog(getName(), getWeight(), getBirthdate(), getGender(), getNeutering(),
-                getGone(), getAdoptedDay(), member, image, breed);
+        return new Dog(getName(), getWeight(), getBirthday(), getGender(), getNeutering(),
+                getGone(), getAdoptionDay(), member, image, breed);
     }
 }

@@ -42,6 +42,11 @@ const Initial = ({navigation}) => {
           navigation.navigate('ProfileEdit');
         }}
         title="강쥐 프로필 변경"></Button>
+      <Button
+        onPress={() => {
+          navigation.navigate('PlaceHome');
+        }}
+        title="플레이스"></Button>
     </View>
   );
 };

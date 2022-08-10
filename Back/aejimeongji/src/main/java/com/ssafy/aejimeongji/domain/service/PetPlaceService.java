@@ -56,7 +56,7 @@ public class PetPlaceService {
 
         String pointFormat = String.format("'LINESTRING(%f %f, %f %f)')", x1, y1, x2, y2);
         Query query = em.createNativeQuery("SELECT p.id, p.name, p.description, "
-                        + "p.address, p.tel, p.category, p.point, p.opening_hours, p.distance "
+                        + "p.address, p.tel, p.category, p.point, p.opening_hours, p.detail, p.home_page, p.rating "
                         + "FROM petplace AS p "
                         + "WHERE MBRContains(ST_LINESTRINGFROMTEXT(" + pointFormat + ", p.point)", PetPlace.class);
 

@@ -1,0 +1,42 @@
+{
+	"name": "open-react-template",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@ckeditor/ckeditor5-build-classic": "^35.0.1",
+		"@ckeditor/ckeditor5-react": "^5.0.2",
+		"classnames": "^2.2.6",
+		"lodash": "^4.17.15",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-ga": "^2.7.0",
+		"react-router-dom": "^5.1.2",
+		"react-scripts": "^3.4.1",
+		"sass": "^1.49.7"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cruip/open-react-template.git"
+	},
+	"scripts": {
+		"start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}
