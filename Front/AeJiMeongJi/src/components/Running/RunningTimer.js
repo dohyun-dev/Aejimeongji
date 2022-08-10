@@ -50,15 +50,9 @@ export default RunningTimer;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: responsiveHeight(1.5),
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 20,
   },
   sectionStyle: {
     alignItems: 'center',
@@ -66,22 +60,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonText: {
-    fontSize: 20,
-    marginTop: 10,
+    fontSize: responsiveFontSize(2.2),
+    marginTop: responsiveHeight(1),
   },
 });
 
 const options = {
   container: {
-    padding: 5,
+    padding: responsiveWidth(2),
     borderRadius: 5,
-    width: 200,
+    width: responsiveWidth(50),
     alignItems: 'center',
   },
   text: {
-    fontSize: 27,
+    fontSize: responsiveFontSize(3.4),
     fontWeight: 'bold',
     color: '#000000',
-    marginLeft: 7,
+    marginLeft: responsiveWidth(2),
   },
 };

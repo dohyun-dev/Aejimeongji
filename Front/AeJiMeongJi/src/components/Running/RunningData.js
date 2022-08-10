@@ -23,8 +23,8 @@ const RunningData = () => {
 const styles = StyleSheet.create({
   InfoList: {
     backgroundColor: Colors.back200,
-    width: 350,
-    height: 550,
+    height: responsiveHeight(70),
+    width: responsiveWidth(85),
     justifyContent: 'center',
     borderRadius: 20,
     shadowColor: '#000',

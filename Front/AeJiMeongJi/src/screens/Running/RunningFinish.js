@@ -1,5 +1,5 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, Text, Alert, Image} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -12,16 +12,21 @@ import {Colors} from '../../constants/styles';
 const RunningFinish = ({navigation}) => {
   return (
     <View style={styles.Container}>
-      <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 8}}>
+      <Text
+        style={{
+          fontSize: responsiveFontSize(3.2),
+          fontWeight: 'bold',
+          marginBottom: responsiveHeight(1),
+        }}>
         오늘의 산책기록
       </Text>
       <View style={styles.DataContainer}>
         <Text
           style={{
-            fontSize: 17,
+            fontSize: responsiveFontSize(2.6),
             fontWeight: 'bold',
-            marginTop: 30,
-            marginBottom: 20,
+            marginTop: responsiveHeight(4),
+            marginBottom: responsiveHeight(2),
           }}>
           8월 8일의 산책
         </Text>
@@ -75,16 +80,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    marginBottom: 30,
-    height: '40%',
-    width: '40%',
+    marginBottom: responsiveHeight(5),
+    height: responsiveHeight(18),
+    width: responsiveWidth(34),
     justifyContent: 'center',
     alignItems: 'center',
   },
   DataContainer: {
     backgroundColor: Colors.back100,
-    width: '85%',
-    height: '50%',
+    height: responsiveHeight(50),
+    width: responsiveWidth(80),
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 20,
@@ -102,10 +107,9 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end',
   },
   ContentItem: {
-    width: '23%',
-    height: '55 %',
-    marginTop: 20,
-    marginHorizontal: 5,
+    height: responsiveHeight(10),
+    width: responsiveWidth(20),
+    marginHorizontal: responsiveWidth(2),
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -120,10 +124,10 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   itemFont: {
-    fontSize: 13,
+    fontSize: responsiveFontSize(1.9),
     fontWeight: 'bold',
   },
   runButton: {
-    marginTop: 10,
+    marginTop: responsiveHeight(4),
   },
 });

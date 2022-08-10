@@ -25,18 +25,30 @@ const GuideDetail = () => {
           <View style={styles.contentBox}>
             <View style={styles.Title}>
               <Text
-                style={{fontSize: 30, marginBottom: 20, fontWeight: 'bold'}}>
+                style={{
+                  fontSize: responsiveFontSize(3.7),
+                  marginBottom: responsiveHeight(4),
+                  fontWeight: 'bold',
+                }}>
                 제목이 들어갈 자리
               </Text>
             </View>
             <View style={styles.subTitle}>
               <Text
-                style={{fontSize: 20, marginBottom: 20, fontWeight: 'bold'}}>
+                style={{
+                  fontSize: responsiveFontSize(2.7),
+                  marginBottom: responsiveHeight(3),
+                  fontWeight: 'bold',
+                }}>
                 소제목이 들어갈 자리
               </Text>
             </View>
             <View style={styles.content}>
-              <Text style={{fontSize: 16, marginBottom: 20}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2),
+                  marginBottom: responsiveHeight(3),
+                }}>
                 밤은 다시 길고 깊어졌네 나는 점점 너로 잠 못 들게 돼 글로
                 적어내긴 어려운 이 기분을 너도 느꼈으면 좋겠는데 너는 아무 생각
                 없이 몇 번 나를 지나가며 웃은 거라지만 나의 하얀 옷에 너의
@@ -64,15 +76,19 @@ const GuideDetail = () => {
             <View style={styles.subTitle}>
               <Text
                 style={{
-                  fontSize: 20,
-                  marginBottom: 20,
+                  fontSize: responsiveFontSize(2.7),
+                  marginBottom: responsiveHeight(3),
                   fontWeight: 'bold',
                 }}>
                 소제목이 들어갈 자리
               </Text>
             </View>
             <View style={styles.content}>
-              <Text style={{fontSize: 16, marginBottom: 20}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2),
+                  marginBottom: responsiveHeight(3),
+                }}>
                 밤은 다시 길고 깊어졌네 나는 점점 너로 잠 못 들게 돼 글로
                 적어내긴 어려운 이 기분을 너도 느꼈으면 좋겠는데 너는 아무 생각
                 없이 몇 번 나를 지나가며 웃은 거라지만 나의 하얀 옷에 너의
@@ -100,15 +116,19 @@ const GuideDetail = () => {
             <View style={styles.subTitle}>
               <Text
                 style={{
-                  fontSize: 20,
-                  marginBottom: 20,
+                  fontSize: responsiveFontSize(2.7),
+                  marginBottom: responsiveHeight(3),
                   fontWeight: 'bold',
                 }}>
                 소제목이 들어갈 자리
               </Text>
             </View>
             <View style={styles.content}>
-              <Text style={{fontSize: 16, marginBottom: 20}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2),
+                  marginBottom: responsiveHeight(3),
+                }}>
                 밤은 다시 길고 깊어졌네 나는 점점 너로 잠 못 들게 돼 글로
                 적어내긴 어려운 이 기분을 너도 느꼈으면 좋겠는데 너는 아무 생각
                 없이 몇 번 나를 지나가며 웃은 거라지만 나의 하얀 옷에 너의
@@ -143,30 +163,28 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.back100,
     padding: 20,
-    height: 2100,
+    height: 2200,
   },
   footer: {
     backgroundColor: Colors.back200,
-    paddingHorizontal: 30,
+    paddingHorizontal: responsiveWidth(10),
   },
   imgBox: {
     backgroundColor: Colors.back100,
   },
   runImg: {
     maxWidth: '100%',
-    height: 300,
-    marginBottom: 40,
+    height: responsiveHeight(40),
+    marginBottom: responsiveHeight(3),
   },
   contentBox: {},
   contentImg: {
-    marginTop: 30,
-    marginBottom: 20,
+    marginTop: responsiveHeight(2),
+    marginBottom: responsiveHeight(4),
     maxWidth: '100%',
-    height: 200,
+    height: responsiveHeight(30),
   },
-  Title: {
-    fontSize: 30,
-  },
+  Title: {},
   subTitle: {},
   content: {},
 });

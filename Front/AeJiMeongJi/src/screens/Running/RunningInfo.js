@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
   },
   Title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: responsiveFontSize(3.2),
     fontWeight: 'bold',
     marginBottom: 20,
   },
   InfoList: {
     backgroundColor: Colors.back200,
-    width: '85%',
-    height: '80%',
+    height: responsiveHeight(80),
+    width: responsiveWidth(85),
     justifyContent: 'center',
     borderRadius: 20,
     shadowColor: '#000',

@@ -29,14 +29,12 @@ const styles = StyleSheet.create({
   profileImg: {
     backgroundColor: 'orange',
     borderRadius: 130,
-    height: 130,
-    width: 130,
-    marginTop: 20,
-    marginLeft: 40,
-    marginRight: 40,
+    height: responsiveHeight(15),
+    width: responsiveWidth(30),
+    marginHorizontal: responsiveWidth(14),
+    marginVertical: responsiveHeight(3),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
   },
 });
 export default RunningSelect;

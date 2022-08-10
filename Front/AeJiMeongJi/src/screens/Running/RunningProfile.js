@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
   },
   Title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: responsiveFontSize(2.6),
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: responsiveHeight(2),
   },
   ProfileSelect: {
     backgroundColor: Colors.back200,
-    width: '85%',
-    height: '50%',
+    height: responsiveHeight(50),
+    width: responsiveWidth(80),
     justifyContent: 'center',
     borderRadius: 20,
     shadowColor: '#000',
@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
   profileImg: {
     backgroundColor: 'orange',
     borderRadius: 130,
-    height: 130,
-    width: 130,
-    marginLeft: 40,
+    height: responsiveHeight(15),
+    width: responsiveWidth(30),
+    marginLeft: responsiveWidth(14),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: responsiveHeight(5),
   },
 });
 

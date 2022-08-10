@@ -44,16 +44,24 @@ const RunningHome = ({navigation}) => {
               <View>
                 <View style={styles.infoBox}>
                   <View style={styles.infoName}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>앵두</Text>
+                    <Text
+                      style={{
+                        fontSize: responsiveFontSize(3.5),
+                        fontWeight: 'bold',
+                      }}>
+                      앵두
+                    </Text>
                   </View>
                   <View style={styles.infoCate}>
-                    <Text style={{fontSize: 10}}>10살, 5kg, 푸들</Text>
+                    <Text style={{fontSize: responsiveFontSize(1.8)}}>
+                      10살, 5kg, 푸들
+                    </Text>
                   </View>
                 </View>
               </View>
             </View>
             <View style={styles.RunTime}>
-              <Text style={{fontSize: 12}}>
+              <Text style={{fontSize: responsiveFontSize(2.2)}}>
                 권장 산책시간은 1일 30분입니다.
               </Text>
             </View>
@@ -89,16 +97,10 @@ const RunningHome = ({navigation}) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={{flexDirection: 'row', alignContent: 'center'}}>
-                <Text style={styles.modalTitle}>앵두의 </Text>
-                <Text style={styles.modalTitle}>권장 산책시간은</Text>
+                <Text style={styles.modalTitle}>
+                  😊 산책을 위한 기본준비 😊
+                </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.modalTitle}>'30분' </Text>
-                <Text style={styles.modalTitle}>입니다.</Text>
-              </View>
-              <Text style={styles.modalSubtitle}>
-                😊 산책을 위한 기본준비 😊
-              </Text>
               <Text style={styles.modalText}>
                 -목줄, 물통, 배변봉투는 챙기셨나요?
               </Text>
@@ -118,7 +120,7 @@ const RunningHome = ({navigation}) => {
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginTop: 20,
+                  marginTop: responsiveHeight(1),
                 }}>
                 <RunButton
                   onPress={() => {
@@ -150,11 +152,11 @@ const styles = StyleSheet.create({
   },
   infoName: {},
   infoCate: {
-    marginTop: 10,
+    marginTop: responsiveHeight(1),
   },
   RunTime: {
-    marginTop: 22,
-    marginBottom: 18,
+    marginTop: responsiveHeight(4),
+    marginBottom: responsiveHeight(2),
     alignItems: 'center',
   },
   runImg: {
@@ -165,23 +167,23 @@ const styles = StyleSheet.create({
   },
   profileImg: {
     backgroundColor: 'orange',
-    borderRadius: 130,
-    height: '98%',
-    width: '30%',
-    marginLeft: 40,
+    borderRadius: 200,
+    height: responsiveHeight(15),
+    width: responsiveWidth(30),
+    marginLeft: responsiveWidth(14),
     justifyContent: 'center',
     alignItems: 'center',
   },
   runButton: {
-    marginLeft: 27,
-    marginRight: 27,
+    marginLeft: responsiveWidth(6.3),
+    marginRight: responsiveWidth(6.3),
   },
   contentBox: {
     flex: 1,
     justifyContent: 'center',
     borderRadius: 20,
     backgroundColor: Colors.back200,
-    marginBottom: 10,
+    marginBottom: responsiveHeight(0.6),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
   },
   runimgBox: {
     flex: 1,
-    marginBottom: 5,
+    marginBottom: responsiveHeight(0.6),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -204,24 +206,24 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   profileBox: {
-    marginBottom: 20,
+    marginBottom: responsiveHeight(3),
   },
   infoBox: {
-    marginLeft: 23,
-    marginTop: 30,
-    marginBotton: 20,
+    marginLeft: responsiveWidth(7),
+    marginTop: responsiveHeight(4),
+    marginBotton: responsiveHeight(1),
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: responsiveHeight(1),
   },
   modalView: {
-    margin: 10,
+    margin: responsiveHeight(5),
     backgroundColor: Colors.back100,
     borderRadius: 20,
-    padding: 35,
+    padding: responsiveHeight(5),
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -238,20 +240,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalTitle: {
-    fontSize: 15,
+    fontSize: responsiveFontSize(2.4),
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: responsiveHeight(3.5),
     textAlign: 'center',
   },
-  modalSubtitle: {
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 13,
-    textAlign: 'center',
-  },
+
   modalText: {
-    fontSize: 11,
-    marginBottom: 15,
+    fontSize: responsiveFontSize(1.7),
+    marginBottom: responsiveHeight(2),
     textAlign: 'center',
   },
 });

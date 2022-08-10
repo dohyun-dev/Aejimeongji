@@ -174,18 +174,17 @@ class RunningGeolocation extends React.Component {
           />
         </MapView>
         <View style={styles.info}>
-          <RunningTimer
-            style={{width: '10%', backgroundColor: 'yellow'}}></RunningTimer>
+          <RunningTimer></RunningTimer>
           <View style={styles.subContainer}>
             <View style={styles.distanceContainer}>
-              <Text style={{fontSize: 17}}>
-                {parseFloat(this.state.distanceTravelled * 100).toFixed(2)} m
+              <Text style={{fontSize: responsiveFontSize(2.2)}}>
+                {parseFloat(this.state.distanceTravelled * 1000).toFixed(2)} m
               </Text>
               <Text>거리</Text>
             </View>
 
             <View style={styles.calorieContainer}>
-              <Text style={{fontSize: 17}}>
+              <Text style={{fontSize: responsiveFontSize(2.2)}}>
                 {parseFloat((this.state.distanceTravelled / 0.1) * 7).toFixed(
                   2,
                 )}
@@ -210,34 +209,30 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  latlng: {
-    width: 200,
-    alignItems: 'stretch',
-  },
   subContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   button: {
-    width: 80,
-    paddingHorizontal: 12,
+    width: responsiveWidth(80),
+    paddingHorizontal: responsiveWidth(2),
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: responsiveWidth(2),
   },
   distanceContainer: {
-    marginVertical: 17,
-    marginHorizontal: 40,
+    marginVertical: responsiveHeight(2.5),
+    marginHorizontal: responsiveWidth(10),
     alignItems: 'center',
   },
   calorieContainer: {
-    marginVertical: 17,
-    marginHorizontal: 40,
+    marginVertical: responsiveHeight(2.5),
+    marginHorizontal: responsiveWidth(10),
     alignItems: 'center',
   },
   info: {
     backgroundColor: Colors.back100,
-    width: '100%',
-    height: '30%',
+    width: responsiveWidth(100),
+    height: responsiveHeight(29),
   },
 });
 
