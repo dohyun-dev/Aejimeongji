@@ -36,7 +36,7 @@ def find_place(driver, name):
 
 def get_rating(address, name):
     driver = webdriver.Chrome("chromedriver", options=options)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(1)
     driver.get(URL)
 
     # 펫 플레이스 주소 검색
@@ -74,4 +74,5 @@ def get_rating(address, name):
     except:
         rating = 0.0
 
+    driver.quit()
     return rating
