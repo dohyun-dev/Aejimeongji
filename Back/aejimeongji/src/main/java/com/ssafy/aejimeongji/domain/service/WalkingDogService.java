@@ -3,6 +3,8 @@ package com.ssafy.aejimeongji.domain.service;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.Walking;
 import com.ssafy.aejimeongji.domain.entity.WalkingDog;
+import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
+import com.ssafy.aejimeongji.domain.exception.WalkingNotFoundException;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
 import com.ssafy.aejimeongji.domain.repository.WalkingDogRepository;
 import com.ssafy.aejimeongji.domain.repository.WalkingRepository;
@@ -32,14 +34,10 @@ public class WalkingDogService {
     public Long saveWalkingDog(Long dogId, Long walkingId , double walkingCalories) {
 
         // 강아지 엔티티 조회
-        Dog dog = dogRepository.findById(dogId).orElseThrow(() ->
-                new IllegalArgumentException("요청하신 정보가 존재하지 않습니다.")
-        );
+        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new DogNotFoundException(dogId.toString()));
 
         // 산책 엔티티 생성 후 영속화
-        Walking walking = walkingRepository.findById(walkingId).orElseThrow(() ->
-                new IllegalArgumentException("요청하신 정보가 존재하지 않습니다.")
-        );
+        Walking walking = walkingRepository.findById(walkingId).orElseThrow(() -> new WalkingNotFoundException(walkingId.toString()));
 
         // 중계 테이블 설정
         return walkingDogRepository.save(new WalkingDog(dog, walking, walkingCalories)).getId();
