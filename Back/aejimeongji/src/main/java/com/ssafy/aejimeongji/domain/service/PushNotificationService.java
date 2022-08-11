@@ -37,10 +37,8 @@ public class PushNotificationService {
     }
 
     private static String getAccessToken() throws IOException {
-        //21.6.23 아직까지도 공식 홈페이지에서 Deprecated 된 해당 문장을 수정하지 않고있다.
-        //22.01.04 공식 홈페이지에서 제대로 수정이 되었다.
         GoogleCredentials googleCredential = GoogleCredentials
-                .fromStream(new ClassPathResource("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-6637e27afe.json").getInputStream())
+                .fromStream(new ClassPathResource("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-ac88694c8b.json").getInputStream())
                 .createScoped(Arrays.asList(SCOPES));
         googleCredential.refreshIfExpired();
         return googleCredential.getAccessToken().toString();

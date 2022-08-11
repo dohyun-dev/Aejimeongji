@@ -18,7 +18,7 @@ import java.io.InputStream;
 public class FirebaseConfig {
     private final Logger logger = LoggerFactory.getLogger(FirebaseConfig.class);
 
-    @Value("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-6637e27afe.json") // your firebase sdk path
+    @Value("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-ac88694c8b.json") // your firebase sdk path
     private String firebaseSdkPath;
 
     @PostConstruct
