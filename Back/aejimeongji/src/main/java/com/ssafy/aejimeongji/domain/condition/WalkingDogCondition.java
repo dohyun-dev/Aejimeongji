@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class WalkingDogCondition {
-    private Long walkingDogId;
+    private Long curLastIdx;
+    private Integer limit;
 }
