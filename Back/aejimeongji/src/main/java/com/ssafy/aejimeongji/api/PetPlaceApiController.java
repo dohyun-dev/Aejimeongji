@@ -42,18 +42,15 @@ public class PetPlaceApiController {
                     .map(o -> new PetPlaceResponse(o))
                     .limit(conut)
                     .collect(Collectors.toList());
-
             return ResponseEntity.ok().body(result);
-
         } else {
             List<PetPlace> list = petPlaceService.getNearPetPlaceList(Double.parseDouble(lat), Double.parseDouble(lng), Double.parseDouble(dist));
             List<PetPlaceResponse> result = list.stream()
                     .filter(o -> o.getCategory().equals(category))
-                    .map(o -> new PetPlaceResponse(o, Double.parseDouble(lat), Double.parseDouble(lng), o.getPoint().getX(), o.getPoint().getY()))
+                    .map(o -> new PetPlaceResponse(o, Double.parseDouble(lat), Double.parseDouble(lng)))
                     .sorted(Comparator.comparing(PetPlaceResponse::getDistance))
                     .limit(conut)
                     .collect(Collectors.toList());
-
             return ResponseEntity.ok().body(result);
         }
     }
