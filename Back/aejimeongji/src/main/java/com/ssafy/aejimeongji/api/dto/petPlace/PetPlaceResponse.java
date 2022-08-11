@@ -59,9 +59,9 @@ public class PetPlaceResponse {
         homePage = petPlace.getHomePage();
         detail = petPlace.getDetail();
         openingHours = petPlace.getOpeningHours();
-        petplaceImageUrl = List.of(petPlace.getPetplaceImageSet().getPetplaceImage().split(","));
-        petplaceInfoUrl = List.of(petPlace.getPetplaceImageSet().getPetplaceInfo().split(","));
-        petplaceMenuUrl = List.of(petPlace.getPetplaceImageSet().getPetplaceMenu().split(","));
+        petplaceImageUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceImage());
+        petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceInfo());
+        petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
         petplaceThumbnail = petplaceImageUrl.get(0);
     }
 
