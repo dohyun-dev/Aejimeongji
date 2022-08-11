@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
   responsiveHeight,
@@ -66,22 +66,21 @@ const renderItem = ({item, index}, parallaxProps) => {
 };
 
 const PlaceDetail = () => {
-  const [source, setSource] = useState();
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
-  // useEffect(() => {
-  //   const getLocation = async () => {
-  //     const res = await searchPlace('경상북도 구미시 여헌로 87-8');
-  //     if (res) {
-  //       const src = await getPlaceImage();
-  //       setSource(`data:image/jpg;base64,${src}`);
-  //     }
-  //   };
-  //   getLocation();
-  // }, []);
+  useLayoutEffect(() => {
+    const getLocation = async () => {
+      const res = await searchPlace('경상북도 구미시 여헌로 87-8');
+      setLatitude(+res.y)
+      setLongitude(+res.x)
+      
+    };
+    getLocation();
+  }, []);
 
   return (
     <ScrollView style={styles.rootContainer}>
-      <Text>이것은 detail</Text>
       <Carousel
         sliderWidth={responsiveWidth(100)}
         sliderHeight={responsiveHeight(10)}
@@ -92,21 +91,14 @@ const PlaceDetail = () => {
         firstItem={3}
         hasParallaxImages={true}
       />
-      <View>
+      <View style={styles.infoContainer}>
         <DetailInfo />
       </View>
+      <View style={styles.mapContainer}>
+        <PlaceMap latitude={latitude} longitude={longitude} />
+      </View>
       <View>
-        <PlaceMap />
-        <Image
-          style={{
-            width: 100,
-            height: 50,
-            resizeMode: 'contain',
-            borderWidth: 1,
-            borderColor: 'red',
-          }}
-          source={{uri: source}}
-        />
+        <Text>리뷰</Text>
       </View>
     </ScrollView>
   );
@@ -122,6 +114,9 @@ const styles = StyleSheet.create({
     width: responsiveWidth(30),
     height: responsiveWidth(30),
   },
+  infoContainer: {
+    marginVertical: responsiveHeight(3),
+  },
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
@@ -130,5 +125,7 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
+  },
+  mapContainer: {
   },
 });
