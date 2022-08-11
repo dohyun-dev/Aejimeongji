@@ -1,19 +1,17 @@
 package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
+import com.ssafy.aejimeongji.api.dto.ScrollResponse;
 import com.ssafy.aejimeongji.api.dto.petPlace.PetPlaceResponse;
+import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;
 import com.ssafy.aejimeongji.domain.entity.PetPlace;
 import com.ssafy.aejimeongji.domain.service.PetPlaceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.locationtech.jts.geom.Point;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,33 +23,17 @@ public class PetPlaceApiController {
 
     private final PetPlaceService petPlaceService;
 
-    @GetMapping("/category/{category}")
-    public ResponseEntity<?> getNearPetPlaceList(@PathVariable String category,
-                                                 @RequestParam(value = "lat", defaultValue = "") String lat,
-                                                 @RequestParam(value = "lng", defaultValue = "") String lng,
-                                                 @RequestParam(value = "dist", defaultValue = "") String dist,
-                                                 @RequestParam(value = "count", defaultValue = "10") int conut) {
-
-        log.info("반경 {}km 안의 펫플레이스 리스트", dist);
-
-        if (lat.isEmpty() || lng.isEmpty() || dist.isEmpty()) {
-            List<PetPlace> list = petPlaceService.findPetPlaceList();
-            Collections.shuffle(list);
-            List<PetPlaceResponse> result = list.stream()
-                    .filter(o -> o.getCategory().equals(category))
-                    .map(o -> new PetPlaceResponse(o))
-                    .limit(conut)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok().body(result);
+    @GetMapping
+    public ResponseEntity<?> getNearPetPlaceList(@ModelAttribute PetPlaceSearchCondition condition) {
+        log.info("반경 {}km 안의 펫플레이스 리스트", condition.getDist());
+        if (condition.getLat() != null && condition.getLng() != null && condition.getDist() != null) {
+            ScrollResponse<PetPlace> result = petPlaceService.searchPetPlaceAll(condition);
+            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p)).collect(Collectors.toList());
+            return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         } else {
-            List<PetPlace> list = petPlaceService.getNearPetPlaceList(Double.parseDouble(lat), Double.parseDouble(lng), Double.parseDouble(dist));
-            List<PetPlaceResponse> result = list.stream()
-                    .filter(o -> o.getCategory().equals(category))
-                    .map(o -> new PetPlaceResponse(o, Double.parseDouble(lat), Double.parseDouble(lng)))
-                    .sorted(Comparator.comparing(PetPlaceResponse::getDistance))
-                    .limit(conut)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok().body(result);
+            ScrollResponse<PetPlace> result = petPlaceService.searchPetPlaceAll(condition);
+            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p, condition.getLat(), condition.getLng())).collect(Collectors.toList());
+            return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         }
     }
 
