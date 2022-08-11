@@ -42,7 +42,7 @@ public class PetPlaceResponse {
         homePage = petPlace.getHomePage();
         rating = petPlace.getRating();
         openingHours = petPlace.getOpeningHours();
-        distance = (6371 * acos(cos(toRadians(lat)) * cos(toRadians(petPlace.getPoint().getX())) * cos(toRadians(petPlace.getPoint().getY()) - toRadians(lng)) + sin(toRadians(lat)) * sin(toRadians(petPlace.getPoint().getX()))));
+        distance = (6371 * acos(cos(toRadians(lat)) * cos(toRadians(petPlace.getPoint().getX())) * cos(toRadians(petPlace.getPoint().getY()) - toRadians(lng)) + sin(toRadians(lat)) * sin(toRadians(petPlace.getPoint().getX())))) * 1000;
         petplaceImageUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceImage());
         petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceInfo());
         petplaceMenuUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
