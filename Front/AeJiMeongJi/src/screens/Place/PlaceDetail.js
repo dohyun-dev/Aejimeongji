@@ -5,13 +5,16 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-import {View, Pressable, Text, Image} from 'react-native';
+import {View, Pressable, Text, Image, FlatList} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native';
 import {Colors} from '../../constants/styles';
 import DetailInfo from '../../components/Place/DetailInfo';
 import PlaceMap from '../../components/Place/PlaceMap';
-import {getPlaceImage, searchPlace} from '../../utils/place';
+import {getPlaceImage, searchPlace, getAvatar} from '../../utils/place';
+import Review, {reviewData} from '../../components/Place/Review';
+import ReviewCarousel from '../../components/Place/ReviewCarousel';
+import CategoryDummy from '../../components/Place/CategoryDummy';
 
 const DummyData = [
   {
@@ -69,22 +72,22 @@ const PlaceDetail = () => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
-  useLayoutEffect(() => {
-    const getLocation = async () => {
-      const res = await searchPlace('경상북도 구미시 여헌로 87-8');
-      setLatitude(+res.y)
-      setLongitude(+res.x)
-      
-    };
-    getLocation();
-  }, []);
+  // useLayoutEffect(() => {
+  //   const getLocation = async () => {
+  //     // const res = await searchPlace('경상북도 구미시 여헌로 87-8');
+  //     // setLatitude(+res.y);
+  //     // setLongitude(+res.x);
+  //     const res = await getAvatar();
+  //   };
+  //   getLocation();
+  // }, []);
 
   return (
     <ScrollView style={styles.rootContainer}>
       <Carousel
         sliderWidth={responsiveWidth(100)}
         sliderHeight={responsiveHeight(10)}
-        itemWidth={responsiveWidth(29)}
+        itemWidth={responsiveWidth(55)}
         data={DummyData}
         renderItem={renderItem}
         showSpinner={true}
@@ -94,11 +97,24 @@ const PlaceDetail = () => {
       <View style={styles.infoContainer}>
         <DetailInfo />
       </View>
+      <View>
+        {/* <FlatList
+        key={'#'}
+        data={CategoryDummy}
+        renderItem={ReviewCarousel} /> */}
+        <ReviewCarousel />
+      </View>
       <View style={styles.mapContainer}>
         <PlaceMap latitude={latitude} longitude={longitude} />
       </View>
-      <View>
-        <Text>리뷰</Text>
+      <View style={styles.reviewContainer}>
+        <FlatList
+          key={'#'}
+          data={reviewData}
+          renderItem={Review}
+          numColumns={1}
+        />
+        {/* <Review /> */}
       </View>
     </ScrollView>
   );
@@ -109,13 +125,14 @@ export default PlaceDetail;
 const styles = StyleSheet.create({
   rootContainer: {
     backgroundColor: Colors.back100,
+    marginTop: responsiveHeight(3),
   },
   item: {
-    width: responsiveWidth(30),
-    height: responsiveWidth(30),
+    width: responsiveWidth(50),
+    height: responsiveWidth(50),
   },
   infoContainer: {
-    marginVertical: responsiveHeight(3),
+    marginVertical: responsiveHeight(4),
   },
   imageContainer: {
     flex: 1,
@@ -126,6 +143,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
   },
-  mapContainer: {
-  },
+  mapContainer: {},
+  reviewContainer: {},
 });

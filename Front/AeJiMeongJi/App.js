@@ -62,8 +62,8 @@ const AuthenticatedStack = () => {
           headerShadowVisible: false,
         }}>
         <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
+        <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
       </Stack.Group>
-      <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
     </Stack.Navigator>
   );
 };

@@ -43,3 +43,14 @@ export const searchPlace = async address => {
 //     console.log(error.response);
 //   }
 // };
+
+// export const getAvatar = async () => {
+//   const path = 'https://source.boringavatars.com/'
+
+//   const res = await axios({
+//     method:'get',
+//     url: path,
+//   })
+
+//   console.log(res.data);
+// };

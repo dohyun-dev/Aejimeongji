@@ -26,7 +26,7 @@ const DetailInfo = ({title, rating}) => {
             style={styles.rating}
           />
         </View>
-        <View>
+        <View style={styles.infoContainer}>
           <Text style={styles.info}>주소 : 서울특별시 성동구 서울숲2길 28-11</Text>
           <Text style={styles.info}>전화번호 : 070-8868-2008</Text>
           <Text style={styles.info}>음식종류 : 카페/디저트</Text>
@@ -52,10 +52,16 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
   },
+  titleContainer: {
+    marginVertical: responsiveHeight(1)
+  },
   title: {
     fontSize: responsiveFontSize(3),
     color: '#643903',
     fontWeight: 'bold',
+  },
+  infoContainer: {
+    marginTop: responsiveHeight(3)
   },
   info: {
     color: '#90560D',
