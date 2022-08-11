@@ -12,5 +12,5 @@ public class ScrollResponse<T> {
     private List<T> data;
     private Boolean hasNext;
     private Long curLastIdx;
-    private Long limit;
+    private int limit;
 }
