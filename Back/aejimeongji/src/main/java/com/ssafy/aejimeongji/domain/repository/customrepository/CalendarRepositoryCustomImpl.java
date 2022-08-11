@@ -20,10 +20,10 @@ public class CalendarRepositoryCustomImpl implements CalendarRepositoryCustom {
     private final JPQLQueryFactory queryFactory;
 
     @Override
-    public List<Calendar> getCalendar(CalendarSearchCondition condition) {
+    public List<Calendar> getCalendar(Long dogId, CalendarSearchCondition condition) {
         JPQLQuery<Calendar> query = queryFactory
                 .selectFrom(calendar)
-                .where(getDogEq(condition.getDogId()), getDateEq(condition.getDate()), getIsActive(condition.getIsActive()));
+                .where(getDogEq(dogId), getDateEq(condition.getDate()), getIsActive(condition.getIsActive()));
         query = (getIsActive(condition.getIsActive()) != null) ? query.limit(3) : query;
         List<Calendar> fetch = query.fetch();
         return fetch;

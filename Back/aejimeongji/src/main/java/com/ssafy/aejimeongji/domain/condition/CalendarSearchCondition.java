@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 @Data
 public class CalendarSearchCondition {
-    private Long dogId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;

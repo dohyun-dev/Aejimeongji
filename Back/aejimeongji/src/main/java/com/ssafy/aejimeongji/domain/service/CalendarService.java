@@ -7,11 +7,15 @@ import com.ssafy.aejimeongji.domain.exception.CalendarNotFoundException;
 import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
 import com.ssafy.aejimeongji.domain.repository.CalendarRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
+import com.ssafy.aejimeongji.domain.repository.MessagesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,12 +27,14 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
     private final DogRepository dogRepository;
 
+    private final MessagesRepository messagesRepository;
+
     public Calendar findTodo(Long calendarId) {
         return calendarRepository.findById(calendarId).orElseThrow(() -> new CalendarNotFoundException(calendarId.toString()));
     }
 
-    public List<Calendar> findCalendars(CalendarSearchCondition condition) {
-        return calendarRepository.getCalendar(condition);
+    public List<Calendar> findCalendars(Long dogId, CalendarSearchCondition condition) {
+        return calendarRepository.getCalendar(dogId, condition);
     }
 
     @Transactional
@@ -50,4 +56,16 @@ public class CalendarService {
         Calendar findCalendar = findTodo(id);
         calendarRepository.delete(findCalendar);
     }
+//
+////     Message
+//    @Transactional
+//    public Long findMessage(LocalDate birthday) {
+//
+//        LocalDate nowDate = LocalDate.now();
+//        Long betweenDate = ChronoUnit.DAYS.between(birthday, nowDate);
+//
+//        HashMap<String, String> inoculation = new HashMap<String, String>();
+//        inoculation.put();
+//
+//    }
 }

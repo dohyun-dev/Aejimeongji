@@ -6,5 +6,5 @@ import com.ssafy.aejimeongji.domain.entity.Calendar;
 import java.util.List;
 
 public interface CalendarRepositoryCustom {
-    List<Calendar> getCalendar(CalendarSearchCondition condition);
+    List<Calendar> getCalendar(Long dogId, CalendarSearchCondition condition);
 }

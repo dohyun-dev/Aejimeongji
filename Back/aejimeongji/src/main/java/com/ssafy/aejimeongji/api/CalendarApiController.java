@@ -23,12 +23,12 @@ public class CalendarApiController {
     private final CalendarService calendarService;
 
     @GetMapping("/dog/{dogId}/calendar")
-    public ResponseEntity<List<?>> getTodoList(@ModelAttribute CalendarSearchCondition condition) {
-        log.info("{}번 강아지 프로필 캘린더 조회", condition.getDogId());
-        if (condition.getIsActive().equals(true)) {
-            List<TodosResponse> result = calendarService.findCalendars(condition).stream().map(c -> new TodosResponse(c)).collect(Collectors.toList());
+    public ResponseEntity<List<?>> getTodoList(@PathVariable Long dogId ,@ModelAttribute CalendarSearchCondition condition) {
+        log.info("{}번 강아지 프로필 캘린더 조회", dogId);
+        if (condition.getIsActive() != null) {
+            List<TodosResponse> result = calendarService.findCalendars(dogId, condition).stream().map(c -> new TodosResponse(c)).collect(Collectors.toList());
         }
-        List<CalendarResponse> result = calendarService.findCalendars(condition).stream().map(c -> new CalendarResponse(c)).collect(Collectors.toList());
+        List<CalendarResponse> result = calendarService.findCalendars(dogId, condition).stream().map(c -> new CalendarResponse(c)).collect(Collectors.toList());
         return ResponseEntity.ok().body(result);
     }
 
