@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "dogimage")
 public class DogImage extends Image {
 
     public DogImage(Image image) {
