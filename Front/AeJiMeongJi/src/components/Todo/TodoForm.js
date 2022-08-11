@@ -4,41 +4,61 @@ import Button from '../ui/Button';
 import Input from './Input';
 import {Colors} from '../../constants/styles';
 import SwitchToggle from 'react-native-switch-toggle';
-
+import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux';
+const url = 'http://i7d203.p.ssafy.io:8080';
 const TodoForm = () => {
+  const dogId = useSelector(state => state.profile.id);
   const [isHome, setIsHome] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
+  const [content, setContent] = useState('');
 
-  const [inputValues, setInputValues] = useState({
-    todo: '',
-    showHome: isHome,
-    onAlert: isAlert,
-  });
-  const inputChangeHandler = (inputIdentifier, entredValue) => {
-    setInputValues(curValue => {
-      return {
-        ...curValue,
-        [inputIdentifier]: entredValue,
-      };
-    });
+  const inputChangeHandler = entredValue => {
+    setContent(entredValue);
   };
 
   const submitHandler = () => {
-    if (!inputValues.todo) {
-      Alert.alert('내용을 입력해주세요');
-      return;
-    }
+    // if (content == '') {
+    //   Alert.alert('내용을 입력해주세요');
+    //   return;
+    // }
+
+    console.log('content');
+    console.log(content);
+
+    let data = {
+      content: content,
+      date: '2022-08-11',
+      isActive: isHome,
+      isAlert: isAlert,
+    };
+
+    axios
+      .post(url + `/api/dog/${dogId}/calendar`, data, {
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(response => {
+        if (response.status == 200) {
+          console.log('To-Do 등록 성공');
+          console.log(response);
+        } else {
+          console.log('To-Do 등록에 실패했습니다.');
+        }
+      });
   };
 
   return (
     <View style={{flex: 1}}>
       <Input
         textInputConfig={{
-          value: inputValues.email,
           placeholder: '할 일을 입력하세요',
           autoCapitalize: 'none',
           autoFocus: true,
-          onChangeText: inputChangeHandler.bind(this, 'todo'),
+          onChangeText: inputChangeHandler.bind(this),
+        }}
+        onChange={e => {
+          console.log(e.target.value);
+          setContent(e.target.value);
         }}
       />
 
