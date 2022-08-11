@@ -1,7 +1,9 @@
 package com.ssafy.aejimeongji.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ssafy.aejimeongji.domain.entity.image.PetplaceImageSet;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
@@ -16,27 +18,20 @@ public class PetPlace {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String description;
-
     private String address;
-
     private String tel;
-
     private String category;
-
     private String detail;
-
     private Double rating;
-
     @JsonBackReference
     private Point point;
-
     private String homePage;
-
     private String openingHours;
+
+    @Embedded
+    private PetplaceImageSet petplaceImageSet;
 
     public PetPlace(String name, String description, String address, String tel, String category, Point point, String openingHours, String detail, Double rating, String homePage) {
         this.name = name;
@@ -49,5 +44,20 @@ public class PetPlace {
         this.detail = detail;
         this.rating = rating;
         this.homePage = homePage;
+    }
+
+    @Builder
+    public PetPlace(String name, String description, String address, String tel, String category, String detail, Double rating, Point point, String homePage, String openingHours, PetplaceImageSet petplaceImageSet) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.tel = tel;
+        this.category = category;
+        this.detail = detail;
+        this.rating = rating;
+        this.point = point;
+        this.homePage = homePage;
+        this.openingHours = openingHours;
+        this.petplaceImageSet = petplaceImageSet;
     }
 }
