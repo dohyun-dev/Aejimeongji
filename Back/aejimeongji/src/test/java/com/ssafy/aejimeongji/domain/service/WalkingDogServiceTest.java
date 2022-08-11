@@ -61,25 +61,25 @@ class WalkingDogServiceTest {
         Assertions.assertThat(findWalkingDog.getWalking()).isEqualTo(walking);
     }
 
-    @Test
-    void getWalkingDogList() {
-        // given
-        Member member = new Member("ssafy@ssafy.com", "1234", "닉네임", "01012341234", "닉네임");
-        em.persist(member);
-        DogImage dogImage = new DogImage("originFilename", "storeFilename");
-        em.persist(dogImage);
-        Breed breed = new Breed("testBreed");
-        em.persist(breed);
-        Dog dog = new Dog("강아지", 12, LocalDate.now(), Gender.MALE, true, true, LocalDate.now(), member, dogImage, breed);
-        em.persist(dog);
-        Walking walking = new Walking(1000, "10:20:11.1234", LocalDateTime.now());
-        Long saveId = walkingDogService.saveWalking(walking);
-        Long saveWalkingdogId = walkingDogService.saveWalkingDog(dog.getId(), walking.getId(), 12);
-
-        // when
-        List<WalkingDog> result = walkingDogService.getWalkingDogList(dog.getId());
-
-        // then
-        Assertions.assertThat(result.size()).isEqualTo(1);
-    }
+//    @Test
+//    void getWalkingDogList() {
+//        // given
+//        Member member = new Member("ssafy@ssafy.com", "1234", "닉네임", "01012341234", "닉네임");
+//        em.persist(member);
+//        DogImage dogImage = new DogImage("originFilename", "storeFilename");
+//        em.persist(dogImage);
+//        Breed breed = new Breed("testBreed");
+//        em.persist(breed);
+//        Dog dog = new Dog("강아지", 12, LocalDate.now(), Gender.MALE, true, true, LocalDate.now(), member, dogImage, breed);
+//        em.persist(dog);
+//        Walking walking = new Walking(1000, "10:20:11.1234", LocalDateTime.now());
+//        Long saveId = walkingDogService.saveWalking(walking);
+//        Long saveWalkingdogId = walkingDogService.saveWalkingDog(dog.getId(), walking.getId(), 12);
+//
+//        // when
+//        List<WalkingDog> result = walkingDogService.getWalkingDogList(dog.getId());
+//
+//        // then
+//        Assertions.assertThat(result.size()).isEqualTo(1);
+//    }
 }
