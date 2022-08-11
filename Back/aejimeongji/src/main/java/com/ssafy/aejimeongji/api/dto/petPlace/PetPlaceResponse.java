@@ -45,7 +45,7 @@ public class PetPlaceResponse {
         distance = (6371 * acos(cos(toRadians(lat)) * cos(toRadians(petPlace.getPoint().getX())) * cos(toRadians(petPlace.getPoint().getY()) - toRadians(lng)) + sin(toRadians(lat)) * sin(toRadians(petPlace.getPoint().getX()))));
         petplaceImageUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceImage());
         petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceInfo());
-        petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
+        petplaceMenuUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
         petplaceThumbnail = petplaceImageUrl.get(0);
     }
 
@@ -61,7 +61,7 @@ public class PetPlaceResponse {
         openingHours = petPlace.getOpeningHours();
         petplaceImageUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceImage());
         petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceInfo());
-        petplaceInfoUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
+        petplaceMenuUrl = getImageList(petPlace.getPetplaceImageSet().getPetplaceMenu());
         petplaceThumbnail = petplaceImageUrl.get(0);
     }
 
