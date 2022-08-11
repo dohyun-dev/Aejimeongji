@@ -1,20 +1,21 @@
 package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
+import com.ssafy.aejimeongji.api.dto.ScrollResponse;
 import com.ssafy.aejimeongji.api.dto.walking.CreateWalkingRequest;
 import com.ssafy.aejimeongji.api.dto.walking.CreateWalkingResponse;
 import com.ssafy.aejimeongji.api.dto.walking.MappingWalkingDogRequest;
 import com.ssafy.aejimeongji.api.dto.walking.WalkingDto;
+import com.ssafy.aejimeongji.domain.condition.WalkingDogCondition;
 import com.ssafy.aejimeongji.domain.entity.Walking;
+import com.ssafy.aejimeongji.domain.entity.WalkingDog;
 import com.ssafy.aejimeongji.domain.service.WalkingDogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -26,11 +27,11 @@ public class WalkingApiController {
     private final WalkingDogService walkingDogService;
 
     @GetMapping("/dog/{dogId}/walkingdog")
-    public ResponseEntity<Map<String, List<WalkingDto>>> getWalkingData(@PathVariable Long dogId) {
-        List<WalkingDto> walkings = walkingDogService.getWalkingDogList(dogId).stream().map(WalkingDto::new).collect(Collectors.toList());
-        Map<String, List<WalkingDto>> response = new HashMap<>();
-        response.put("walkings", walkings);
-        return ResponseEntity.ok().body(response);
+    public ResponseEntity<ScrollResponse<WalkingDto>> getWalkingData(@PathVariable Long dogId, @ModelAttribute WalkingDogCondition condition) {
+        log.debug("condition {}", condition);
+        ScrollResponse<WalkingDog> walkingDogList = walkingDogService.getWalkingDogList(dogId, condition);
+        List<WalkingDto> data = walkingDogList.getData().stream().map(WalkingDto::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(new ScrollResponse<>(data, walkingDogList.getHasNext(), walkingDogList.getCurLastIdx(), walkingDogList.getLimit()));
     }
 
     @GetMapping("/dog/{dogId}/walkingdog/{walkingDogId}")
