@@ -3,6 +3,7 @@ package com.ssafy.aejimeongji.domain.service;
 import com.ssafy.aejimeongji.domain.entity.Breed;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.image.DogImage;
+import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
 import com.ssafy.aejimeongji.domain.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,7 @@ public class DogService {
 
     // 강아지 프로필 상세 조회
     public Dog findDog(Long dogId) {
-        return dogRepository.findById(dogId)
-                .orElseThrow(() -> new IllegalArgumentException("조회하신 강아지가 존재하지 않습니다."));
+        return dogRepository.findById(dogId).orElseThrow(() -> new DogNotFoundException(dogId.toString()));
     }
 
     // 강아지 프로필 등록
