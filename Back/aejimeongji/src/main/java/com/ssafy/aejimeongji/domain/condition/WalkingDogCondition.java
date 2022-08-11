@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class WalkingDogCondition {
-    private Long curLastIdx;
+    private Long curLastIdx = Long.MAX_VALUE;
     private Integer limit;
 }
