@@ -8,9 +8,11 @@ import com.ssafy.aejimeongji.domain.condition.CalendarSearchCondition;
 import com.ssafy.aejimeongji.domain.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,5 +52,10 @@ public class CalendarApiController {
     public ResponseEntity<ResponseDTO> deleteTodo(@PathVariable Long calendarId) {
         calendarService.deleteCalendar(calendarId);
         return ResponseEntity.ok(new ResponseDTO("삭제가 완료되었습니다."));
+    }
+
+    @GetMapping("/messages/{birthday}")
+    public ResponseEntity<?> getMessages(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
+        return ResponseEntity.ok(new ResponseDTO(calendarService.findMessages(birthday)));
     }
 }
