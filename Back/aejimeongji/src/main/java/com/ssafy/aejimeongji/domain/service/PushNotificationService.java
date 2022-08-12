@@ -38,7 +38,7 @@ public class PushNotificationService {
 
     private static String getAccessToken() throws IOException {
         GoogleCredentials googleCredential = GoogleCredentials
-                .fromStream(new ClassPathResource("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-ac88694c8b.json").getInputStream())
+                .fromStream(new ClassPathResource("firebase/aejimeongji-ced81-firebase-adminsdk-d9fj5-6637e27afe.json").getInputStream())
                 .createScoped(Arrays.asList(SCOPES));
         googleCredential.refreshIfExpired();
         return googleCredential.getAccessToken().toString();
