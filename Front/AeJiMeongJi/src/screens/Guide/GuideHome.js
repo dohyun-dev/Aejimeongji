@@ -31,7 +31,7 @@ const GuideHome = ({navigation}) => {
       const res = await getDog(dogId);
       if (res) {
         setDogInfo(res.name);
-        console.log(res.name);
+        // console.log(res.name);
       }
     };
     fetchInitialData();
@@ -39,13 +39,14 @@ const GuideHome = ({navigation}) => {
   useLayoutEffect(() => {
     const fetchGuide = async () => {
       const response = await axios(url + '/api/guide?dog=' + dogId);
-      console.log(response);
+      // console.log(response.data);
       if (response) {
         setguideList(response.data);
       }
     };
     fetchGuide();
   }, []);
+  // console.log(guideList.ageGuideList);
 
   return (
     <ScrollView>
@@ -97,14 +98,19 @@ const GuideHome = ({navigation}) => {
           </Text>
         </View>
         <View style={{flex: 3.3}}>
-          <CarouselCards style={styles.carouselCards} />
+          <CarouselCards
+            style={styles.carouselCards}
+            age={guideList.ageGuideList}
+          />
         </View>
 
         <View style={styles.subGuide}>
           <Text style={styles.subGuideTitle}>
             지금 핫한 반려생활 가이드 Top5!
           </Text>
-          <SubCard style={styles.subCards}></SubCard>
+          <SubCard
+            style={styles.subCards}
+            category={guideList.fixedGuideList[0]}></SubCard>
           <SubCard style={styles.subCards}></SubCard>
           <SubCard style={styles.subCards}></SubCard>
           <SubCard style={styles.subCards}></SubCard>
@@ -116,7 +122,10 @@ const GuideHome = ({navigation}) => {
           </Text>
         </View>
         <View style={{flex: 3.3}}>
-          <CarouselCards style={styles.carouselCards} />
+          <CarouselCards
+            style={styles.carouselCards}
+            age={guideList.weightGuideList}
+          />
         </View>
         <Button
           onPress={() => {

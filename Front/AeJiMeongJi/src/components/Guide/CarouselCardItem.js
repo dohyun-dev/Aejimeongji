@@ -1,20 +1,45 @@
-import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
+import {useSelector} from 'react-redux';
+import {getMemberId} from '../../utils/auth';
+import {useNavigation} from '@react-navigation/native';
+
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
 
-const CarouselCardItem = ({item, index}) => {
+const CarouselCardItem = ({item, index, navigation}) => {
+  const guideId = item.guideId;
   return (
-    <View style={styles.container} key={index}>
-      <Image source={{uri: item.imgUrl}} style={styles.image} />
-      <Text style={styles.header}>{item.title}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('GuideDetail', {guideId});
+      }}>
+      <View style={styles.container} key={index}>
+        <Image
+          source={
+            item.thumbnail
+              ? {uri: `${imageurl}${item.thumbnail}`}
+              : item.sources
+          }
+          style={styles.image}
+        />
+        <Text style={styles.header}>{item.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {View} from 'react-native';
 import {
   responsiveHeight,
@@ -8,18 +8,20 @@ import {
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import CarouselCardItem, {SLIDER_WIDTH, ITEM_WIDTH} from './CarouselCardItem';
 import data from './data';
+import {useNavigation} from '@react-navigation/native';
 
-const CarouselCards = () => {
+const url = 'http://i7d203.p.ssafy.io:8080';
+
+const CarouselCards = props => {
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
-
   return (
     <View>
       <Carousel
         layout="stack"
         layoutCardOffset={9}
         ref={isCarousel}
-        data={data}
+        data={props.age}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}

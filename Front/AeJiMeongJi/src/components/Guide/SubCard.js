@@ -7,7 +7,8 @@ import {
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 
-const SubCard = () => {
+const SubCard = props => {
+  const title = props.category;
   return (
     <View style={styels.GuideBox}>
       <View style={{flexDirection: 'row'}}>
@@ -22,9 +23,7 @@ const SubCard = () => {
         <View>
           <View style={styels.infoBox}>
             <View style={styels.infoTitle}>
-              <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                여름철 강아지 건강정보
-              </Text>
+              <Text style={{fontSize: 17, fontWeight: 'bold'}}></Text>
             </View>
             <View style={styels.infosum}>
               <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
