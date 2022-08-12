@@ -28,14 +28,13 @@ public class GuideBookApiController {
         if (condition.getDog() != null) {
             log.info("강아지 {} 맞춤 가이드 목록 요청", condition);
             return ResponseEntity.ok().body(getCustomizedGuideResult(guideBookService.customizedGuideBookList(condition.getDog())));
-        }
-        else if (condition.getCategory() != null) {
+        } else if (condition.getCategory() != null) {
             log.info("'{}' 카테고리 가이드 목록 요청", condition);
             return ResponseEntity.ok().body(guideBookService.categorizedGuideBookList(condition.getCategory()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
-        }
-        else {
+        } else {
             log.info("사용자 {} 좋아요 가이드 목록 요청", condition);
-            return ResponseEntity.ok().body(guideBookService.likedGuideBookList(condition.getMember()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
+            // return ResponseEntity.ok().body(guideBookService.likedGuideBookList(condition.getMember()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
+            return null;
         }
     }
 

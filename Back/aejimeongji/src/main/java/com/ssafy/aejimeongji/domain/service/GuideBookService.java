@@ -58,10 +58,10 @@ public class GuideBookService {
     }
 
     // 멤버별 좋아요 가이드 목록 조회
-    public List<GuideBook> likedGuideBookList(Long memberId) {
-        List<Like> likeList = likeRepository.findLikesByMemberId(memberId);
-        return likeList.stream().map(Like::getGuideBook).collect(Collectors.toList());
-    }
+//    public List<GuideBook> likedGuideBookList(Long memberId) {
+//        List<Like> likeList = likeRepository.findLikeGuideBook(memberId);
+//        return likeList.stream().map(Like::getGuideBook).collect(Collectors.toList());
+//    }
 
     // 가이드 상세 조회
     public GuideBook findGuideBook(Long guideBookId) {
