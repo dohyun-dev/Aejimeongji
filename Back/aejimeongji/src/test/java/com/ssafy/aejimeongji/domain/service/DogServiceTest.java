@@ -2,6 +2,7 @@ package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.domain.entity.*;
 import com.ssafy.aejimeongji.domain.entity.image.DogImage;
+import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -200,6 +201,6 @@ class DogServiceTest {
         dogService.deleteDog(savedId);
 
         // then
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> dogService.findDog(savedId));
+        Assertions.assertThrows(DogNotFoundException.class, () -> dogService.findDog(savedId));
     }
 }
