@@ -3,6 +3,7 @@ package com.ssafy.aejimeongji.api;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.api.dto.ScrollResponse;
 import com.ssafy.aejimeongji.api.dto.petPlace.PetPlaceResponse;
+import com.ssafy.aejimeongji.domain.condition.BookMarkListCondition;
 import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;
 import com.ssafy.aejimeongji.domain.entity.PetPlace;
@@ -50,13 +51,13 @@ public class PetPlaceApiController {
     }
 
     @GetMapping("/member/{memberId}")
-    public ResponseEntity<?> getBookMarkedPetPlaceList(@PathVariable Long memberId) {
+    public ResponseEntity<ScrollResponse<PetPlaceResponse>> getBookMarkedPetPlaceList(@PathVariable Long memberId, @ModelAttribute BookMarkListCondition condition) {
         log.info("{}번 회원이 북마크한 펫플레이스", memberId);
-        List<Bookmark> list = petPlaceService.findAllBookMark(memberId);
-        List<PetPlaceResponse> result = list.stream()
+        ScrollResponse<Bookmark> list = petPlaceService.findAllBookMark(memberId, condition);
+        List<PetPlaceResponse> result = list.getData().stream()
                 .map(o -> new PetPlaceResponse(petPlaceService.findPetPlace(o.getPetPlace().getId())))
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().body(new ScrollResponse<>(result, list.getHasNext(), list.getCurLastIdx(), list.getLimit()));
     }
 
     @PostMapping("/{petplaceId}/member/{memberId}/bookmark")

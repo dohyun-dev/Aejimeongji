@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {Image, StyleSheet, View, Text} from 'react-native';
 import {
   responsiveHeight,
@@ -7,18 +7,45 @@ import {
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import {SafeAreaView, ScrollView} from 'react-native';
+import {useSelector} from 'react-redux';
+import {getMemberId} from '../../utils/auth';
 import CarouselCards from '../../components/Guide/CarouselCards';
 import SubCard from '../../components/Guide/SubCard';
 import Button from '../../components/ui/Button';
 import GuideButton from '../../components/ui/GuideButton';
 import {fetchGuideList} from '../../utils/guide';
+import axios from '../../utils/index';
+import {getDog} from '../../utils/profile';
+
+const url = 'http://i7d203.p.ssafy.io:8080';
 
 const GuideHome = ({navigation}) => {
-  // const fetchGuide = async children => {
-  //   const res = await fetchGuideList(children);
+  const [dogInfo, setDogInfo] = useState();
+  const [id, setId] = useState();
+  const [guideList, setguideList] = useState([]);
 
-  //   navigation.navigate('GuideCategory', {information});
-  // };
+  const dogId = useSelector(state => state.profile.id);
+
+  useLayoutEffect(() => {
+    const fetchInitialData = async () => {
+      const res = await getDog(dogId);
+      if (res) {
+        setDogInfo(res.name);
+        console.log(res.name);
+      }
+    };
+    fetchInitialData();
+  });
+  useLayoutEffect(() => {
+    const fetchGuide = async () => {
+      const response = await axios(url + '/api/guide?dog=' + dogId);
+      console.log(response);
+      if (response) {
+        setguideList(response.data);
+      }
+    };
+    fetchGuide();
+  }, []);
 
   return (
     <ScrollView>
@@ -42,11 +69,20 @@ const GuideHome = ({navigation}) => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <GuideButton
             onPress={() => {
-              navigation.navigate('GuideCategory', '여행');
+              navigation.navigate('GuideCategory', '제품');
             }}>
             {' '}
-            여행{' '}
+            제품{' '}
           </GuideButton>
+          <GuideButton
+            onPress={() => {
+              navigation.navigate('GuideCategory', '행동');
+            }}>
+            {' '}
+            행동{' '}
+          </GuideButton>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <GuideButton
             onPress={() => {
               navigation.navigate('GuideCategory', '훈련');
@@ -55,25 +91,9 @@ const GuideHome = ({navigation}) => {
             훈련{' '}
           </GuideButton>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <GuideButton
-            onPress={() => {
-              navigation.navigate('GuideCategory', '장소');
-            }}>
-            {' '}
-            장소{' '}
-          </GuideButton>
-          <GuideButton
-            onPress={() => {
-              navigation.navigate('GuideCategory');
-            }}>
-            {' '}
-            정보{' '}
-          </GuideButton>
-        </View>
         <View style={styles.guideTitle}>
           <Text style={{fontSize: responsiveFontSize(2.7), fontWeight: 'bold'}}>
-            앵두님께 추천드리는 가이드
+            {dogInfo}를 위한 맞춤형 추천 가이드
           </Text>
         </View>
         <View style={{flex: 3.3}}>

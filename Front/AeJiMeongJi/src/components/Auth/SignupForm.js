@@ -1,12 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, TextInput, View, Text} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../store/auth';
+import {useDispatch} from 'react-redux';
+import {authActions} from '../../store/auth';
 import Button from '../ui/Button';
 import Input from './Input';
-
-
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from 'react-native-responsive-dimensions';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -77,7 +80,12 @@ const SignupForm = () => {
       return;
     }
 
-    dispatch(authActions.fetchInfo({email:inputValues.email, password:inputValues.password}))
+    dispatch(
+      authActions.fetchInfo({
+        email: inputValues.email,
+        password: inputValues.password,
+      }),
+    );
 
     navigation.navigate('Signup2', {
       ...inputValues,
@@ -112,7 +120,7 @@ const SignupForm = () => {
         <View>
           <Text style={styles.errorMessage}>비밀번호는 8자리 이상,</Text>
           <Text style={styles.errorMessage}>
-            영어, 숫자 및 특수 문자를 포함해주세요.
+            영어 대소문자, 숫자 및 특수 문자를 포함해주세요.
           </Text>
         </View>
       )}
@@ -150,7 +158,7 @@ export default SignupForm;
 const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
-    width: 200,
+    width: responsiveWidth(50),
     marginTop: 24,
     alignSelf: 'center',
   },
@@ -158,11 +166,11 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   errorMessage: {
-    fontSize: 8,
+    fontSize: responsiveFontSize(1),
     fontWeight: 'bold',
-    marginTop: 4,
+    marginTop: responsiveHeight(1),
     color: 'red',
-    paddingLeft: 8,
+    paddingLeft: responsiveWidth(3),
   },
   btn: {
     // flex: 1,

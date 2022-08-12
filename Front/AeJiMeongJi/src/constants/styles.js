@@ -5,7 +5,7 @@ export const Colors = {
   btnBack200: '#DDB244',
   btnText: '#FBEDD3',
   notification: '#98CB58',
-  inputBorder: '#D6D6D6',
+  inputBorder: '#969696',
   contentBox: '#FBEDD3',
   contentText: '#553609',
   ProfileInputBorder: '#EEC589'

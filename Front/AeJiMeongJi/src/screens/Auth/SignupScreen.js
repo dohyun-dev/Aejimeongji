@@ -3,7 +3,11 @@ import {Text, View, StyleSheet} from 'react-native';
 import SignupForm from '../../components/Auth/SignupForm';
 import ProgressBar from '../../components/ui/ProgressBar';
 import {Colors} from '../../constants/styles';
-
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 const SignupScreen = ({navigation}) => {
   return (
     <View style={styles.rootContainer}>
@@ -21,35 +25,27 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 4,
+    flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: Colors.back100,
   },
   titleContainer: {
     flex: 1,
-    marginTop: 20,
+    marginTop: responsiveHeight(3),
     justifyContent: 'center',
   },
   title: {
     color: Colors.btnBack100,
     fontWeight: 'bold',
-    fontSize: 36,
+    fontSize: responsiveFontSize(4),
   },
   inputContainer: {
     flex: 3,
   },
-  input: {
-    minWidth: '70%',
-    paddingHorizontal: 10,
-    marginTop: 16,
-    borderWidth: 1,
-    borderRadius: 16,
-    borderColor: Colors.inputBorder,
-  },
   btn: {
     flex: 1,
-    marginTop: 16,
+    marginTop: responsiveHeight(4),
   },
   progress: {
     position: 'absolute',

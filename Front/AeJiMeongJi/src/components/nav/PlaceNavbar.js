@@ -16,16 +16,22 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/styles';
 
-const PlaceNavbar = ({source}) => {
+const PlaceNavbar = ({source, children}) => {
+const navigation = useNavigation()
+
   return (
     <View style={styles.nav}>
-      <Image
-        style={styles.profilelogo}
-        resizeMode="contain"
-        source={{uri: source}}
-      />
+      <Pressable onPress={() => {
+        navigation.navigate('Home')
+      }}>
+        <Image
+          style={styles.profilelogo}
+          resizeMode="contain"
+          source={{uri: source}}
+        />
+      </Pressable>
       <View style={styles.text}>
-        <Text>플레이스</Text>
+        <Text>{children}</Text>
       </View>
       <Pressable
         onPress={() => {
@@ -57,35 +63,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nav: {
-    height: 50,
+    height: responsiveHeight(7),
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
+  // imageContainer: {
+  //   height: responsiveHeight(20),
+  //   width: responsiveHeight(20)
+  // },
   contentbox: {
-    flex: 14,
     justifyContent: 'center',
     backgroundColor: Colors.back100,
   },
   profilelogo: {
-    width: responsiveWidth(13),
-    height: responsiveWidth(13),
-    borderRadius: responsiveWidth(13)
+    width: responsiveWidth(12),
+    height: responsiveWidth(12),
+    borderRadius: responsiveWidth(12),
+    marginLeft: responsiveWidth(4)
   },
   logo: {
     marginTop: 5,
-    maxWidth: '50%',
-    maxHeight: '60%',
   },
   calendarLogo: {
-    maxWidth: '40%',
-    maxHeight: '70%',
+    width: responsiveWidth(8),
   },
   text: {
     alignItems: 'center',
     flex: 1,
   },
   calendarContainer: {
-    alignItems: 'flex-end',
+    marginRight: responsiveWidth(4)
   },
 });
