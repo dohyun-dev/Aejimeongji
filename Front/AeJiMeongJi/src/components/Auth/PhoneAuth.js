@@ -4,7 +4,12 @@ import Input from './Input';
 import {Button as Btn} from '@rneui/themed';
 import {confirmCertHandler, fetchCertHandler, register} from '../../utils/auth';
 import {useDispatch, useSelector} from 'react-redux';
-import { authActions } from '../../store/auth';
+import {authActions} from '../../store/auth';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 const PhoneAuth = ({
   inputValues,
@@ -18,14 +23,14 @@ const PhoneAuth = ({
   const [cert, setCert] = useState(null);
   const certRegex = /^[0-9]{6}$/;
   const certIsValid = certRegex.test(cert);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [min, setMin] = useState(3);
   const [sec, setSec] = useState(0);
   const time = useRef(180);
   const timerId = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [phoneUUID, setPhoneUUID] = useState('')
-  
+  const [phoneUUID, setPhoneUUID] = useState('');
+
   const phoneAuthHandler = async () => {
     // Loading 중일 때 버튼을 인증 요청 => 확인
 
@@ -46,8 +51,8 @@ const PhoneAuth = ({
       // 인증번호 요청
       try {
         const res = await fetchCertHandler(inputValues.phone);
-        setPhoneUUID(res)
-        await dispatch(authActions.fetchPhoneUUID({phoneUUID:res}));
+        setPhoneUUID(res);
+        await dispatch(authActions.fetchPhoneUUID({phoneUUID: res}));
       } catch (error) {
         console.log(error);
       }
@@ -84,18 +89,18 @@ const PhoneAuth = ({
 
   return (
     <>
-      <View style={styles.phone}>
+      <View style={styles.inputContainer}>
         {!loading && (
           <Input
             textInputConfig={{
               value: inputValues.confirmPassword,
-              placeholder: '휴대폰번호, 숫자만 입력해주세요.',
+              placeholder: '휴대폰, 숫자만 입력해주세요.',
               autoCapitalize: 'none',
               keyboardType: 'numeric',
               onChangeText: inputChangeHandler.bind(this, 'phone'),
               onBlur: onBlurHandler.bind(this, 'phone'),
             }}
-            style={styles.btnCntr}
+            style={styles.input}
             // style={
             //   !confirmPasswordIsValid && !errors.confirmPassword
             //     ? styles.input
@@ -110,6 +115,7 @@ const PhoneAuth = ({
               keyboardType: 'numeric',
               onChangeText: onCertHandler,
             }}
+            style={styles.input}
           />
         )}
         {loading && phoneIsAuthenticated && (
@@ -118,7 +124,7 @@ const PhoneAuth = ({
           </View>
         )}
         {!loading && (
-          <View style={styles.btnCntr}>
+          <View>
             <Btn
               style={styles.btn}
               title="인증"
@@ -126,20 +132,20 @@ const PhoneAuth = ({
               onPress={phoneAuthHandler}></Btn>
           </View>
         )}
-        {loading && time.current > 0 && (
-          <View style={styles.btnCntr}>
+        {loading && time.current > 0 && !phoneIsAuthenticated && (
+          <View>
             <Btn
               type="clear"
               style={styles.btn}
               title="확인"
               onPress={phoneAuthHandler}></Btn>
-            <Text>
+            <Text style={styles.time}>
               {min}분 {sec}초
             </Text>
           </View>
         )}
         {loading && time.current <= 0 && (
-          <View style={styles.btnCntr}>
+          <View>
             <Btn
               style={styles.btn}
               onPress={changeBtnHandler}
@@ -162,35 +168,38 @@ export default PhoneAuth;
 const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
-    width: 200,
-    marginTop: 24,
+    width: responsiveWidth(50),
+    marginTop: responsiveHeight(5),
     alignSelf: 'center',
   },
   input: {
     borderColor: 'red',
   },
   errorMessage: {
-    fontSize: 8,
+    fontSize: responsiveFontSize(1),
     fontWeight: 'bold',
-    marginTop: 4,
+    marginTop: responsiveHeight(1),
     color: 'red',
-    paddingLeft: 8,
+    paddingLeft: responsiveWidth(3),
   },
-  phone: {
+  inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  btnCntr: {
-    paddingHorizontal: 5,
+  input: {
+    paddingHorizontal: responsiveWidth(1),
+    width: responsiveWidth(53),
+    paddingHorizontal: responsiveWidth(2),
   },
   btn: {
     flex: 1,
-    paddingHorizontal: 30,
   },
   afterPhoneAuth: {
-    minWidth: '60%',
-    paddingLeft: 10,
-    paddingTop: 15,
+    width: responsiveWidth(50),
+    paddingLeft: responsiveWidth(5),
+    paddingTop: responsiveHeight(5),
   },
+  time: {
+    paddingLeft: responsiveWidth(2)
+  }
 });

@@ -384,3 +384,19 @@ export const changeDogPhoto = async ({dogId, image}) => {
     console.log(error.response);
   }
 };
+
+export const fetchLikedGuide = async () => {
+  const memberId = await getMemberId()
+  const path=`/api/guide?member=${memberId}`
+
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    })
+    return res.data
+
+  } catch (error) {
+    console.log(error.response);
+  }
+}

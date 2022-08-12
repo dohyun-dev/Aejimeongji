@@ -47,6 +47,11 @@ const Initial = ({navigation}) => {
           navigation.navigate('PlaceHome');
         }}
         title="플레이스"></Button>
+      <Button
+        onPress={() => {
+          navigation.navigate('MyPage');
+        }}
+        title="마이페이지"></Button>
     </View>
   );
 };

@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.api.dto.ScrollResponse;
+import com.ssafy.aejimeongji.domain.condition.BookMarkListCondition;
 import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;
 import com.ssafy.aejimeongji.domain.entity.PetPlace;
@@ -49,9 +50,11 @@ public class PetPlaceService {
     }
 
     // 멤버 펫플레이스 북마크 목록
-    public List<Bookmark> findAllBookMark(Long memberId) {
+    public ScrollResponse<Bookmark> findAllBookMark(Long memberId, BookMarkListCondition condition) {
         log.info("{}", memberId);
-        return bookmarkRepository.findPetPlaceByMemberId(memberId);
+        Slice<Bookmark> result = bookmarkRepository.findPetPlaceByMemberId(memberId, condition.getCurLastIdx(), PageRequest.of(0, condition.getLimit()));
+        List<Bookmark> data = result.getContent();
+        return new ScrollResponse<Bookmark>(data, result.hasNext(), data.get(data.size() - 1).getId(), condition.getLimit());
     }
 
     // 펫플레이스 북마크
