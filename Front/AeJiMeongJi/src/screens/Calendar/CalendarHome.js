@@ -5,32 +5,11 @@ import {Avatar, Button, Card, Title, Typography} from 'react-native-paper';
 import {Colors} from '../../constants/styles';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import Navbar from './../../components/nav/Navbar';
-import {useSelector} from 'react-redux';
 import {format} from 'date-fns';
-import axios from 'axios';
-const url = 'http://i7d203.p.ssafy.io:8080';
-const now = new Date();
+
+import TodoList from '../../components/Todo/TodoList';
 
 const CalendarHome = ({navigation}) => {
-  const dogId = useSelector(state => state.profile.id);
-
-  const openModal = props => {
-    console.log('데이터이지');
-    console.log(props.dateString);
-    axios
-      .get(url + `/api/dog/${dogId}/calendar?date=${props.dateString}`)
-      .then(response => {
-        console.log('reponse찍기');
-        console.log(response);
-        if (response.status == 200) {
-          console.log('오늘의 to-do');
-          console.log(response.data);
-        } else {
-          console.log(error.response + '가이드받기에러');
-        }
-      });
-  };
-
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), 'yyyy-MM-dd'),
   );
@@ -78,6 +57,8 @@ const CalendarHome = ({navigation}) => {
   };
   LocaleConfig.defaultLocale = 'calendarData';
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.rootContainer}>
       {/* <Navbar /> */}
@@ -116,22 +97,21 @@ const CalendarHome = ({navigation}) => {
           }}
           onDayPress={day => {
             setSelectedDate(day.dateString);
-            openModal(day);
+
+            setModalVisible(true);
           }}
         />
+        {/* <TodoList
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          selectedDate={selectedDate}
+        /> */}
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('TodoUpload');
-        }}
-        style={{paddingLeft: 24}}>
-        <Image
-          style={styles.plusButton}
-          resizeMode="contain"
-          source={require('../../Assets/image/plusButton.png')}
-          title="plusButton"
-        />
-      </TouchableOpacity>
+      <TodoList
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selectedDate={selectedDate}
+      />
     </View>
   );
 };
@@ -209,16 +189,5 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 10,
     marginTop: 17,
-  },
-  plusButton: {
-    borderWidth: 1,
-    position: 'absolute',
-    bottom: 60,
-    right: 20,
-    alignSelf: 'flex-end',
-    marginTop: 5,
-
-    maxWidth: '10%',
-    maxHeight: '10%',
   },
 });
