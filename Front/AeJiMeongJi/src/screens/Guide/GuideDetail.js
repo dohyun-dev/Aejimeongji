@@ -41,7 +41,13 @@ const GuideDetail = props => {
           />
         </View>
         <View style={styles.container}>
-          <Text style={{fontSize: 30}}>{GuideDetail.title}</Text>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(4),
+              marginBottom: responsiveHeight(3),
+            }}>
+            {GuideDetail.title}
+          </Text>
           <View style={styles.contentBox}>
             <Markdown>{GuideDetail.content}</Markdown>
           </View>
@@ -60,7 +66,7 @@ const GuideDetail = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.back100,
-    padding: 20,
+    padding: responsiveWidth(6),
     height: 2200,
   },
   footer: {
@@ -73,7 +79,6 @@ const styles = StyleSheet.create({
   runImg: {
     maxWidth: '100%',
     height: responsiveHeight(40),
-    marginBottom: responsiveHeight(3),
   },
   contentBox: {},
   contentImg: {
