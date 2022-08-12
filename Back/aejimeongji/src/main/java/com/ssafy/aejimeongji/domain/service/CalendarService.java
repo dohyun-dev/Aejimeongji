@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,16 +59,38 @@ public class CalendarService {
         Calendar findCalendar = findTodo(id);
         calendarRepository.delete(findCalendar);
     }
-//
-////     Message
-//    @Transactional
-//    public Long findMessage(LocalDate birthday) {
-//
-//        LocalDate nowDate = LocalDate.now();
-//        Long betweenDate = ChronoUnit.DAYS.between(birthday, nowDate);
-//
+
+//     Message
+    @Transactional
+    public String findMessage(Date birthday) {
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Calendar birth = java.util.Calendar.getInstance();
+        birth.setTime(birthday);
+
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        now.setTime(new Date());
+
+        // 1차 접종
+        birth.add(java.util.Calendar.MONTH, 7);
+        if (now == birth) {
+            return "";
+        }
+
+        // 2-1차 접종
+        birth.add(java.util.Calendar.MONTH, 3);
+
+        // 2-2차 접종
+        birth.add(java.util.Calendar.MONTH, 3);
+
+        // 2-3차 접종
+        birth.add(java.util.Calendar.MONTH, 3);
+
+        // 3차 접종
+
+
 //        HashMap<String, String> inoculation = new HashMap<String, String>();
 //        inoculation.put();
-//
-//    }
+        return "";
+    }
 }
