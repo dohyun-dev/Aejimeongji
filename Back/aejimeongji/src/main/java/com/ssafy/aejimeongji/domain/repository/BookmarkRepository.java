@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
-    @Query("select bm from Bookmark bm join fetch bm.petPlace p join fetch bm.member m where m.id = :memberId")
+    @Query("select bm from Bookmark bm join fetch bm.petPlace p join bm.member m where m.id = :memberId")
     List<Bookmark> findPetPlaceByMemberId(@Param("memberId") Long memberId);
 
     Optional<Bookmark> findBookmarkByMemberIdAndPetPlaceId(Long memberId, Long petplaceId);

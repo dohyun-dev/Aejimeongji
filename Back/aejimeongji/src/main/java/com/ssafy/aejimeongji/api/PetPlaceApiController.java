@@ -54,7 +54,7 @@ public class PetPlaceApiController {
         log.info("{}번 회원이 북마크한 펫플레이스", memberId);
         List<Bookmark> list = petPlaceService.findAllBookMark(memberId);
         List<PetPlaceResponse> result = list.stream()
-                .map(o -> new PetPlaceResponse(petPlaceService.findPetPlace(o.getId())))
+                .map(o -> new PetPlaceResponse(petPlaceService.findPetPlace(o.getPetPlace().getId())))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(result);
     }

@@ -50,6 +50,7 @@ public class PetPlaceService {
 
     // 멤버 펫플레이스 북마크 목록
     public List<Bookmark> findAllBookMark(Long memberId) {
+        log.info("{}", memberId);
         return bookmarkRepository.findPetPlaceByMemberId(memberId);
     }
 
