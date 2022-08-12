@@ -9,7 +9,9 @@ const ToddUpload = props => {
     <View style={styles.rootContainer}>
       <View style={styles.titleContainer}>
         {/* 선택하는 날짜로 띄우기 */}
-        <Text style={styles.title}>8월 2일</Text>
+        <Text style={styles.title}>
+          {props.route.params.date ? props.route.params.date : ' '}
+        </Text>
       </View>
       <View style={styles.inputContainer}>
         <TodoForm />

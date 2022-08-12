@@ -6,8 +6,11 @@ import {Colors} from '../../constants/styles';
 import SwitchToggle from 'react-native-switch-toggle';
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+
 const url = 'http://i7d203.p.ssafy.io:8080';
 const TodoForm = () => {
+  const navigation = useNavigation();
   const dogId = useSelector(state => state.profile.id);
   const [isHome, setIsHome] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
@@ -15,6 +18,10 @@ const TodoForm = () => {
 
   const inputChangeHandler = entredValue => {
     setContent(entredValue);
+  };
+
+  const backHandler = () => {
+    navigation.navigate('CalendarHome');
   };
 
   const submitHandler = () => {
@@ -90,6 +97,9 @@ const TodoForm = () => {
       <View style={styles.btnContainer2}>
         <Button onPress={submitHandler}>등록하기</Button>
       </View>
+      <View style={styles.btnContainer3}>
+        <Button onPress={backHandler}>뒤로가기</Button>
+      </View>
     </View>
   );
 };
@@ -132,6 +142,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   btnContainer2: {
+    flex: 1,
+    width: '70%',
+    marginTop: 40,
+    alignSelf: 'center',
+  },
+  btnContainer3: {
     flex: 1,
     width: '70%',
     marginTop: 40,

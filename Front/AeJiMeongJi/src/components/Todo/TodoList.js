@@ -12,11 +12,14 @@ import {
   Image,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 import axios from 'axios';
 const url = 'http://i7d203.p.ssafy.io:8080';
 
 const TodoList = props => {
+  const navigation = useNavigation();
+
   const dogId = useSelector(state => state.profile.id);
   const [todolist, setTodolist] = useState([]);
 
@@ -117,7 +120,7 @@ const TodoList = props => {
         </Animated.View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('TodoUpload');
+            navigation.navigate('TodoUpload', {date: props.selectedDate});
           }}
           style={{paddingLeft: 24}}>
           <Image
