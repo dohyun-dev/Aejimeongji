@@ -48,8 +48,7 @@ public class WalkingDogService {
     }
 
     public ScrollResponse<WalkingDog> getWalkingDogList(Long dogId, WalkingDogCondition condition) {
-        long curLastIdx = condition.getCurLastIdx() != null ? condition.getCurLastIdx() : Long.MAX_VALUE;
-        Slice<WalkingDog> result = walkingDogRepository.findByDogId(dogId, curLastIdx, PageRequest.of(0, condition.getLimit()));
+        Slice<WalkingDog> result = walkingDogRepository.findByDogId(dogId, condition.getCurLastIdx(), PageRequest.of(0, condition.getLimit()));
         List<WalkingDog> data = result.getContent();
         return new ScrollResponse<WalkingDog>(data, result.hasNext(), data.get(data.size()-1).getId(), condition.getLimit());
     }
