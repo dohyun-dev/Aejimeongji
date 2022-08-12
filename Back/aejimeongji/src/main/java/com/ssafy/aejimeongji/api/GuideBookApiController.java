@@ -5,6 +5,7 @@ import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookResponse;
 import com.ssafy.aejimeongji.domain.condition.GuideSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Category;
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
+import com.ssafy.aejimeongji.domain.entity.Like;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class GuideBookApiController {
             return ResponseEntity.ok().body(guideBookService.categorizedGuideBookList(condition.getCategory()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
         } else {
             log.info("사용자 {} 좋아요 가이드 목록 요청", condition);
-            Slice<GuideBook> result = guideBookService.likedGuideBookList(condition.getMember(), condition.getCurLastIdx(), condition.getLimit());
+            Slice<Like> result = guideBookService.likedGuideBookList(condition.getMember(), condition.getCurLastIdx(), condition.getLimit());
             List<GuideBookResponse> data = result.getContent().stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
             return ResponseEntity.ok().body(new ScrollResponse(data, result.hasNext(), data.get(data.size()-1).getGuideId(), result.getSize()));
         }
