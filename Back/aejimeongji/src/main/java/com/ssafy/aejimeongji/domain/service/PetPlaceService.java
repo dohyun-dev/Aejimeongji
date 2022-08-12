@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +76,8 @@ public class PetPlaceService {
     }
 
     private void removeData(List<PetPlace> data) {
-        if (data.size() > 1)
-            data.remove(data.size()-1);
+        List<PetPlace> list = new ArrayList<>(data);
+        if (list.size() > 1)
+            list.remove(data.size()-1);
     }
 }
