@@ -16,7 +16,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByMemberIdAndGuideBookId(Long memberId, Long guideId);
 
     @Query("select g From Like l " +
-            "join fetch l.guideBook g " +
+            "join fetch l.guideBook g join fetch g.thumbnail t " +
             "where l.member.id = :memberId " +
             "and l.id < :curLastIdx " +
             "order by l.id desc ")
