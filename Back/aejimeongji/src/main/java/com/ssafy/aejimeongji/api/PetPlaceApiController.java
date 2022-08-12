@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,14 @@ public class PetPlaceApiController {
         log.info("반경 {}km 안의 펫플레이스 리스트", condition.getDist());
         if (condition.getLat() != null && condition.getLng() != null && condition.getDist() != null) {
             ScrollResponse<PetPlace> result = petPlaceService.searchPetPlaceAll(condition);
-            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p)).collect(Collectors.toList());
+            List<PetPlaceResponse> data = result.getData().stream()
+                    .map(p -> new PetPlaceResponse(p, condition.getLat(), condition.getLng()))
+                    .sorted(Comparator.comparing(PetPlaceResponse::getDistance))
+                    .collect(Collectors.toList());
             return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         } else {
             ScrollResponse<PetPlace> result = petPlaceService.searchPetPlaceAll(condition);
-            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p, condition.getLat(), condition.getLng())).collect(Collectors.toList());
+            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p)).collect(Collectors.toList());
             return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         }
     }
