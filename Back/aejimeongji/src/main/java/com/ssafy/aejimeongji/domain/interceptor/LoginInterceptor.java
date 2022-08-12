@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.debug("엑세스 토큰 = {}", accessToken);
 
         // Bearer 체크
-        if (accessToken == null && !accessToken.startsWith("Bearer ")) {
+        if (accessToken == null || !accessToken.startsWith("Bearer ")) {
             log.debug("엑세스 토큰이 존재하지 않습니다. 엑세스 토큰 = {}", accessToken);
             throw new NotExistTokenException();
         }
