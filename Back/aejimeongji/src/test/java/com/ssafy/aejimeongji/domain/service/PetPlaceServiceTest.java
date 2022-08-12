@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.api.dto.ScrollResponse;
+import com.ssafy.aejimeongji.domain.condition.BookMarkListCondition;
 import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;
 import com.ssafy.aejimeongji.domain.entity.Member;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -101,11 +103,13 @@ class PetPlaceServiceTest {
         bookmarkRepository.save(bookmark1);
         bookmarkRepository.save(bookmark2);
 
+        BookMarkListCondition condition = new BookMarkListCondition();
+
         //when
-        List<Bookmark> list = petPlaceService.findAllBookMark(member.getId());
+        ScrollResponse<Bookmark> list = petPlaceService.findAllBookMark(member.getId(), condition);
 
         //then
-        assertEquals(petPlace1.getName(), list.get(0).getPetPlace().getName());
+        assertEquals(petPlace2.getName(), list.getData().get(0).getPetPlace().getName());
     }
 
     @Test
