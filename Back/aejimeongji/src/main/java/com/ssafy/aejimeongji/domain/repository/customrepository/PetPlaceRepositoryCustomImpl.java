@@ -8,15 +8,18 @@ import com.ssafy.aejimeongji.domain.util.Direction;
 import com.ssafy.aejimeongji.domain.util.GeometryUtil;
 import com.ssafy.aejimeongji.domain.util.Location;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.ssafy.aejimeongji.domain.entity.QPetPlace.petPlace;
 
+@Slf4j
 @RequiredArgsConstructor
 public class PetPlaceRepositoryCustomImpl implements PetPlaceRepositoryCustom {
 
@@ -60,14 +63,15 @@ public class PetPlaceRepositoryCustomImpl implements PetPlaceRepositoryCustom {
 
         String sql = "SELECT * FROM petplace AS p WHERE MBRContains(ST_LINESTRINGFROMTEXT(" + String.format("'LINESTRING(%f %f, %f %f)')", x1, y1, x2, y2) + ", p.point) ";
 
-        sql += String.format("p.id < %d ", curLastIdx);
+        sql += String.format("and p.id < %d ", curLastIdx);
 
-        if (!condition.getCategory().isBlank())
-            sql += String.format("p.category = '%s' ", condition.getCategory());
+        if (StringUtils.hasText(condition.getCategory()))
+            sql += String.format("and p.category like '%s' ", condition.getCategory());
 
-        sql += String.format("ORDER BY id DESC LIMIT %d %d", request.getOffset(), request.getPageSize() + 1);
+        sql += String.format("ORDER BY id DESC LIMIT %d, %d", request.getOffset(), request.getPageSize() + 1);
 
         result = em.createNativeQuery(sql, PetPlace.class).getResultList();
+
         return result;
     }
 
