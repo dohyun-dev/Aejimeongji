@@ -10,7 +10,6 @@ import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -35,7 +33,9 @@ public class GuideBookApiController {
             return ResponseEntity.ok().body(getCustomizedGuideResult(guideBookService.customizedGuideBookList(condition.getDog())));
         } else if (condition.getCategory() != null) {
             log.info("'{}' 카테고리 가이드 목록 요청", condition);
-            return ResponseEntity.ok().body(guideBookService.categorizedGuideBookList(condition.getCategory()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
+            Slice<GuideBook> result = guideBookService.categorizedGuideBookList(condition.getCategory(), condition.getCurLastIdx(), condition.getLimit());
+            List<GuideBookResponse> data = result.getContent().stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
+            return ResponseEntity.ok().body(new ScrollResponse(data, result.hasNext(), data.get(data.size() - 1).getGuideId(), result.getSize()));
         } else {
             log.info("사용자 {} 좋아요 가이드 목록 요청", condition);
             Slice<Like> result = guideBookService.likedGuideBookList(condition.getMember(), condition.getCurLastIdx(), condition.getLimit());
@@ -53,6 +53,7 @@ public class GuideBookApiController {
 
     @GetMapping("/category")
     public ResponseEntity<List<String>> getCategories() {
+        log.info("카테고리 목록 조회 요청");
         List<String> result = guideBookService.getCategories().stream().map(Category::getName).collect(Collectors.toList());
         return ResponseEntity.ok().body(result);
     }

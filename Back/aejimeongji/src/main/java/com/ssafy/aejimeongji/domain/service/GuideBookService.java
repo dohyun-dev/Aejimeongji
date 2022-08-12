@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -37,7 +36,6 @@ public class GuideBookService {
     private final DogRepository dogRepository;
     private final CategoryRepository categoryRepository;
     private final ImageUtil imageUtil;
-    private final Random random = new Random();
 
     // 맞춤 가이드 조회
     public Map<String, List<GuideBook>> customizedGuideBookList(Long dogId) {
@@ -55,8 +53,8 @@ public class GuideBookService {
     }
 
     // 카테고리별 가이드 목록 조회
-    public List<GuideBook> categorizedGuideBookList(String category) {
-        return guideBookRepository.findByCategory(category);
+    public Slice<GuideBook> categorizedGuideBookList(String category, Long curLastIdx, Integer limit) {
+        return guideBookRepository.findByCategory(category, curLastIdx, PageRequest.of(0, limit));
     }
 
     // 멤버별 좋아요 가이드 목록 조회
