@@ -14,6 +14,8 @@ import com.ssafy.aejimeongji.domain.repository.LikeRepository;
 import com.ssafy.aejimeongji.domain.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,10 +60,9 @@ public class GuideBookService {
     }
 
     // 멤버별 좋아요 가이드 목록 조회
-//    public List<GuideBook> likedGuideBookList(Long memberId) {
-//        List<Like> likeList = likeRepository.findLikeGuideBook(memberId);
-//        return likeList.stream().map(Like::getGuideBook).collect(Collectors.toList());
-//    }
+    public Slice<GuideBook> likedGuideBookList(Long memberId, Long curLastIdx, Integer limit) {
+        return likeRepository.findLikeGuideBook(memberId, curLastIdx, PageRequest.of(0, limit));
+    }
 
     // 가이드 상세 조회
     public GuideBook findGuideBook(Long guideBookId) {
