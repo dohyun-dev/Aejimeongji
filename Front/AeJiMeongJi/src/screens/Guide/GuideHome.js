@@ -110,11 +110,7 @@ const GuideHome = ({navigation}) => {
           </Text>
           <SubCard
             style={styles.subCards}
-            category={guideList.fixedGuideList[0]}></SubCard>
-          <SubCard style={styles.subCards}></SubCard>
-          <SubCard style={styles.subCards}></SubCard>
-          <SubCard style={styles.subCards}></SubCard>
-          <SubCard style={styles.subCards}></SubCard>
+            category={guideList.fixedGuideList}></SubCard>
         </View>
         <View style={styles.subguideTitle2}>
           <Text style={{fontSize: responsiveFontSize(2.5), fontWeight: 'bold'}}>

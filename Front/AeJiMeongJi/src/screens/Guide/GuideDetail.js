@@ -55,7 +55,7 @@ const GuideDetail = props => {
       </ScrollView>
       <View style={styles.footer}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <GuideLike></GuideLike>
+          <GuideLike data={GuideDetail.guideId}></GuideLike>
           <GuideShare></GuideShare>
         </View>
       </View>

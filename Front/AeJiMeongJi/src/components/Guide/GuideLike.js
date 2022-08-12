@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Pressable, View, Button, StyleSheet, Image} from 'react-native';
 import {
   responsiveHeight,
@@ -12,9 +12,47 @@ import Animated, {
   Extrapolate,
   interpolate,
 } from 'react-native-reanimated';
+import {getMemberId} from '../../utils/auth';
+import {useSelector, useDispatch} from 'react-redux';
+import axios from '../../utils/index';
 
-const LikeButton = () => {
+const url = 'http://i7d203.p.ssafy.io:8080';
+
+const LikeButton = props => {
   const liked = useSharedValue(0);
+  const memberId = useSelector(state => state.auth.id);
+  const dogId = useSelector(state => state.profile.id);
+  // console.log(memberId);
+  console.log(props.data);
+  const submitHandler = () => {
+    // if (content == '') {
+    //   Alert.alert('내용을 입력해주세요');
+    //   return;
+    // }
+
+    console.log('content');
+    console.log(content);
+
+    let data = {
+      content: content,
+      date: '2022-08-12',
+      isActive: isHome,
+      isAlert: isAlert,
+    };
+
+    axios
+      .post(url + `/api/dog/${memberId}/guide/${guideId}/like`, data, {
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(response => {
+        if (response.status == 200) {
+          console.log('To-Do 등록 성공');
+          console.log(response);
+        } else {
+          console.log('To-Do 등록에 실패했습니다.');
+        }
+      });
+  };
 
   const outlineStyle = useAnimatedStyle(() => {
     return {
