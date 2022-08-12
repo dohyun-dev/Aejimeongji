@@ -34,7 +34,8 @@ public class PetPlaceService {
     public ScrollResponse<PetPlace> searchPetPlaceAll(PetPlaceSearchCondition condition) {
         Slice<PetPlace> result = petPlaceRepostiory.searchPetPlaceAll(condition, condition.getCurLastIdx(), PageRequest.of(0, condition.getLimit()));
         List<PetPlace> data = result.getContent();
-        return new ScrollResponse(data, result.hasNext(), data.get(data.size()-1).getId(), condition.getLimit());
+        removeData(data);
+        return new ScrollResponse(data, result.hasNext(), !data.isEmpty() ? data.get(data.size()-1).getId() : 0, condition.getLimit());
     }
 
     public List<PetPlace> findPetPlaceList() {
@@ -71,5 +72,10 @@ public class PetPlaceService {
             throw new IllegalArgumentException("아직 북마크 하지 않았습니다.");
         }
         bookmarkRepository.delete(bookmark.get());
+    }
+
+    private void removeData(List<PetPlace> data) {
+        if (data.size() > 1)
+            data.remove(data.size()-1);
     }
 }
