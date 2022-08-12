@@ -15,5 +15,5 @@ public class PetPlaceSearchCondition {
     private Double lng;
     private Double dist;
     private Long curLastIdx = Long.MAX_VALUE;
-    private int limit;
+    private int limit = 10;
 }
