@@ -10,6 +10,7 @@ import {
   PanResponder,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -86,9 +87,9 @@ const TodoList = props => {
     });
   };
 
-  const toDo = todolist.map(todo => {
+  const toDo = todolist.map((todo, index) => {
     return (
-      <View style={styles.todoDetail}>
+      <View style={styles.todoDetail} key={index}>
         <View style={styles.todoCategory}>
           <Text style={{fontWeight: 'bold'}}>할일</Text>
         </View>
@@ -113,18 +114,33 @@ const TodoList = props => {
             transform: [{translateY: translateY}],
           }}
           {...panResponders.panHandlers}>
-          <Text style={{fontSize: 30, color: '#553609', marginBottom: 10}}>
+          <Text
+            style={{
+              fontSize: 30,
+              color: '#553609',
+              marginTop: 10,
+              marginBottom: 20,
+            }}>
             {props.selectedDate.substr(0, 4)}년{' '}
             {props.selectedDate.substr(5, 2)}월{' '}
             {props.selectedDate.substr(8, 2)}일
           </Text>
-          <View style={{height: '80%', width: '100%'}}>
-            {todolist.length != 0 ? (
-              <View style={styles.todoContent}>{toDo}</View>
-            ) : (
-              <Text></Text>
-            )}
-          </View>
+          <ScrollView style={{width: '100%'}}>
+            <View style={{height: '80%', width: '100%', marginBottom: 100}}>
+              {todolist.length != 0 ? (
+                <View style={styles.todoContent}>{toDo}</View>
+              ) : (
+                <View>
+                  {/* <NothingTodo /> */}
+                  <Image
+                    style={{height: 400, width: 400}}
+                    resizeMode="contain"
+                    source={require('../../Assets/image/nothing.gif')}
+                  />
+                </View>
+              )}
+            </View>
+          </ScrollView>
         </Animated.View>
         <TouchableOpacity
           onPress={() => {
@@ -163,7 +179,7 @@ const styles = StyleSheet.create({
   plusButton: {
     borderWidth: 1,
     position: 'absolute',
-    bottom: 60,
+    bottom: 80,
     right: 20,
     alignSelf: 'flex-end',
     marginTop: 5,
