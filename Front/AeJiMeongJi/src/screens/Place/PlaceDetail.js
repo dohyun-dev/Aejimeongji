@@ -82,7 +82,7 @@ const PlaceDetail = ({route}) => {
   const [placeDetail, setPlaceDetail] = useState();
   const [infoImage, setInfoImage] = useState();
   const [reviews, setReviews] = useState();
-  console.log(route.params);
+  console.log(route);
 
   useLayoutEffect(() => {
     const initialData = async () => {

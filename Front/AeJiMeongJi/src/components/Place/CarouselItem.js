@@ -10,61 +10,37 @@ import {
 } from 'react-native-responsive-dimensions';
 import {fetchPlace} from '../../utils/place';
 
-const DummyData = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
-];
-
-const renderItem = ({item, index}, parallaxProps) => {
-  const goToDetail = () => {
-    console.log('title 클릭');
-  };
-  return (
-    <View style={styles.item}>
-      <ParallaxImage
-        source={{uri: item.petplaceThumbnail}}
-        containerStyle={styles.imageContainer}
-        style={styles.image}
-        parallaxFactor={0.4}
-        {...parallaxProps}
-      />
-      <Pressable onPress={goToDetail}>
-        <Text style={styles.title} numberOfLines={1}>
-          {item.name}
-        </Text>
-        <Text>
-          {Math.floor(item.distance/1000)} km
-        </Text>
-      </Pressable>
-    </View>
-  );
-};
-
 const CarouselItem = ({category, lat, lng}) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
+
+  const renderItem = ({item, index}, parallaxProps) => {
+    const goToDetail = () => {
+      console.log('title 클릭');
+      const {id, address} = item;
+      console.log(id, address);
+      navigation.navigate('PlaceDetail', {id, address})
+    };
+    return (
+      <View style={styles.item}>
+        <ParallaxImage
+          source={{uri: item.petplaceThumbnail}}
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          parallaxFactor={0.4}
+          {...parallaxProps}
+        />
+        <Pressable style={styles.infoContainer} onPress={goToDetail}>
+          <Text style={styles.title} numberOfLines={1}>
+            {item.name}
+          </Text>
+          <Text style={styles.distance}>
+            {Math.floor(item.distance / 1000)} km
+          </Text>
+        </Pressable>
+      </View>
+    );
+  };
+
   const [placeData, setPlaceData] = useState();
   const goToCategory = () => {
     navigation.navigate('PlaceCategory', {category, placeData});
@@ -73,7 +49,7 @@ const CarouselItem = ({category, lat, lng}) => {
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlace(category, lat, lng);
-      setPlaceData(res.data)
+      setPlaceData(res.data);
     };
     initialData();
   }, []);
@@ -124,7 +100,7 @@ const styles = StyleSheet.create({
   },
   detailText: {
     color: '#90560D',
-    fontSize: responsiveFontSize(1.5),
+    fontSize: responsiveFontSize(1.8),
   },
   item: {
     width: responsiveWidth(30),
@@ -139,5 +115,11 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
+  },
+  categoryText: {
+    marginBottom: responsiveHeight(2),
+  },
+  distance: {
+    fontSize: responsiveFontSize(1.5),
   },
 });
