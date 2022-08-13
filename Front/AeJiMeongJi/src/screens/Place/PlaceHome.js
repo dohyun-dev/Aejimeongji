@@ -16,30 +16,15 @@ import PlaceNavbar from '../../components/nav/PlaceNavbar';
 import {useSelector} from 'react-redux';
 import {getDog} from '../../utils/profile';
 import Geolocation from 'react-native-geolocation-service';
-
-async function requestPermission() {
-  try {
-    if (Platform.OS === 'ios') {
-      return await Geolocation.requestAuthorization('always');
-    }
-    // 안드로이드 위치 정보 수집 권한 요청
-    if (Platform.OS === 'android') {
-      return await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
-
+import CarouselList from '../../components/Place/CarouselList';
+import {fetchPlace} from '../../utils/place';
 
 const PlaceHome = () => {
-  
   const dogId = useSelector(state => state.profile.id);
   const [source, setSource] = useState();
   const [dogInfo, setDogInfo] = useState();
   const [location, setLocation] = useState();
+  const [placeData, setPlaceData] = useState();
 
   useEffect(() => {
     const InitialData = async () => {
@@ -63,7 +48,8 @@ const PlaceHome = () => {
           Geolocation.getCurrentPosition(pos => {
             // api 호출
             // const res = await 호출()
-            setLocation(pos.coords)});
+            setLocation(pos.coords);
+          });
         }
       }
     };
@@ -78,15 +64,8 @@ const PlaceHome = () => {
         <View>
           <DogInfo source={source} dogInfo={dogInfo} />
         </View>
-        {/* <CarouselItem
-        category={data.category 형식으로}
-        */}
-
         <View>
-          <CarouselItem />
-        </View>
-        <View>
-          <CarouselItem />
+          <CarouselList lat={location?.latitude} lng={location?.longitude} />
         </View>
       </ScrollView>
     </SafeAreaView>

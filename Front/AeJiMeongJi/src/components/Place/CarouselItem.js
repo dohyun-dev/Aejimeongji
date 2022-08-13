@@ -1,13 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {Colors} from '../../constants/styles';
 import {
   responsiveHeight,
   responsiveWidth,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+import {fetchPlace} from '../../utils/place';
 
 const DummyData = [
   {
@@ -38,38 +39,52 @@ const DummyData = [
 ];
 
 const renderItem = ({item, index}, parallaxProps) => {
-    const goToDetail = () => {
-        console.log('title 클릭');
-    }
+  const goToDetail = () => {
+    console.log('title 클릭');
+  };
   return (
     <View style={styles.item}>
       <ParallaxImage
-        source={{uri: item.illustration}}
+        source={{uri: item.petplaceThumbnail}}
         containerStyle={styles.imageContainer}
         style={styles.image}
         parallaxFactor={0.4}
         {...parallaxProps}
       />
       <Pressable onPress={goToDetail}>
-        <Text style={styles.title} numberOfLines={2}>
-          {item.title}
+        <Text style={styles.title} numberOfLines={1}>
+          {item.name}
+        </Text>
+        <Text>
+          {Math.floor(item.distance/1000)} km
         </Text>
       </Pressable>
     </View>
   );
 };
 
-const CarouselItem = ({category}) => {
+const CarouselItem = ({category, lat, lng}) => {
   const navigation = useNavigation();
+  const [placeData, setPlaceData] = useState();
   const goToCategory = () => {
-    navigation.navigate('PlaceCategory', category)
+    navigation.navigate('PlaceCategory', category);
   };
+
+  useLayoutEffect(() => {
+    const initialData = async () => {
+      const res = await fetchPlace(category, lat, lng);
+      setPlaceData(res.data)
+    };
+    initialData();
+  }, []);
 
   return (
     <View style={styles.rootContainer}>
       <View style={styles.textContainer}>
         <View style={styles.categoryText}>
-          <Text style={styles.CartegoryTitle}>반려견과 함께 방문할 맛집</Text>
+          <Text style={styles.CartegoryTitle}>
+            반려견과 함께 방문할 {category}
+          </Text>
         </View>
         <Pressable style={styles.detail} onPress={goToCategory}>
           <Text style={styles.detailText}>전체보기</Text>
@@ -79,7 +94,7 @@ const CarouselItem = ({category}) => {
         sliderWidth={responsiveWidth(100)}
         sliderHeight={responsiveHeight(50)}
         itemWidth={responsiveWidth(33)}
-        data={DummyData}
+        data={placeData}
         renderItem={renderItem}
         hasParallaxImages={true}
         showSpinner={true}
