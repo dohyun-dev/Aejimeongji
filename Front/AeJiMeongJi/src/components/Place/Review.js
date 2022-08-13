@@ -40,6 +40,7 @@ const hasTags = ({item}) => {
   );
 };
 const Review = ({item}) => {
+  console.log(item);
   return (
     <View style={styles.rootContainer}>
       <View style={styles.reviewerContainer}>
@@ -59,7 +60,7 @@ const Review = ({item}) => {
         </View>
         <View style={styles.hashTag}>
           <FlatList
-            data={item.hash_tags}
+            data={item.hashTags}
             renderItem={hasTags}
             horizontal={true}
           />

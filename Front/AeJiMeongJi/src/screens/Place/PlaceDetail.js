@@ -16,6 +16,7 @@ import {
   searchPlace,
   getAvatar,
   fetchPlaceDetail,
+  fetchReviews,
 } from '../../utils/place';
 import Review, {reviewData} from '../../components/Place/Review';
 import ReviewCarousel from '../../components/Place/ReviewCarousel';
@@ -80,6 +81,7 @@ const PlaceDetail = ({route}) => {
   const [image, setImage] = useState();
   const [placeDetail, setPlaceDetail] = useState();
   const [infoImage, setInfoImage] = useState();
+  const [reviews, setReviews] = useState();
   console.log(route.params);
 
   useLayoutEffect(() => {
@@ -88,6 +90,8 @@ const PlaceDetail = ({route}) => {
       setImage(res.petplaceImageUrl);
       setPlaceDetail(res);
       setInfoImage(res.petplaceInfoUrl);
+      const reviewData = await fetchReviews(route.params.id)
+      setReviews(reviewData)
     };
 
     const getLocation = async () => {
@@ -128,7 +132,7 @@ const PlaceDetail = ({route}) => {
       <View style={styles.reviewContainer}>
         <FlatList
           key={'#'}
-          data={reviewData}
+          data={reviews}
           renderItem={Review}
           numColumns={1}
         />

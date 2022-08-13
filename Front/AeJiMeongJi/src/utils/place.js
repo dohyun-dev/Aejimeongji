@@ -75,18 +75,32 @@ export const fetchPlace = async (category, lat2, lng2) => {
   }
 };
 
-export const fetchPlaceDetail = async (petplaceId) => {
-  const path = `/api/petplace/${petplaceId}`
-  
+export const fetchPlaceDetail = async petplaceId => {
+  const path = `/api/petplace/${petplaceId}`;
+
   try {
     const res = await axios({
       method: 'get',
       url: url + path,
-    })
+    });
     console.log(res.data);
-    return res.data
-
+    return res.data;
   } catch (error) {
-    
+    console.log(error.response);
   }
-}
+};
+
+export const fetchReviews = async petplaceId => {
+  const id = 101;
+  const path = `/api/petplace/${id}/reviews`;
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
