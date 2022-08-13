@@ -11,14 +11,14 @@ import {
 import {fetchPlace} from '../../utils/place';
 
 const CarouselItem = ({category, lat, lng}) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const renderItem = ({item, index}, parallaxProps) => {
     const goToDetail = () => {
       console.log('title 클릭');
       const {id, address} = item;
       console.log(id, address);
-      navigation.navigate('PlaceDetail', {id, address})
+      navigation.navigate('PlaceDetail', {id, address});
     };
     return (
       <View style={styles.item}>
@@ -42,14 +42,19 @@ const CarouselItem = ({category, lat, lng}) => {
   };
 
   const [placeData, setPlaceData] = useState();
+  const [loadMoreData, setLoadMoreData] = useState();
+
   const goToCategory = () => {
-    navigation.navigate('PlaceCategory', {category, placeData});
+    navigation.navigate('PlaceCategory', {category, placeData, loadMoreData});
   };
 
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlace(category, lat, lng);
+      console.log(res, 'curlastidx 확인');
+      const loadMore = {curLastIdx:res.curLastIdx, hasNext:res.hasNext}
       setPlaceData(res.data);
+      setLoadMoreData(loadMore)
     };
     initialData();
   }, []);

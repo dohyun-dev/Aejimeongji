@@ -61,7 +61,8 @@ export const fetchPlace = async (category, lat2, lng2) => {
   const lat = 37.5665;
   const lng = 126.978;
   const dist = 1000;
-  const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&lng=${lng}`;
+  const limit = 10;
+  const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
 
   try {
     const res = await axios({
@@ -69,6 +70,23 @@ export const fetchPlace = async (category, lat2, lng2) => {
       url: url + path,
     });
     console.log(res.data.data, 'fetchPlace');
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchCategoryPlace = async (category, lat2, lng2) => {
+  const lat = 37.5665;
+  const lng = 126.978;
+  const dist = 1000;
+  const limit = 3;
+  const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -99,6 +117,23 @@ export const fetchReviews = async petplaceId => {
       url: url + path,
     });
     console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const fetchMoreData = async (category, lat2, lng2, curLastIdx) => {
+  const lat = 37.5665;
+  const lng = 126.978;
+  const dist = 1000;
+  const limit = 3;
+  const path = `/api/petplace?category=${category}&curLastIdx=${curLastIdx}&limit=${limit}&dist=${dist}&lat=${lat}&lng=${lng}`;
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
     return res.data;
   } catch (error) {
     console.log(error.response);
