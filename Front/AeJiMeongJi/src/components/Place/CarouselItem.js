@@ -45,13 +45,12 @@ const CarouselItem = ({category, lat, lng}) => {
   const [loadMoreData, setLoadMoreData] = useState();
 
   const goToCategory = () => {
-    navigation.navigate('PlaceCategory', {category, placeData, loadMoreData});
+    navigation.navigate('PlaceCategory', {category, placeData, loadMoreData, lat, lng});
   };
 
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlace(category, lat, lng);
-      console.log(res, 'curlastidx 확인');
       const loadMore = {curLastIdx:res.curLastIdx, hasNext:res.hasNext}
       setPlaceData(res.data);
       setLoadMoreData(loadMore)

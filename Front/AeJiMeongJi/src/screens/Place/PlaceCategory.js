@@ -18,7 +18,6 @@ const PlaceCategory = ({route}) => {
     route.params.loadMoreData.curLastIdx,
   );
   const [loading, setLoading] = useState(false);
-  console.log(hasNext, curLastIdx);
   const loadMore = async () => {
     console.log('loadmore');
     if (loading) {
@@ -27,7 +26,7 @@ const PlaceCategory = ({route}) => {
 
     if (hasNext) {
       setLoading(true)
-      const res = await fetchMoreData(route.params.category, 0, 0, curLastIdx);
+      const res = await fetchMoreData(route.params.category, route.params.lat, route.params.lng, curLastIdx);
       const newData = res.data;
       setData([...data, ...newData]);
       setHasNext(res.hasNext)
@@ -43,6 +42,7 @@ const PlaceCategory = ({route}) => {
       </View>
     )
   }
+
 
   useLayoutEffect(() => {
     const initialData = async () => {
