@@ -22,6 +22,8 @@ public class Calendar extends BaseTimeEntity {
 
     private Boolean isAlert;
 
+    private Boolean isInjection = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dog_id")
     private Dog dog;
@@ -40,6 +42,14 @@ public class Calendar extends BaseTimeEntity {
         this.date = date;
         this.isActive = isActive;
         this.isAlert = isAlert;
+    }
+
+    public Calendar(String content, LocalDate date) {
+        this.content = content;
+        this.date = date;
+        this.isActive = false;
+        this.isAlert = false;
+        this.isInjection = true;
     }
 
     public void setDog(Dog dog) {

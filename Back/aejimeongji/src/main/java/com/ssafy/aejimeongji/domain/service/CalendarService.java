@@ -63,6 +63,13 @@ public class CalendarService {
         calendarRepository.delete(findCalendar);
     }
 
+    @Transactional
+    public String createInjectionInfo(Long dogId, LocalDate birthday) {
+
+        saveCalender(dogId, new Calendar("1차 접종", birthday));
+        return "완료";
+    }
+
     // messages
     public String findMessages(LocalDate birthday) {
 
