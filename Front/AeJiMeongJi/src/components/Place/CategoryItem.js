@@ -12,11 +12,11 @@ import {Colors} from '../../constants/styles';
 import {useNavigation} from '@react-navigation/native';
 import {Button as Btn} from '@rneui/themed';
 
-const CategoryItem = ({source, title, rating, info, id}) => {
+const CategoryItem = ({source, title, rating, info, id, address}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     // console.log('placeDetail');
-    navigation.navigate('PlaceDetail', id);
+    navigation.navigate('PlaceDetail', {id, address});
   };
 
   return (

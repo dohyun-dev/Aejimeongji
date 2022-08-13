@@ -12,14 +12,19 @@ const PlaceMap = ({latitude, longitude}) => {
     <>
       <MapView
         region={{
-          latitude: 36.1098478,
-          longitude: 128.4253594,
+          latitude: latitude ? latitude : 36.1098478,
+          longitude: longitude ? longitude : 128.4253594,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         style={styles.map}
         provider={PROVIDER_GOOGLE}>
-        <Marker coordinate={{latitude:36.1098478, longitude:128.4253594}} />
+        <Marker
+          coordinate={{
+            latitude: latitude ? latitude : 36.1098478,
+            longitude: longitude ? longitude : 128.4253594,
+          }}
+        />
       </MapView>
     </>
   );

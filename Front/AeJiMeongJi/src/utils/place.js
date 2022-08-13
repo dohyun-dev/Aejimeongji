@@ -7,7 +7,6 @@ import {getMemberId} from './auth';
 const url = 'http://i7d203.p.ssafy.io:8080';
 
 export const searchPlace = async address => {
-  const temp = '';
   const path = `https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=${address}`;
   try {
     const res = await axios({
@@ -75,3 +74,19 @@ export const fetchPlace = async (category, lat2, lng2) => {
     console.log(error);
   }
 };
+
+export const fetchPlaceDetail = async (petplaceId) => {
+  const path = `/api/petplace/${petplaceId}`
+  
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    })
+    console.log(res.data);
+    return res.data
+
+  } catch (error) {
+    
+  }
+}

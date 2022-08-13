@@ -52,7 +52,7 @@ const renderItem = ({item, index}, parallaxProps) => {
   return (
     <View style={styles.item}>
       <ParallaxImage
-        source={{uri: item.source}}
+        source={{uri: item}}
         containerStyle={styles.imageContainer}
         style={styles.image}
         parallaxFactor={0.4}
@@ -62,18 +62,18 @@ const renderItem = ({item, index}, parallaxProps) => {
   );
 };
 
-const ReviewCarousel = () => {
+const ReviewCarousel = ({infoImage}) => {
   return (
     <View>
       <Carousel
         sliderWidth={responsiveWidth(100)}
-        sliderHeight={responsiveHeight(50)}
-        itemWidth={responsiveWidth(33)}
-        data={DummyData}
+        sliderHeight={responsiveHeight(100)}
+        itemWidth={responsiveWidth(100)}
+        data={infoImage}
         renderItem={renderItem}
         hasParallaxImages={true}
         showSpinner={true}
-        firstItem={1}
+        firstItem={0}
       />
     </View>
   );
@@ -83,8 +83,8 @@ export default ReviewCarousel;
 
 const styles = StyleSheet.create({
   item: {
-    width: responsiveWidth(40),
-    height: responsiveWidth(40),
+    width: responsiveWidth(100),
+    height: responsiveWidth(80),
   },
   imageContainer: {
     flex: 1,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
-    ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    // ...StyleSheet.absoluteFillObject,
+    resizeMode: 'contain',
   },
 });

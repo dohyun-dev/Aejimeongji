@@ -18,6 +18,7 @@ const PlaceCategory = ({route}) => {
       rating={item.rating}
       info={item.description}
       id={item.id}
+      address={item.address}
     />
   );
 

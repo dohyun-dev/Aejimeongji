@@ -11,7 +11,12 @@ import {ScrollView} from 'react-native';
 import {Colors} from '../../constants/styles';
 import DetailInfo from '../../components/Place/DetailInfo';
 import PlaceMap from '../../components/Place/PlaceMap';
-import {getPlaceImage, searchPlace, getAvatar} from '../../utils/place';
+import {
+  getPlaceImage,
+  searchPlace,
+  getAvatar,
+  fetchPlaceDetail,
+} from '../../utils/place';
 import Review, {reviewData} from '../../components/Place/Review';
 import ReviewCarousel from '../../components/Place/ReviewCarousel';
 import CategoryDummy from '../../components/Place/CategoryDummy';
@@ -55,10 +60,11 @@ const DummyData = [
 ];
 
 const renderItem = ({item, index}, parallaxProps) => {
+  console.log(item);
   return (
     <View style={styles.item}>
       <ParallaxImage
-        source={{uri: item.source}}
+        source={{uri: item}}
         containerStyle={styles.imageContainer}
         style={styles.image}
         parallaxFactor={0.4}
@@ -68,19 +74,31 @@ const renderItem = ({item, index}, parallaxProps) => {
   );
 };
 
-const PlaceDetail = () => {
+const PlaceDetail = ({route}) => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
+  const [image, setImage] = useState();
+  const [placeDetail, setPlaceDetail] = useState();
+  const [infoImage, setInfoImage] = useState();
+  console.log(route.params);
 
-  // useLayoutEffect(() => {
-  //   const getLocation = async () => {
-  //     // const res = await searchPlace('경상북도 구미시 여헌로 87-8');
-  //     // setLatitude(+res.y);
-  //     // setLongitude(+res.x);
-  //     const res = await getAvatar();
-  //   };
-  //   getLocation();
-  // }, []);
+  useLayoutEffect(() => {
+    const initialData = async () => {
+      const res = await fetchPlaceDetail(route.params.id);
+      setImage(res.petplaceImageUrl);
+      setPlaceDetail(res);
+      setInfoImage(res.petplaceInfoUrl);
+    };
+
+    const getLocation = async () => {
+      const res = await searchPlace(route.params.address);
+      setLatitude(+res.y);
+      setLongitude(+res.x);
+      // const res = await getAvatar();
+    };
+    initialData();
+    getLocation();
+  }, []);
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -88,21 +106,21 @@ const PlaceDetail = () => {
         sliderWidth={responsiveWidth(100)}
         sliderHeight={responsiveHeight(10)}
         itemWidth={responsiveWidth(55)}
-        data={DummyData}
+        data={image}
         renderItem={renderItem}
         showSpinner={true}
         firstItem={3}
         hasParallaxImages={true}
       />
       <View style={styles.infoContainer}>
-        <DetailInfo />
+        <DetailInfo placeDetail={placeDetail} />
       </View>
       <View>
         {/* <FlatList
         key={'#'}
         data={CategoryDummy}
         renderItem={ReviewCarousel} /> */}
-        <ReviewCarousel />
+        {/* {infoImage && <ReviewCarousel infoImage={infoImage} />} */}
       </View>
       <View style={styles.mapContainer}>
         <PlaceMap latitude={latitude} longitude={longitude} />
@@ -125,7 +143,6 @@ export default PlaceDetail;
 const styles = StyleSheet.create({
   rootContainer: {
     backgroundColor: Colors.back100,
-    marginTop: responsiveHeight(3),
   },
   item: {
     width: responsiveWidth(50),
