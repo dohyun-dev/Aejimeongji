@@ -75,6 +75,7 @@ public class CalendarService {
         int day = birth.get(java.util.Calendar.DATE);
         int nowDay = now.get(java.util.Calendar.DATE);
 
+
         // 7 3 3 3 12
         if (birth.get(java.util.Calendar.MONTH) == now.get(java.util.Calendar.MONTH) && day == nowDay) {
             return "생일을 축하합니다!";
