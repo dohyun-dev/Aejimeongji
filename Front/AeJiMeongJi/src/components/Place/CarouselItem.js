@@ -1,75 +1,70 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {Colors} from '../../constants/styles';
 import {
   responsiveHeight,
   responsiveWidth,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+import {fetchPlace} from '../../utils/place';
 
-const DummyData = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
-];
-
-const renderItem = ({item, index}, parallaxProps) => {
-    const goToDetail = () => {
-        console.log('title 클릭');
-    }
-  return (
-    <View style={styles.item}>
-      <ParallaxImage
-        source={{uri: item.illustration}}
-        containerStyle={styles.imageContainer}
-        style={styles.image}
-        parallaxFactor={0.4}
-        {...parallaxProps}
-      />
-      <Pressable onPress={goToDetail}>
-        <Text style={styles.title} numberOfLines={2}>
-          {item.title}
-        </Text>
-      </Pressable>
-    </View>
-  );
-};
-
-const CarouselItem = ({category}) => {
+const CarouselItem = ({category, lat, lng}) => {
   const navigation = useNavigation();
-  const goToCategory = () => {
-    navigation.navigate('PlaceCategory', category)
+
+  const renderItem = ({item, index}, parallaxProps) => {
+    const goToDetail = () => {
+      console.log('title 클릭');
+      const {id, address} = item;
+      console.log(id, address);
+      navigation.navigate('PlaceDetail', {id, address});
+    };
+    return (
+      <View style={styles.item}>
+        <ParallaxImage
+          source={{uri: item.petplaceThumbnail}}
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          parallaxFactor={0.4}
+          {...parallaxProps}
+        />
+        <Pressable style={styles.infoContainer} onPress={goToDetail}>
+          <Text style={styles.title} numberOfLines={1}>
+            {item.name}
+          </Text>
+          <Text style={styles.distance}>
+            {Math.floor(item.distance / 1000)} km
+          </Text>
+        </Pressable>
+      </View>
+    );
   };
+
+  const [placeData, setPlaceData] = useState();
+  const [loadMoreData, setLoadMoreData] = useState();
+
+  const goToCategory = () => {
+    navigation.navigate('PlaceCategory', {category, placeData, loadMoreData, lat, lng});
+  };
+
+  useLayoutEffect(() => {
+    const initialData = async () => {
+      const res = await fetchPlace(category, lat, lng);
+      const loadMore = {curLastIdx:res.curLastIdx, hasNext:res.hasNext}
+      setPlaceData(res.data);
+      setLoadMoreData(loadMore)
+    };
+    initialData();
+  }, []);
 
   return (
     <View style={styles.rootContainer}>
       <View style={styles.textContainer}>
         <View style={styles.categoryText}>
-          <Text style={styles.CartegoryTitle}>반려견과 함께 방문할 맛집</Text>
+          <Text style={styles.CartegoryTitle}>
+            반려견과 함께 방문할 {category}
+          </Text>
         </View>
         <Pressable style={styles.detail} onPress={goToCategory}>
           <Text style={styles.detailText}>전체보기</Text>
@@ -79,7 +74,7 @@ const CarouselItem = ({category}) => {
         sliderWidth={responsiveWidth(100)}
         sliderHeight={responsiveHeight(50)}
         itemWidth={responsiveWidth(33)}
-        data={DummyData}
+        data={placeData}
         renderItem={renderItem}
         hasParallaxImages={true}
         showSpinner={true}
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
   },
   detailText: {
     color: '#90560D',
-    fontSize: responsiveFontSize(1.5),
+    fontSize: responsiveFontSize(1.8),
   },
   item: {
     width: responsiveWidth(30),
@@ -124,5 +119,11 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
+  },
+  categoryText: {
+    marginBottom: responsiveHeight(2),
+  },
+  distance: {
+    fontSize: responsiveFontSize(1.5),
   },
 });

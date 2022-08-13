@@ -8,17 +8,17 @@ import {
 import {Rating} from 'react-native-ratings';
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../constants/styles';
-const DetailInfo = ({title, rating}) => {
+const DetailInfo = ({placeDetail}) => {
   return (
     <>
       <View style={styles.textContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{title ? title : '타이틀'}</Text>
+          <Text style={styles.title}>{placeDetail?.name ? placeDetail.name : '타이틀'}</Text>
         </View>
         <View style={styles.ratingContainer}>
           <Rating
             type="custom"
-            defaultRating={rating}
+            startingValue={placeDetail?.rating}
             tintColor={Colors.back100}
             readonly
             ratingBackgroundColor={Colors.back200}
@@ -27,11 +27,10 @@ const DetailInfo = ({title, rating}) => {
           />
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.info}>주소 : 서울특별시 성동구 서울숲2길 28-11</Text>
-          <Text style={styles.info}>전화번호 : 070-8868-2008</Text>
-          <Text style={styles.info}>음식종류 : 카페/디저트</Text>
-          <Text style={styles.info}>주차 : 주차공간 없음</Text>
-          <Text style={styles.info}>영업시간 : 10:00 ~ 21:00</Text>
+          <Text style={styles.info}>주소 : {placeDetail?.address}</Text>
+          <Text style={styles.info}>전화번호 : {placeDetail?.tel}</Text>
+          <Text style={styles.info} numberOfLines={2}>{placeDetail?.description}</Text>
+          <Text numberOfLines={1} style={styles.info}>{placeDetail?.openingHours}</Text>
         </View>
       </View>
     </>
@@ -46,6 +45,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: 'center',
+    width: responsiveWidth(80),
+    marginLeft: responsiveWidth(10)
+
   },
 
   image: {

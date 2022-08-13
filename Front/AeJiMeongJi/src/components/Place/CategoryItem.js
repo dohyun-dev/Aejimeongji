@@ -10,11 +10,13 @@ import {Rating, AirbnbRating} from 'react-native-ratings';
 
 import {Colors} from '../../constants/styles';
 import {useNavigation} from '@react-navigation/native';
-const CategoryItem = ({source, title, rating, info}) => {
+import {Button as Btn} from '@rneui/themed';
+
+const CategoryItem = ({source, title, rating, info, id, address}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     // console.log('placeDetail');
-    navigation.navigate('PlaceDetail')
+    navigation.navigate('PlaceDetail', {id, address});
   };
 
   return (
@@ -24,12 +26,14 @@ const CategoryItem = ({source, title, rating, info}) => {
       </Pressable>
       <View style={styles.textContainer}>
         <Pressable onPress={goToDetail}>
-          <Text style={styles.title}>{title}</Text>
+          <Text numberOfLines={1} style={styles.title}>
+            {title}
+          </Text>
         </Pressable>
         <View style={styles.ratingContainer}>
           <Rating
             type="custom"
-            defaultRating={rating}
+            startingValue={rating}
             tintColor={Colors.back100}
             readonly
             ratingBackgroundColor={Colors.back200}
@@ -38,7 +42,16 @@ const CategoryItem = ({source, title, rating, info}) => {
           />
         </View>
         <View>
-          <Text style={styles.info}>정보</Text>
+          <Text ellipsizeMode="tail" numberOfLines={3} style={styles.info}>
+            {info}
+          </Text>
+        </View>
+        <View style={styles.btnContainer}>
+          <Btn
+            title={'더보기'}
+            onPress={goToDetail}
+            buttonStyle={{backgroundColor: Colors.back100}}
+            titleStyle={styles.btn}></Btn>
         </View>
       </View>
     </View>
@@ -61,6 +74,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginHorizontal: responsiveWidth(8),
+    width: responsiveWidth(30),
   },
   title: {
     fontSize: responsiveFontSize(3),
@@ -68,9 +82,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ratingContainer: {
-    // marginRight: 190
+    marginVertical: responsiveHeight(1.5)
   },
   info: {
     color: '#90560D',
+  },
+  btnContainer: {
+    justifyContent: 'flex-end',
+    alignItems:'flex-end'
+  },
+  btn: {
+    color: '#90560D',
+    fontSize: responsiveFontSize(1.5),
+    justifyContent: 'flex-end',
   },
 });
