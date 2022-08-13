@@ -32,7 +32,7 @@ public class GuideBookRepositoryCustomImpl implements GuideBookRepositoryCustom 
     }
 
     private BooleanExpression getWeightBetween(Double dogWeight) {
-        return dogWeight != null ? guideBook.weightMin.lt(dogWeight).and(guideBook.weightMax.goe(dogWeight)) : null;
+        return dogWeight != null ? guideBook.weightMin.doubleValue().lt(dogWeight).and(guideBook.weightMax.doubleValue().goe(dogWeight)) : null;
     }
 
     private BooleanExpression getAgeAndWeightEq(Integer dogMonth, Double dogWeight) {
