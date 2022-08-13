@@ -11,15 +11,15 @@ import CategoryItem from '../../components/Place/CategoryItem';
 import {Colors} from '../../constants/styles';
 
 const PlaceCategory = ({route}) => {
-
-    const renderItem = ({item}) => (
-        <CategoryItem
-        source={item.source}
-        title={item.title}
-        rating={item.rating}
-        info={item.info}
-        />
-    )
+  const renderItem = ({item}) => (
+    <CategoryItem
+      source={{uri: item.petplaceThumbnail}}
+      title={item.name}
+      rating={item.rating}
+      info={item.description}
+      id={item.id}
+    />
+  );
 
   return (
     <>
@@ -27,7 +27,7 @@ const PlaceCategory = ({route}) => {
       <ScrollView style={styles.rootContainer}>
         <FlatList
           key={'#'}
-          data={CategoryDummy}
+          data={route.params.placeData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           numColumns={1}

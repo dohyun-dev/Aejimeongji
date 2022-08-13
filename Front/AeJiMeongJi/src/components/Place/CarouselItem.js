@@ -67,7 +67,7 @@ const CarouselItem = ({category, lat, lng}) => {
   const navigation = useNavigation();
   const [placeData, setPlaceData] = useState();
   const goToCategory = () => {
-    navigation.navigate('PlaceCategory', category);
+    navigation.navigate('PlaceCategory', {category, placeData});
   };
 
   useLayoutEffect(() => {

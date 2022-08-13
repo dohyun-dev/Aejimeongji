@@ -61,7 +61,7 @@ export const fetchPlace = async (category, lat2, lng2) => {
   console.log(category, 'category');
   const lat = 37.5665;
   const lng = 126.978;
-  const dist = 10;
+  const dist = 1000;
   const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&lng=${lng}`;
 
   try {
