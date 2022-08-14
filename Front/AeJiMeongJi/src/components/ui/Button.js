@@ -1,5 +1,6 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 
 function Button({children, onPress, style}) {
@@ -19,7 +20,7 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
-    paddingVertical: 16,
+    paddingVertical: responsiveHeight(2),
     // paddingHorizontal: 12,
     backgroundColor: Colors.btnBack100,
     elevation: 2,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: Colors.btnText,
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'IBMPlexSansKR-Regular'
   },
 });
