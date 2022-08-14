@@ -10,7 +10,6 @@ import {
 } from 'react-native-responsive-dimensions';
 
 const DogInfo = ({source, dogInfo}) => {
-
   return (
     <>
       <View style={styles.infoContainer}>
@@ -27,7 +26,7 @@ const DogInfo = ({source, dogInfo}) => {
           </View>
           <View style={styles.recommendTextContainer}>
             <Text style={styles.recommendText}>
-              {dogInfo?.name}이와 함께 갈 곳!
+              함께 가요!
             </Text>
           </View>
         </View>
@@ -46,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: responsiveHeight(2),
     marginTop: responsiveHeight(2),
+    borderRadius: responsiveWidth(5)
   },
   imageContainer: {
     paddingRight: 16,
@@ -69,15 +69,17 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   name: {
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontSize: responsiveFontSize(3.5),
+    // fontWeight: 'bold',
     color: 'black',
+    fontFamily: '강원교육튼튼',
   },
   recommendTextContainer: {
     flex: 1,
   },
   recommendText: {
-    fontSize: 13,
+    fontSize: responsiveFontSize(2),
     color: 'black',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });

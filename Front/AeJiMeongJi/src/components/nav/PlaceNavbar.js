@@ -31,8 +31,8 @@ const PlaceNavbar = ({source, children}) => {
           source={{uri: source}}
         />
       </Pressable>
-      <View style={styles.text}>
-        <Text>{children}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{children}</Text>
       </View>
       <Pressable
         onPress={() => {
@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
     width: responsiveWidth(8),
     height: responsiveHeight(8),
   },
-  text: {
+  textContainer: {
     alignItems: 'center',
     flex: 1,
   },
   calendarContainer: {
     marginRight: responsiveWidth(4),
     height: responsiveHeight(8),
+  },
+  text: {
+    fontFamily: '강원교육튼튼',
   },
 });

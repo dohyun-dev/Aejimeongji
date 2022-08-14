@@ -13,7 +13,9 @@ const DetailInfo = ({placeDetail}) => {
     <>
       <View style={styles.textContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{placeDetail?.name ? placeDetail.name : '타이틀'}</Text>
+          <Text style={styles.title}>
+            {placeDetail?.name ? placeDetail.name : '타이틀'}
+          </Text>
         </View>
         <View style={styles.ratingContainer}>
           <Rating
@@ -29,8 +31,12 @@ const DetailInfo = ({placeDetail}) => {
         <View style={styles.infoContainer}>
           <Text style={styles.info}>주소 : {placeDetail?.address}</Text>
           <Text style={styles.info}>전화번호 : {placeDetail?.tel}</Text>
-          <Text style={styles.info} numberOfLines={2}>{placeDetail?.description}</Text>
-          <Text numberOfLines={1} style={styles.info}>{placeDetail?.openingHours}</Text>
+          <Text style={styles.info} numberOfLines={2}>
+            {placeDetail?.description}
+          </Text>
+          <Text numberOfLines={1} style={styles.info}>
+            {placeDetail?.openingHours}
+          </Text>
         </View>
       </View>
     </>
@@ -46,8 +52,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     width: responsiveWidth(80),
-    marginLeft: responsiveWidth(10)
-
+    marginLeft: responsiveWidth(10),
   },
 
   image: {
@@ -55,18 +60,20 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   titleContainer: {
-    marginVertical: responsiveHeight(1)
+    marginVertical: responsiveHeight(1),
   },
   title: {
     fontSize: responsiveFontSize(3),
     color: '#643903',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
   },
   infoContainer: {
-    marginTop: responsiveHeight(3)
+    marginTop: responsiveHeight(3),
   },
   info: {
     color: '#90560D',
-    fontWeight: 'bold'
+    // fontWeight: 'bold',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });

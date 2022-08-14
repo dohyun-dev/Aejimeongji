@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import {SvgUri} from 'react-native-svg';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 const hasTags = ({item}) => {
   return (
@@ -22,11 +22,11 @@ const Review = ({item}) => {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.reviewerContainer}>
-            <SvgUri
-            width={responsiveWidth(8)}
-            height={responsiveHeight(8)}
-            uri="https://source.boringavatars.com/beam"
-          />
+        <SvgUri
+          width={responsiveWidth(8)}
+          height={responsiveHeight(8)}
+          uri="https://source.boringavatars.com/beam"
+        />
         <Text style={styles.reviewer}>{item.reviewer}</Text>
       </View>
       <View style={styles.contentContainer}>
@@ -34,7 +34,7 @@ const Review = ({item}) => {
           <Text style={styles.date}>{item.date}</Text>
         </View>
         <View>
-          <Text>{item.content}</Text>
+          <Text style={styles.content}>{item.content}</Text>
         </View>
         <View>
           <FlatList
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.back200,
     width: responsiveWidth(90),
     marginTop: responsiveHeight(2),
-    borderRadius: responsiveWidth(10)
+    borderRadius: responsiveWidth(10),
   },
   reviewerContainer: {
     flexDirection: 'row',
@@ -63,9 +63,10 @@ const styles = StyleSheet.create({
     marginHorizontal: responsiveWidth(8),
   },
   reviewer: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginTop: responsiveWidth(5),
     marginLeft: responsiveWidth(5),
+    fontFamily: '강원교육튼튼',
   },
   contentContainer: {
     width: responsiveWidth(70),
@@ -74,9 +75,13 @@ const styles = StyleSheet.create({
   hashTag: {
     color: '#1a6ddf',
     fontSize: responsiveFontSize(1.4),
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
   date: {
     fontSize: responsiveFontSize(1),
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
-  margin: responsiveHeight(4)
+  content: {
+    fontFamily: 'IBMPlexSansKR-Regular',
+  },
 });
