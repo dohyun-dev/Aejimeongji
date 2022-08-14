@@ -10,6 +10,7 @@ import com.ssafy.aejimeongji.domain.entity.image.DogImage;
 import com.ssafy.aejimeongji.domain.entity.Member;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.BreedService;
+import com.ssafy.aejimeongji.domain.service.CalendarService;
 import com.ssafy.aejimeongji.domain.service.DogService;
 import com.ssafy.aejimeongji.domain.service.MemberService;
 import com.ssafy.aejimeongji.domain.util.ImageUtil;
@@ -35,6 +36,7 @@ public class DogApiController {
     private final DogService dogService;
     private final BreedService breedService;
     private final MemberService memberService;
+    private final CalendarService calendarService;
     private final ImageUtil imageUtil;
 
     @GetMapping
@@ -60,7 +62,9 @@ public class DogApiController {
         DogImage dogImage = new DogImage(imageUtil.storeImage(request.getImage()));
         Member member = memberService.findMember(memberId);
         Breed breed = breedService.findBreed(request.getBreed());
-        Long savedId = dogService.saveDog(request.toEntity(member, breed, dogImage));
+        Dog dog = request.toEntity(member, breed, dogImage);
+        Long savedId = dogService.saveDog(dog);
+        calendarService.createInjectionInfo(dog, request.getBirthday());
         return ResponseEntity.ok(new ResponseDTO("강아지 프로필 " + savedId + " 등록이 완료되었습니다."));
     }
 
