@@ -45,15 +45,21 @@ const CarouselItem = ({category, lat, lng}) => {
   const [loadMoreData, setLoadMoreData] = useState();
 
   const goToCategory = () => {
-    navigation.navigate('PlaceCategory', {category, placeData, loadMoreData, lat, lng});
+    navigation.navigate('PlaceCategory', {
+      category,
+      placeData,
+      loadMoreData,
+      lat,
+      lng,
+    });
   };
 
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlace(category, lat, lng);
-      const loadMore = {curLastIdx:res.curLastIdx, hasNext:res.hasNext}
+      const loadMore = {curLastIdx: res.curLastIdx, hasNext: res.hasNext};
       setPlaceData(res.data);
-      setLoadMoreData(loadMore)
+      setLoadMoreData(loadMore);
     };
     initialData();
   }, []);
@@ -89,8 +95,9 @@ export default CarouselItem;
 const styles = StyleSheet.create({
   rootContainer: {
     backgroundColor: Colors.back100,
-    paddingVertical: responsiveHeight(4),
+    paddingVertical: responsiveHeight(2),
     marginVertical: responsiveHeight(1),
+    borderRadius: responsiveWidth(5)
   },
   textContainer: {
     flexDirection: 'row',
@@ -100,11 +107,14 @@ const styles = StyleSheet.create({
   },
   CartegoryTitle: {
     color: 'black',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
+    fontSize: responsiveFontSize(2)
   },
   detailText: {
     color: '#90560D',
     fontSize: responsiveFontSize(1.8),
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
   item: {
     width: responsiveWidth(30),
@@ -125,5 +135,9 @@ const styles = StyleSheet.create({
   },
   distance: {
     fontSize: responsiveFontSize(1.5),
+    fontFamily: 'IBMPlexSansKR-Regular',
+  },
+  title: {
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });

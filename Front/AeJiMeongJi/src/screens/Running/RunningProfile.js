@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
   Title: {
     textAlign: 'center',
     fontSize: responsiveFontSize(2.6),
-    fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
+
     marginBottom: responsiveHeight(2),
   },
   ProfileSelect: {

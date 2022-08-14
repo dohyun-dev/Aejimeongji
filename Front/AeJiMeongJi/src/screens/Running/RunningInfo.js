@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   Title: {
     textAlign: 'center',
     fontSize: responsiveFontSize(3.2),
-    fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
     marginBottom: 20,
   },
   InfoList: {

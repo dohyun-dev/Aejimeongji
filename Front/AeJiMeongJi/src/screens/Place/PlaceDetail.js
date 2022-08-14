@@ -74,7 +74,7 @@ const PlaceDetail = ({route}) => {
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlaceDetail(route.params.id);
-      const checkIsLiked = await isLike();
+      const checkIsLiked = await isLike(route.params.id);
       console.log(checkIsLiked);
       setLiked(checkIsLiked);
       setImage(res.petplaceImageUrl);

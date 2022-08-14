@@ -33,16 +33,28 @@ const SubCard = props => {
             <Image
               style={{width: '100%', height: '100%', borderRadius: 15}}
               source={{uri: `${imageurl}${thumbnail}`}}
-              resizeMode="cover"
+              resizeMode="center"
             />
           </View>
           <View>
             <View style={styels.infoBox}>
               <View style={styels.infoTitle}>
-                <Text style={{fontSize: 17, fontWeight: 'bold'}}>{title}</Text>
+                <Text
+                  style={{
+                    fontSize: responsiveFontSize(2.4),
+                    fontFamily: '강원교육튼튼',
+                  }}>
+                  {title}
+                </Text>
               </View>
               <View style={styels.infosum}>
-                <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
+                <Text
+                  style={{
+                    fontSize: responsiveFontSize(1.8),
+                    fontFamily: 'IBMPlexSansKR-Regular',
+                  }}>
+                  지금 바로 알아보세요
+                </Text>
               </View>
             </View>
           </View>
@@ -67,99 +79,6 @@ const SubCard = props => {
         data={guide}
         renderItem={renderItem}
         keyExtractor={item => item.id}></FlatList>
-
-      {/* <View style={styels.GuideBox}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styels.GuideImg}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 15}}
-              source={{uri: imageurl + guide[1]?.thumbnail}}
-              resizeMode="cover"
-            />
-          </View>
-          <View>
-            <View style={styels.infoBox}>
-              <View style={styels.infoTitle}>
-                <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                  {guide[1]?.title}
-                </Text>
-              </View>
-              <View style={styels.infosum}>
-                <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={styels.GuideBox}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styels.GuideImg}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 15}}
-              source={{uri: imageurl + guide[2]?.thumbnail}}
-              resizeMode="cover"
-            />
-          </View>
-          <View>
-            <View style={styels.infoBox}>
-              <View style={styels.infoTitle}>
-                <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                  {guide[2]?.title}
-                </Text>
-              </View>
-              <View style={styels.infosum}>
-                <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={styels.GuideBox}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styels.GuideImg}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 15}}
-              source={{uri: imageurl + guide[3]?.thumbnail}}
-              resizeMode="cover"
-            />
-          </View>
-          <View>
-            <View style={styels.infoBox}>
-              <View style={styels.infoTitle}>
-                <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                  {guide[3]?.title}
-                </Text>
-              </View>
-              <View style={styels.infosum}>
-                <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={styels.GuideBox}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styels.GuideImg}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 15}}
-              source={{uri: imageurl + guide[4]?.thumbnail}}
-              resizeMode="cover"
-            />
-          </View>
-          <View>
-            <View style={styels.infoBox}>
-              <View style={styels.infoTitle}>
-                <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                  {guide[4]?.title}
-                </Text>
-              </View>
-              <View style={styels.infosum}>
-                <Text style={{fontSize: 12}}>지금 바로 알아보세요</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View> */}
     </View>
   );
 };
@@ -167,14 +86,14 @@ const SubCard = props => {
 const styels = StyleSheet.create({
   infoTitle: {},
   infosum: {
-    marginTop: 10,
+    marginTop: responsiveHeight(1),
   },
   GuideImg: {
     backgroundColor: 'orange',
     borderRadius: 30,
-    height: 110,
-    width: 110,
-    marginLeft: 15,
+    height: responsiveHeight(15),
+    width: responsiveWidth(30),
+    marginLeft: responsiveWidth(6),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -182,9 +101,8 @@ const styels = StyleSheet.create({
   GuideBox: {
     backgroundColor: Colors.back200,
     borderRadius: 20,
-    paddingBottom: 15,
-    paddingTop: 15,
-    marginBottom: 20,
+    paddingVertical: responsiveHeight(2),
+    marginBottom: responsiveHeight(2),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -195,9 +113,8 @@ const styels = StyleSheet.create({
     elevation: 8,
   },
   infoBox: {
-    marginLeft: 23,
-    marginTop: 30,
-    marginBotton: 20,
+    marginLeft: responsiveWidth(6),
+    marginVertical: responsiveHeight(3.9),
   },
 });
 export default SubCard;

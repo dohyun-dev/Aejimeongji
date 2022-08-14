@@ -24,16 +24,16 @@ export default RunButton;
 const styles = StyleSheet.create({
   button: {
     borderRadius: 25,
-    paddingVertical: 11,
-    paddingHorizontal: 28,
+    paddingVertical: responsiveHeight(1.5),
+    paddingHorizontal: responsiveWidth(7),
     backgroundColor: Colors.btnBack100,
     elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: responsiveWidth(1),
+    marginBottom: responsiveHeight(1),
   },
   pressed: {
     opacity: 0.7,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: Colors.btnText,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: responsiveFontSize(2.4),
+    fontFamily: '강원교육튼튼',
   },
 });

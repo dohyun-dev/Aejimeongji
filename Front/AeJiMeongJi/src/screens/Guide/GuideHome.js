@@ -93,7 +93,11 @@ const GuideHome = ({navigation}) => {
           </GuideButton>
         </View>
         <View style={styles.guideTitle}>
-          <Text style={{fontSize: responsiveFontSize(2.7), fontWeight: 'bold'}}>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(2.7),
+              fontFamily: '강원교육튼튼',
+            }}>
             {dogInfo}를 위한 맞춤형 추천 가이드
           </Text>
         </View>
@@ -113,7 +117,11 @@ const GuideHome = ({navigation}) => {
             category={guideList.fixedGuideList}></SubCard>
         </View>
         <View style={styles.subguideTitle2}>
-          <Text style={{fontSize: responsiveFontSize(2.5), fontWeight: 'bold'}}>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(2.5),
+              fontFamily: '강원교육튼튼',
+            }}>
             현재 연령대에 꼭 알아야 하는 정보
           </Text>
         </View>
@@ -123,12 +131,6 @@ const GuideHome = ({navigation}) => {
             age={guideList.weightGuideList}
           />
         </View>
-        <Button
-          onPress={() => {
-            navigation.navigate('GuideDetail');
-          }}>
-          가이드 디테일
-        </Button>
       </View>
     </ScrollView>
   );
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   },
   subGuideTitle: {
     fontSize: responsiveFontSize(2.7),
-    fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
     marginBottom: responsiveHeight(3),
   },
   carouselCards: {},

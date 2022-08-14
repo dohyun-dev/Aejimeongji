@@ -15,7 +15,7 @@ const RunningFinish = ({navigation}) => {
       <Text
         style={{
           fontSize: responsiveFontSize(3.2),
-          fontWeight: 'bold',
+          fontFamily: '강원교육튼튼',
           marginBottom: responsiveHeight(1),
         }}>
         오늘의 산책기록
@@ -24,21 +24,21 @@ const RunningFinish = ({navigation}) => {
         <Text
           style={{
             fontSize: responsiveFontSize(2.6),
-            fontWeight: 'bold',
+            fontFamily: 'IBMPlexSansKR-Bold',
             marginTop: responsiveHeight(4),
             marginBottom: responsiveHeight(2),
           }}>
-          8월 8일의 산책
+          8월 15일의 산책
         </Text>
         <View style={styles.RunningContent}>
           <View style={styles.ContentItem}>
-            <Text style={styles.itemFont}>1000m</Text>
+            <Text style={styles.itemFont}>581m</Text>
           </View>
           <View style={styles.ContentItem}>
-            <Text style={styles.itemFont}>00:10:00</Text>
+            <Text style={styles.itemFont}>00:23:36</Text>
           </View>
           <View style={styles.ContentItem}>
-            <Text style={styles.itemFont}>100kcal</Text>
+            <Text style={styles.itemFont}>281kcal</Text>
           </View>
         </View>
         <View style={styles.image}>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   itemFont: {
     fontSize: responsiveFontSize(1.9),
-    fontWeight: 'bold',
+    fontFamily: 'IBMPlexSansKR-Bold',
   },
   runButton: {
     marginTop: responsiveHeight(4),

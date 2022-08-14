@@ -42,7 +42,7 @@ const GuideCategory = props => {
     };
     fetchCategory();
   }, []);
-
+  console.log(categoryList.data);
   const Item = ({title, thumbnail, guideId}) => (
     <TouchableOpacity
       style={styles.GuideBox}
@@ -85,7 +85,7 @@ const GuideCategory = props => {
           <Text
             style={{
               fontSize: responsiveFontSize(3),
-              fontWeight: 'bold',
+              fontFamily: '강원교육튼튼',
             }}>
             {card} 관련 가이드 모음!
           </Text>
@@ -100,7 +100,7 @@ const GuideCategory = props => {
           <View style={styles.infoBox}>
             <Text
               style={{
-                fontWeight: 'bold',
+                fontFamily: 'IBMPlexSansKR-Regular',
                 fontSize: responsiveFontSize(2.6),
               }}>
               {categoryList[1]?.title}

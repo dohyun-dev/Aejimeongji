@@ -56,7 +56,7 @@ const MyPage = () => {
       {guide ? (
         <View style={styles.likedContainer}>
           <Text style={styles.likedTitle}> 즐겨찾기 한 가이드 목록 </Text>
-          <MyPageLiked data={guide} />
+          <MyPageLiked data={guide} screen="GuideDetail"  />
         </View>
       ) : (
         <View style={styles.noGuideContainer}>

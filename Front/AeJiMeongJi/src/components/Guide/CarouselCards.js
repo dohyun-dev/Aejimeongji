@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.back200,
     borderRadius: 8,
     width: ITEM_WIDTH,
-    paddingBottom: 12,
+    paddingBottom: responsiveHeight(2),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -103,13 +103,14 @@ const styles = StyleSheet.create({
   },
   image: {
     width: ITEM_WIDTH,
-    height: 200,
+    height: responsiveHeight(26),
+    borderRadius: 8,
   },
   header: {
     color: '#222',
-    fontSize: 22,
-    fontWeight: 'bold',
-    paddingLeft: 20,
-    paddingTop: 10,
+    fontSize: responsiveFontSize(2.8),
+    fontFamily: '강원교육튼튼',
+    paddingLeft: responsiveWidth(5),
+    paddingTop: responsiveHeight(2.4),
   },
 });

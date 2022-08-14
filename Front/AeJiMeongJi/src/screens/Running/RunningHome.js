@@ -66,13 +66,17 @@ const RunningHome = ({navigation}) => {
                     <Text
                       style={{
                         fontSize: responsiveFontSize(3.5),
-                        fontWeight: 'bold',
+                        fontFamily: '강원교육튼튼',
                       }}>
                       {dogName}
                     </Text>
                   </View>
                   <View style={styles.infoCate}>
-                    <Text style={{fontSize: responsiveFontSize(1.8)}}>
+                    <Text
+                      style={{
+                        fontSize: responsiveFontSize(1.8),
+                        fontFamily: 'IBMPlexSansKR-Regular',
+                      }}>
                       {dogWeight}kg, {dogBreed}
                     </Text>
                   </View>
@@ -80,7 +84,11 @@ const RunningHome = ({navigation}) => {
               </View>
             </View>
             <View style={styles.RunTime}>
-              <Text style={{fontSize: responsiveFontSize(2.2)}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2.2),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                }}>
                 권장 산책시간은 1일 30분입니다.
               </Text>
             </View>

@@ -18,6 +18,7 @@ import {getDog} from '../../utils/profile';
 import Geolocation from 'react-native-geolocation-service';
 import CarouselList from '../../components/Place/CarouselList';
 import {fetchPlace} from '../../utils/place';
+import { responsiveWidth } from 'react-native-responsive-dimensions';
 
 const PlaceHome = () => {
   const dogId = useSelector(state => state.profile.id);
@@ -80,10 +81,6 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // backgroundColor: Colors.back100,
     backgroundColor: '#FBEDD3',
-  },
-  item: {
-    width: 120,
-    height: 120,
   },
   imageContainer: {
     flex: 1,

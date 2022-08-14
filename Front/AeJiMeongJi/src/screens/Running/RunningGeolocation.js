@@ -15,7 +15,7 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-
+import {useNavigation} from '@react-navigation/native';
 import MapView, {
   Marker,
   AnimatedRegion,
@@ -26,10 +26,11 @@ import {Colors} from '../../constants/styles';
 import haversine from 'haversine';
 import Geolocation from 'react-native-geolocation-service';
 // import RunningTimer from '../../components/Running/RunningTimer';
-import RunningAlert from '../../components/Running/RunningAlert';
+// import RunningAlert from '../../components/Running/RunningAlert';
 import {Stopwatch, Timer} from 'react-native-stopwatch-timer';
 import RunButton from '../../components/ui/RunButton';
 import RunningHome from './RunningHome';
+import RunningFinish from './RunningFinish';
 
 // const LATITUDE = 29.95539;
 // const LONGITUDE = 78.07513;
@@ -39,6 +40,7 @@ const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 const isStopwatchStart = true;
 const resetStopwatch = false;
+
 class RunningGeolocation extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +61,6 @@ class RunningGeolocation extends React.Component {
       }),
     };
   }
-
   componentDidMount() {
     const {coordinate} = this.state;
     if (this.props.coordinate) return;
@@ -124,6 +125,24 @@ class RunningGeolocation extends React.Component {
     return haversine(prevLatLng, newLatLng) || 0;
   };
 
+  createThreeButtonAlert = () =>
+    Alert.alert(
+      '산책을 종료하시겠어요?',
+      '산책이 모두 완료되었다면 종료해주세요',
+      [
+        {
+          text: '취소',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: '완료',
+          onPress: () => {
+            this.props.navigation.navigate(RunningHome);
+          },
+        },
+      ],
+    );
   render() {
     return (
       <View style={styles.container}>
@@ -153,36 +172,64 @@ class RunningGeolocation extends React.Component {
                 start={this.state.start}
                 options={options}
                 reset={resetStopwatch}></Stopwatch>
-              <TouchableHighlight
-                onPress={() => this.setState({start: !this.state.start})}>
-                <Text style={styles.buttonText}>
-                  {!this.state.start ? '재시작' : '일시정지'}
-                </Text>
-              </TouchableHighlight>
             </View>
           </View>
           <View style={styles.subContainer}>
             <View style={styles.distanceContainer}>
-              <Text style={{fontSize: responsiveFontSize(2.2)}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2.2),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                }}>
                 {parseFloat(this.state.distanceTravelled * 1000).toFixed(2)} m
               </Text>
-              <Text>거리</Text>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(1.8),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                }}>
+                거리
+              </Text>
             </View>
 
             <View style={styles.calorieContainer}>
-              <Text style={{fontSize: responsiveFontSize(2.2)}}>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(2.2),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                }}>
                 {parseFloat((this.state.distanceTravelled / 0.1) * 7).toFixed(
                   2,
                 )}
                 kcal
               </Text>
-              <Text>칼로리</Text>
+              <Text
+                style={{
+                  fontSize: responsiveFontSize(1.8),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                }}>
+                칼로리
+              </Text>
             </View>
           </View>
-          <TouchableOpacity>
-            <Text>산책끝~~</Text>
-          </TouchableOpacity>
-          <RunningAlert data={this.componentWillUnmount}></RunningAlert>
+          {/* <TouchableHighlight
+            onPress={() => this.setState({start: !this.state.start})}>
+            <Text style={styles.buttonText}>
+              {!this.state.start ? '재시작' : '일시정지'}
+            </Text>
+          </TouchableHighlight> */}
+          <View>
+            <RunButton
+              title={'3-Button Alert'}
+              data={this.componentWillUnmount}
+              onPress={() => {
+                this.setState({start: !this.state.start});
+                this.props.navigation.navigate(RunningFinish);
+              }}>
+              산책종료
+            </RunButton>
+          </View>
+          {/* <RunningAlert data={this.componentWillUnmount}></RunningAlert> */}
         </View>
       </View>
     );
@@ -209,12 +256,12 @@ const styles = StyleSheet.create({
     marginHorizontal: responsiveWidth(2),
   },
   distanceContainer: {
-    marginVertical: responsiveHeight(2.5),
+    marginVertical: responsiveHeight(1.3),
     marginHorizontal: responsiveWidth(10),
     alignItems: 'center',
   },
   calorieContainer: {
-    marginVertical: responsiveHeight(2.5),
+    marginVertical: responsiveHeight(1.3),
     marginHorizontal: responsiveWidth(10),
     alignItems: 'center',
   },
@@ -248,7 +295,7 @@ const options = {
   },
   text: {
     fontSize: responsiveFontSize(3.4),
-    fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
     color: '#000000',
     marginLeft: responsiveWidth(2),
   },

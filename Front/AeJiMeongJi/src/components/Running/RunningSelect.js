@@ -32,8 +32,13 @@ const RunningSelect = ({id, source, name, setDogIds, dogIds}) => {
     <TouchableOpacity onPress={fetchDogId}>
       <View style={{alignItems: 'center'}}>
         <Image style={styles.image} source={source} resizeMode="cover" />
-        <Text>{name}</Text>
-        <Text>{id}</Text>
+        <Text
+          style={{
+            fontSize: responsiveFontSize(2),
+            fontFamily: 'IBMPlexSansKR-Regular',
+          }}>
+          {name}
+        </Text>
       </View>
     </TouchableOpacity>
   );

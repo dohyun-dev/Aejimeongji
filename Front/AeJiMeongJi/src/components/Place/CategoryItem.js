@@ -75,25 +75,29 @@ const styles = StyleSheet.create({
   textContainer: {
     marginHorizontal: responsiveWidth(8),
     width: responsiveWidth(30),
+    marginTop: responsiveHeight(1)
   },
   title: {
     fontSize: responsiveFontSize(3),
     color: '#643903',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
   },
   ratingContainer: {
-    marginVertical: responsiveHeight(1.5)
+    marginTop: responsiveHeight(1.5),
   },
   info: {
     color: '#90560D',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
   btnContainer: {
     justifyContent: 'flex-end',
-    alignItems:'flex-end'
+    alignItems: 'flex-end',
   },
   btn: {
     color: '#90560D',
-    fontSize: responsiveFontSize(1.5),
+    fontSize: responsiveFontSize(1.3),
     justifyContent: 'flex-end',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });
