@@ -64,10 +64,37 @@ public class CalendarService {
     }
 
     @Transactional
-    public String createInjectionInfo(Long dogId, LocalDate birthday) {
+    public void createInjectionInfo(Dog dog, LocalDate birthday) {
 
-        saveCalender(dogId, new Calendar("1차 접종", birthday));
-        return "완료";
+        LocalDate first = birthday.plusMonths(7);
+        LocalDate secondOne = birthday.plusMonths(10);
+        LocalDate secondTwo = birthday.plusMonths(13);
+        LocalDate secondThree = birthday.plusMonths(16);
+
+        LocalDate now = LocalDate.now();
+        System.out.println("now = " + now);
+
+        if (first.isAfter(now) || first.isEqual(now)) {
+            calendarRepository.save(new Calendar(dog, "1차 접종", first));
+            calendarRepository.save(new Calendar(dog, "2차 첫 번째 접종", secondOne));
+            calendarRepository.save(new Calendar(dog, "2차 두 번째 접종", secondTwo));
+            calendarRepository.save(new Calendar(dog, "2차 세 번째 접종", secondThree));
+        } else if (secondOne.isAfter(now) || secondOne.isEqual(now)) {
+            calendarRepository.save(new Calendar(dog, "2차 첫 번째 접종", secondOne));
+            calendarRepository.save(new Calendar(dog, "2차 두 번째 접종", secondTwo));
+            calendarRepository.save(new Calendar(dog, "2차 세 번째 접종", secondThree));
+        } else if (secondTwo.isAfter(now) || secondTwo.isEqual(now)) {
+            calendarRepository.save(new Calendar(dog, "2차 두 번째 접종", secondTwo));
+            calendarRepository.save(new Calendar(dog, "2차 세 번째 접종", secondThree));
+        } else if (secondThree.isAfter(now) || secondThree.isEqual(now)) {
+            calendarRepository.save(new Calendar(dog, "2차 세 번째 접종", secondThree));
+        }
+
+        for (int i = 0; i < 120; i += 12) {
+            if (birthday.plusMonths(28 + i).isAfter(now)) {
+                calendarRepository.save(new Calendar(dog, "3차 접종", birthday.plusMonths(28 + i)));
+            }
+        }
     }
 
     // messages
