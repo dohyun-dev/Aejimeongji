@@ -5,7 +5,7 @@ import {Avatar, Button, Card, Title, Typography} from 'react-native-paper';
 import {Colors} from '../../constants/styles';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import Navbar from './../../components/nav/Navbar';
-import {format} from 'date-fns';
+import {format, setDay} from 'date-fns';
 
 import TodoList from '../../components/Todo/TodoList';
 
@@ -13,6 +13,17 @@ const CalendarHome = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), 'yyyy-MM-dd'),
   );
+  const [day, setDay] = useState('');
+
+  useEffect(() => {
+    const now = new Date();
+    setDay(now);
+
+    console.log('찍어보자');
+    {
+      now ? console.log(now) : console.log('gg');
+    }
+  }, []);
 
   LocaleConfig.locales['calendarData'] = {
     monthNames: [
@@ -71,6 +82,7 @@ const CalendarHome = ({navigation}) => {
       </View>
       <View style={styles.contentbox}>
         <Calendar
+          style={{backgroundColor: '#FFF8EA'}}
           markingType={'period'}
           markedDates={{
             '2022-08-11': {
@@ -159,6 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: Colors.back100,
+    marginBottom: 60,
   },
 
   logo2: {
