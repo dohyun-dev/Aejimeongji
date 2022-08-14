@@ -316,10 +316,12 @@ export const deleteProfile = async dogId => {
   const path = `/api/member/${memberId}/dog/${dogId}`;
 
   try {
-    const res = axios({
+    const res = await axios({
       method: 'delete',
       url: url + path,
     });
+    console.log(res);
+    return res.data.message
   } catch (error) {
     console.log(error.response);
   }
