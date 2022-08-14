@@ -14,17 +14,26 @@ const MyPageLiked = ({data, screen}) => {
   const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
 
   const renderItem = ({item, index}, parallaxProps) => {
-    console.log(item.thumbnail);
     const goToScreen = () => {
       console.log('title 클릭');
       const {id, address} = item;
       console.log(id, address);
-      navigation.navigate(screen, {id, address});
+
+      if (screen === 'PlaceDetail') {
+        navigation.navigate(screen, {id, address});
+      } else {
+        navigation.navigate(screen, {guideId:item.guideId})
+      }
     };
     return (
       <View style={styles.item}>
         <ParallaxImage
-          source={{uri: screen === 'PlaceDetail' ? item.petplaceThumbnail : `${imageurl}${item.thumbnail}`}}
+          source={{
+            uri:
+              screen === 'PlaceDetail'
+                ? item.petplaceThumbnail
+                : `${imageurl}${item.thumbnail}`,
+          }}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
