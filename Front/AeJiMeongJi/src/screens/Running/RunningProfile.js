@@ -21,19 +21,13 @@ import {fetchDogs} from '../../utils/profile';
 
 const RunningProfile = ({route, navigation}) => {
   const [profiles, setProfiles] = useState([]);
-  const [dogIds, setDogIds] = useState([route.params]);
-
-  useEffect(() => {
-    const res = profiles;
-    res = res.filter(item => item.id !== route.params);
-    console.log(res, 'newprofile');
-    setProfiles(res);
-  }, []);
+  const [dogIds, setDogIds] = useState([route.params.dogId]);
 
   useLayoutEffect(() => {
     const fetchAlldogs = async () => {
       const res = await fetchDogs();
-      setProfiles(res);
+      const newArray = res.filter(item => item.dogId !== route.params.dogId);
+      setProfiles(newArray);
     };
     fetchAlldogs();
   }, []);
