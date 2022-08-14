@@ -6,7 +6,7 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-import { Colors } from '../../constants/styles';
+import {Colors} from '../../constants/styles';
 const NoGuide = ({children, navigate}) => {
   const navigation = useNavigation();
   const goToSomewhere = () => {
@@ -45,9 +45,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: responsiveFontSize(2.5),
-    paddingBottom: responsiveHeight(2)
+    paddingBottom: responsiveHeight(2),
+    fontFamily: '강원교육튼튼',
   },
   goToGuide: {
-    color: '#003459'
-  }
+    color: '#003459',
+    fontFamily: 'IBMPlexSansKR-Regular',
+  },
 });

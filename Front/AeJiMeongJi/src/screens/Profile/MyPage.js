@@ -56,7 +56,7 @@ const MyPage = () => {
       {guide ? (
         <View style={styles.likedContainer}>
           <Text style={styles.likedTitle}> 즐겨찾기 한 가이드 목록 </Text>
-          <MyPageLiked data={guide} screen="GuideDetail"  />
+          <MyPageLiked data={guide} screen="GuideDetail" />
         </View>
       ) : (
         <View style={styles.noGuideContainer}>
@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     marginBottom: responsiveHeight(2),
     marginLeft: responsiveWidth(4),
     fontSize: responsiveFontSize(2.5),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: '강원교육튼튼',
   },
   noGuideContainer: {
     // position: 'absolute',

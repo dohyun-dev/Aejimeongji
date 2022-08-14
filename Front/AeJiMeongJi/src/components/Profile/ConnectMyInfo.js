@@ -11,10 +11,10 @@ import {useSelector} from 'react-redux';
 import {getDog} from '../../utils/profile';
 import {useNavigation} from '@react-navigation/native';
 
-const ConnectMyInfo = ({source,dogName}) => {
+const ConnectMyInfo = ({source, dogName}) => {
   const navigation = useNavigation();
   const goToMyInfo = () => {
-    navigation.navigate('MyInfo')
+    navigation.navigate('MyInfo');
   };
 
   return (
@@ -66,8 +66,10 @@ const styles = StyleSheet.create({
   },
   dogName: {
     color: '#6D6D6D',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: responsiveFontSize(2.5),
+    fontFamily: '강원교육튼튼',
+    paddingLeft: responsiveWidth(2)
   },
   avatarContainer: {
     justifyContent: 'center',

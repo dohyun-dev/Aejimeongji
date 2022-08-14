@@ -15,14 +15,12 @@ const MyPageLiked = ({data, screen}) => {
 
   const renderItem = ({item, index}, parallaxProps) => {
     const goToScreen = () => {
-      console.log('title 클릭');
       const {id, address} = item;
-      console.log(id, address);
 
       if (screen === 'PlaceDetail') {
         navigation.navigate(screen, {id, address});
       } else {
-        navigation.navigate(screen, {guideId:item.guideId})
+        navigation.navigate(screen, {guideId: item.guideId});
       }
     };
     return (
@@ -105,5 +103,8 @@ const styles = StyleSheet.create({
   },
   distance: {
     fontSize: responsiveFontSize(1.5),
+  },
+  title: {
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });
