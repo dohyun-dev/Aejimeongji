@@ -15,8 +15,6 @@ import {Colors} from '../../constants/styles';
 import {fetchLikedPlace} from '../../utils/place';
 import {fetchLikedGuide, getDog} from '../../utils/profile';
 
-
-
 const MyPage = () => {
   const [place, setPlace] = useState(true);
   const [guide, setGuide] = useState(true);
@@ -30,6 +28,7 @@ const MyPage = () => {
       const likedPlace = await fetchLikedPlace();
       const res = await getDog(dogId);
       console.log(likedPlace);
+      console.log(likedGuide);
       setDogName(res.name);
       setGuide(likedGuide.data);
       setPlace(likedPlace.data);
@@ -47,7 +46,7 @@ const MyPage = () => {
       {place ? (
         <View style={styles.likedContainer}>
           <Text style={styles.likedTitle}> 즐겨찾기 한 장소 목록 </Text>
-          <MyPageLiked data={place} screen='PlaceDetail' />
+          <MyPageLiked data={place} screen="PlaceDetail" />
         </View>
       ) : (
         <View style={styles.noGuideContainer}>
@@ -57,7 +56,7 @@ const MyPage = () => {
       {guide ? (
         <View style={styles.likedContainer}>
           <Text style={styles.likedTitle}> 즐겨찾기 한 가이드 목록 </Text>
-          <MyPageLiked data={place} />
+          <MyPageLiked data={guide} />
         </View>
       ) : (
         <View style={styles.noGuideContainer}>
@@ -114,6 +113,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   likedContainer: {
-    marginVertical: responsiveHeight(2)
+    marginVertical: responsiveHeight(2),
   },
 });

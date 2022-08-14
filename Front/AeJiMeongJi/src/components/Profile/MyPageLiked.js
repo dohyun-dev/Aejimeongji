@@ -11,9 +11,10 @@ import {Colors} from '../../constants/styles';
 
 const MyPageLiked = ({data, screen}) => {
   const navigation = useNavigation();
-  console.log(data);
+  const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
 
   const renderItem = ({item, index}, parallaxProps) => {
+    console.log(item.thumbnail);
     const goToScreen = () => {
       console.log('title 클릭');
       const {id, address} = item;
@@ -23,7 +24,7 @@ const MyPageLiked = ({data, screen}) => {
     return (
       <View style={styles.item}>
         <ParallaxImage
-          source={{uri: item.petplaceThumbnail}}
+          source={{uri: screen === 'PlaceDetail' ? item.petplaceThumbnail : `${imageurl}${item.thumbnail}`}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
@@ -31,7 +32,7 @@ const MyPageLiked = ({data, screen}) => {
         />
         <Pressable style={styles.infoContainer} onPress={goToScreen}>
           <Text style={styles.title} numberOfLines={1}>
-            {item.name}
+            {screen === 'PlaceDetail' ? item.name : item.title}
           </Text>
         </Pressable>
       </View>

@@ -107,8 +107,9 @@ public class DogApiController {
     private void valideteRequest(LocalDate birthday, LocalDate adoptionDay, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             throw new MethodArgumentNotValidException(bindingResult);
-        if (adoptionDay.isBefore(birthday))
+        if (adoptionDay.isBefore(birthday)) {
             bindingResult.reject("adoptionDay", String.format("입양일 %s일이 생일 %s일보다 빠르면 안돼요!", adoptionDay, birthday));
-        throw new MethodArgumentNotValidException(bindingResult);
+            throw new MethodArgumentNotValidException(bindingResult);
+        }
     }
 }
