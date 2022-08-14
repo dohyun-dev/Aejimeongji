@@ -121,8 +121,8 @@ export default ProfileImage;
 const styles = StyleSheet.create({
   Avatar: {
     borderRadius: 90,
-    width: responsiveWidth(58),
-    height: responsiveHeight(23),
+    width: responsiveWidth(40),
+    height: responsiveWidth(40),
   },
   ImgContainer: {
     marginTop: responsiveHeight(10),
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(10),
     width: responsiveWidth(10),
     height: responsiveWidth(10),
-    left: 170,
+    left: responsiveWidth(30),
     bottom: 0,
   },
 });

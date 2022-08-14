@@ -11,7 +11,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {removeMember} from '../../utils/auth';
 import {authActions} from '../../store/auth';
 import ProfileModal from '../../components/Profile/ProfileModal';
-import CustomNav from '../../components/nav/CustomNav'
+import CustomNav from '../../components/nav/CustomNav';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 const MyInfoScreen = () => {
   const dogId = useSelector(state => state.id);
@@ -54,7 +55,6 @@ const MyInfoScreen = () => {
   const closeModalHandler = () => {
     setVisible(false);
   };
-
 
   const changeInfoHandler = async (identifier, enteredValue) => {
     setUserInfo(curValue => {
@@ -130,7 +130,7 @@ const MyInfoScreen = () => {
           프로필 변경
         </Button>
       </View>
-      <View style={styles.buttonContainer}>
+      <View style={styles.btnContainer}>
         <Btn
           title="회원탈퇴"
           buttonStyle={{backgroundColor: Colors.back100}}
@@ -153,10 +153,14 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: 30,
+    marginTop: responsiveHeight(5),
+  },
+  btnContainer: {
+    marginTop: responsiveHeight(2)
   },
   btn: {
     color: '#90560D',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
   button: {
     paddingHorizontal: 20,
