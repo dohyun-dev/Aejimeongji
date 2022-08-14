@@ -52,6 +52,19 @@ export default function GuideLike(props) {
         console.log(error.response, 'issue');
       }
     };
+
+    const deleteLike = async () => {
+      try {
+        const res = await axios({
+          method: 'delete',
+          url: url + `/api/member/${memberId}/guide/${guideId}/like`,
+        });
+        console.log(res);
+        return res.data;
+      } catch (error) {
+        console.log(error.response, 'issue');
+      }
+    };
     const liked = useSharedValue(0);
     const outlineStyle = useAnimatedStyle(() => {
       return {
@@ -75,34 +88,30 @@ export default function GuideLike(props) {
     });
 
     return (
-      // <Pressable
-      //   onPress={() => (liked.value = withSpring(liked.value ? 0 : 1))}>
-      //   <TouchableOpacity onPress={submitLike}>
-      //   <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
-      <View>
-        <TouchableOpacity onPress={submitLike}>
+      <Pressable
+        onPress={() => (liked.value = withSpring(liked.value ? 0 : 1))}>
+        {/* <TouchableOpacity onPress={submitLike}> */}
+        <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
           <Image
             style={styles.shareLogo}
             resizeMode="contain"
             source={require('../../Assets/image/empty-heart.png')}
             title="Calendar"
           />
-        </TouchableOpacity>
+        </Animated.View>
+        {/* </TouchableOpacity> */}
 
-        {/* // </Animated.View> */}
-        {/* // </TouchableOpacity> */}
-        {/* <Animated.View style={fillStyle}> */}
-        <TouchableOpacity>
+        {/* <TouchableOpacity onPress={deleteLike}> */}
+        <Animated.View style={fillStyle}>
           <Image
             style={styles.shareLogo}
             resizeMode="contain"
             source={require('../../Assets/image/fill-heart.png')}
             title="Calendar"
           />
-        </TouchableOpacity>
-        {/* </Animated.View> */}
-      </View>
-      // </Pressable>
+        </Animated.View>
+        {/* </TouchableOpacity> */}
+      </Pressable>
     );
   };
   return (

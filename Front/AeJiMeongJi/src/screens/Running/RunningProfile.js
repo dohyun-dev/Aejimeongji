@@ -21,18 +21,28 @@ import {fetchDogs} from '../../utils/profile';
 
 const RunningProfile = ({navigation}) => {
   const [profiles, setProfiles] = useState([]);
+  const [dogIds, setDogIds] = useState();
   useLayoutEffect(() => {
     const fetchAlldogs = async () => {
       const res = await fetchDogs();
       setProfiles(res);
+      console.log(res[0].dogId, '값');
+      setDogIds([res[0].dogId]);
     };
     fetchAlldogs();
   }, []);
 
+  console.log(dogIds, '이게 값이 찍여야함');
   console.log(profiles, '프로필');
   const url = 'http://i7d203.p.ssafy.io:8080/api/image/';
   const renderItem = ({item}) => (
-    <RunningSelect id={item.dogId} source={{uri: `${url}${item.imageName}`}} />
+    <RunningSelect
+      id={item.dogId}
+      name={item.name}
+      source={{uri: `${url}${item.imageName}`}}
+      setDogIds={setDogIds}
+      dogIds={dogIds}
+    />
   );
   return (
     <View style={styles.rootContainer}>

@@ -46,7 +46,7 @@ const GuideHome = ({navigation}) => {
     };
     fetchGuide();
   }, []);
-  // console.log(guideList.ageGuideList);
+  // console.log(guideList);
 
   return (
     <ScrollView>

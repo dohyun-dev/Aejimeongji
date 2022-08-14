@@ -135,8 +135,10 @@ class RunningGeolocation extends React.Component {
       },
     );
   }
+
   componentWillUnmount() {
     Geolocation.clearWatch(this.watchID);
+    console.log('산책 끝!');
   }
 
   //지도 위에 현재 위치
@@ -193,6 +195,9 @@ class RunningGeolocation extends React.Component {
               <Text>칼로리</Text>
             </View>
           </View>
+          <TouchableOpacity>
+            <Text>산책끝~~</Text>
+          </TouchableOpacity>
           <RunningAlert></RunningAlert>
         </View>
       </View>
