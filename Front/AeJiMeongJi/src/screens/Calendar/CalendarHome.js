@@ -31,14 +31,7 @@ const CalendarHome = ({navigation}) => {
         '-' +
         now.getDate().toString(),
     );
-
-    console.log('오늘의 날짜');
   }, []);
-
-  console.log(year);
-  console.log(month);
-  console.log(day);
-  console.log(date);
 
   LocaleConfig.locales['calendarData'] = {
     monthNames: [
