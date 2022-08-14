@@ -24,7 +24,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../utils/index';
 
 const url = 'http://i7d203.p.ssafy.io:8080';
-
+console.log(new Date());
 export default function GuideLike(props) {
   const LikeButton = () => {
     const [memberId, setmemberId] = useState([]);
@@ -39,11 +39,20 @@ export default function GuideLike(props) {
     }, []);
     const guideId = props.data;
     console.log(guideId, memberId);
+    const liked = useSharedValue(0);
 
     const submitLike = async () => {
+      let method = 'delete';
+      if (liked.value === 0) {
+        // submit
+        method = 'post';
+      }
+
+      liked.value = withSpring(liked.value ? 0 : 1);
+
       try {
         const res = await axios({
-          method: 'post',
+          method: method,
           url: url + `/api/member/${memberId}/guide/${guideId}/like`,
         });
         console.log(res);
@@ -65,7 +74,6 @@ export default function GuideLike(props) {
         console.log(error.response, 'issue');
       }
     };
-    const liked = useSharedValue(0);
     const outlineStyle = useAnimatedStyle(() => {
       return {
         transform: [
@@ -88,8 +96,7 @@ export default function GuideLike(props) {
     });
 
     return (
-      <Pressable
-        onPress={() => (liked.value = withSpring(liked.value ? 0 : 1))}>
+      <Pressable onPress={submitLike}>
         {/* <TouchableOpacity onPress={submitLike}> */}
         <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
           <Image

@@ -21,7 +21,7 @@ export const SLIDER_WIDTH = Dimensions.get('window').width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
 
-const CarouselCardItem = ({item, index, navigation}) => {
+const CarouselCardItem22 = ({item, index}) => {
   const guideId = item.guideId;
   return (
     <TouchableOpacity
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CarouselCardItem;
+export default CarouselCardItem22;
