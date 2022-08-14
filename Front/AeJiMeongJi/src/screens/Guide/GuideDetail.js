@@ -45,12 +45,21 @@ const GuideDetail = props => {
           <Text
             style={{
               fontSize: responsiveFontSize(4),
+              fontFamily: '강원교육튼튼',
               marginBottom: responsiveHeight(3),
             }}>
             {GuideDetail.title}
           </Text>
           <View style={styles.contentBox}>
-            <Markdown>{GuideDetail.content}</Markdown>
+            <Markdown
+              styles={{
+                text: {
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                },
+              }}>
+              {GuideDetail.content}
+            </Markdown>
           </View>
         </View>
       </ScrollView>

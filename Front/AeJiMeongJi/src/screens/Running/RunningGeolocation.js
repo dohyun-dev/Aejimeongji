@@ -25,8 +25,9 @@ import MapView, {
 import {Colors} from '../../constants/styles';
 import haversine from 'haversine';
 import Geolocation from 'react-native-geolocation-service';
-import RunningTimer from '../../components/Running/RunningTimer';
+// import RunningTimer from '../../components/Running/RunningTimer';
 import RunningAlert from '../../components/Running/RunningAlert';
+import {Stopwatch, Timer} from 'react-native-stopwatch-timer';
 import RunButton from '../../components/ui/RunButton';
 import RunningHome from './RunningHome';
 
@@ -36,12 +37,15 @@ const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
-
+const isStopwatchStart = true;
+const resetStopwatch = false;
 class RunningGeolocation extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      start: true,
+      pause: resetStopwatch,
       latitude: LATITUDE,
       longitude: LONGITUDE,
       routeCoordinates: [],
@@ -55,41 +59,6 @@ class RunningGeolocation extends React.Component {
       }),
     };
   }
-  // async componentDidMount() {
-  //   /*LOCATION : */
-  //   //Grant the permission for Location
-  //   const granted = await PermissionsAndroid.request(
-  //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //     {
-  //       title: 'ReactNativeCode Location Permission',
-  //       message: 'ReactNativeCode App needs access to your location ',
-  //     },
-  //   );
-
-  //   if (granted) {
-  //     Geolocation.getCurrentPosition(
-  //       position => {
-  //         console.log('My current location', JSON.stringify(position));
-  //         this.setState({
-  //           location:
-  //             position.coords.latitude.toString() +
-  //             ',' +
-  //             position.coords.longitude.toString(),
-  //         });
-  //       },
-  //       error => {
-  //         // See error code charts below.
-  //         console.log(error.code, error.message);
-  //       },
-  //       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-  //     );
-
-  //     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-  //       this.setState({lastPosition});
-  //     });
-  //   }
-  //   //----LOCATION END----//
-  // }
 
   componentDidMount() {
     const {coordinate} = this.state;
@@ -176,7 +145,22 @@ class RunningGeolocation extends React.Component {
           />
         </MapView>
         <View style={styles.info}>
-          <RunningTimer></RunningTimer>
+          <View style={styles.timeContainer}>
+            <View style={styles.timeSectionStyle}>
+              <Stopwatch
+                laps
+                secs
+                start={this.state.start}
+                options={options}
+                reset={resetStopwatch}></Stopwatch>
+              <TouchableHighlight
+                onPress={() => this.setState({start: !this.state.start})}>
+                <Text style={styles.buttonText}>
+                  {!this.state.start ? '재시작' : '일시정지'}
+                </Text>
+              </TouchableHighlight>
+            </View>
+          </View>
           <View style={styles.subContainer}>
             <View style={styles.distanceContainer}>
               <Text style={{fontSize: responsiveFontSize(2.2)}}>
@@ -239,6 +223,35 @@ const styles = StyleSheet.create({
     width: responsiveWidth(100),
     height: responsiveHeight(29),
   },
+  timeContainer: {
+    padding: responsiveHeight(1.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timeSectionStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  buttonText: {
+    fontSize: responsiveFontSize(2.2),
+    marginTop: responsiveHeight(1),
+  },
 });
+
+const options = {
+  container: {
+    padding: responsiveWidth(2),
+    borderRadius: 5,
+    width: responsiveWidth(50),
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: responsiveFontSize(3.4),
+    fontWeight: 'bold',
+    color: '#000000',
+    marginLeft: responsiveWidth(2),
+  },
+};
 
 export default RunningGeolocation;

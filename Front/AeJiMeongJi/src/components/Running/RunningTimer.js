@@ -20,8 +20,8 @@ const RunningTimer = () => {
   const [resetStopwatch, setResetStopwatch] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.sectionStyle}>
+    <View style={styles.timeContainer}>
+      <View style={styles.timeSectionStyle}>
         <Stopwatch
           laps
           secs
@@ -49,12 +49,12 @@ const RunningTimer = () => {
 export default RunningTimer;
 
 const styles = StyleSheet.create({
-  container: {
+  timeContainer: {
     padding: responsiveHeight(1.5),
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sectionStyle: {
+  timeSectionStyle: {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
