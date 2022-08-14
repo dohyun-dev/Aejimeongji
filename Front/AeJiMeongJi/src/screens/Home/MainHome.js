@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import Profile from '../../components/Home/Profile';
 import Running from '../../components/Home/Running';
@@ -115,19 +120,19 @@ const styles = StyleSheet.create({
   },
 
   notice: {
-    maxWidth: '20%',
-    maxHeight: '100%',
+    maxWidth: responsiveWidth(10),
+    maxHeight: responsiveHeight(5),
   },
 
   guidebox: {
-    height: 70,
+    height: responsiveHeight(10),
     alignSelf: 'center',
-    width: '80%',
-    paddingLeft: 20,
-    paddingTop: 10,
-    paddingBottom: 20,
-    paddingRight: 20,
-    marginTop: -10,
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    paddingTop: responsiveHeight(2),
+    paddingBottom: responsiveHeight(2),
+    paddingRight: responsiveWidth(5),
+    marginTop: responsiveHeight(-1),
     borderBottomColor: Colors.btnBack100,
     borderBottomWidth: 1,
   },

@@ -5,13 +5,16 @@ import com.ssafy.aejimeongji.api.dto.calendar.CalendarRequest;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.api.dto.calendar.TodosResponse;
 import com.ssafy.aejimeongji.domain.condition.CalendarSearchCondition;
+import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,15 +38,17 @@ public class CalendarApiController {
     }
 
     @PostMapping("/dog/{dogId}/calendar")
-    public ResponseEntity<ResponseDTO> saveCalendar(@PathVariable Long dogId, @RequestBody CalendarRequest request) {
+    public ResponseEntity<ResponseDTO> saveCalendar(@PathVariable Long dogId, @Valid @RequestBody CalendarRequest request, BindingResult bindingResult) {
         log.info("{}번 강아지 프로필 캘린더 저장", dogId);
+        validRequest(bindingResult);
         calendarService.saveCalender(dogId, request.toEntity());
         return ResponseEntity.ok(new ResponseDTO("등록이 완료되었습니다."));
     }
 
     @PutMapping("/calendar/{calendarId}")
-    public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId, @RequestBody CalendarRequest request) {
+    public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId, @Valid @RequestBody CalendarRequest request, BindingResult bindingResult) {
         log.info("{}번 강아지 프로필 캘린더 수정", calendarId);
+        validRequest(bindingResult);
         calendarService.updateCalendar(calendarId, request.toEntity());
         return ResponseEntity.ok(new ResponseDTO("수정이 완료되었습니다."));
     }
@@ -57,5 +62,11 @@ public class CalendarApiController {
     @GetMapping("/messages/{birthday}")
     public ResponseEntity<?> getMessages(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
         return ResponseEntity.ok(new ResponseDTO(calendarService.findMessages(birthday)));
+    }
+
+    private void validRequest(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new MethodArgumentNotValidException(bindingResult);
+        }
     }
 }

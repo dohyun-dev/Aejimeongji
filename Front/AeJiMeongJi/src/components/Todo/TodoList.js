@@ -10,6 +10,7 @@ import {
   PanResponder,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -65,10 +66,6 @@ const TodoList = props => {
       resetBottomSheet.start();
     }
 
-    //데이터 받기
-
-    console.log('날짜는?');
-    console.log(props.selectedDate);
     axios
       .get(url + `/api/dog/${dogId}/calendar?date=${props.selectedDate}`)
       .then(response => {
@@ -90,6 +87,17 @@ const TodoList = props => {
     });
   };
 
+  const toDo = todolist.map((todo, index) => {
+    return (
+      <View style={styles.todoDetail} key={index}>
+        <View style={styles.todoCategory}>
+          <Text style={{fontWeight: 'bold'}}>할일</Text>
+        </View>
+        <Text>{todo.content}</Text>
+      </View>
+    );
+  });
+
   return (
     <Modal
       visible={modalVisible}
@@ -106,17 +114,33 @@ const TodoList = props => {
             transform: [{translateY: translateY}],
           }}
           {...panResponders.panHandlers}>
-          <Text style={{fontSize: 30}}>{props.selectedDate}</Text>
-          <View>
-            {todolist.length != 0 ? (
-              <View>
-                <Text>{todolist[0].content}</Text>
-                <Text>{todolist[1].content}</Text>
-              </View>
-            ) : (
-              <Text>없어</Text>
-            )}
-          </View>
+          <Text
+            style={{
+              fontSize: 30,
+              color: '#553609',
+              marginTop: 10,
+              marginBottom: 20,
+            }}>
+            {props.selectedDate.substr(0, 4)}년{' '}
+            {props.selectedDate.substr(5, 2)}월{' '}
+            {props.selectedDate.substr(8, 2)}일
+          </Text>
+          <ScrollView style={{width: '100%'}}>
+            <View style={{height: '80%', width: '100%', marginBottom: 100}}>
+              {todolist.length != 0 ? (
+                <View style={styles.todoContent}>{toDo}</View>
+              ) : (
+                <View>
+                  {/* <NothingTodo /> */}
+                  <Image
+                    style={{height: 400, width: 400}}
+                    resizeMode="contain"
+                    source={require('../../Assets/image/nothing.gif')}
+                  />
+                </View>
+              )}
+            </View>
+          </ScrollView>
         </Animated.View>
         <TouchableOpacity
           onPress={() => {
@@ -139,7 +163,7 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   background: {
     flex: 1,
@@ -148,20 +172,45 @@ const styles = StyleSheet.create({
     height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FFF8EA',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   plusButton: {
     borderWidth: 1,
     position: 'absolute',
-    bottom: 60,
+    bottom: 80,
     right: 20,
     alignSelf: 'flex-end',
     marginTop: 5,
 
     maxWidth: '10%',
     maxHeight: '10%',
+  },
+  todoContent: {
+    width: '80%',
+    height: '100%',
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+  todoCategory: {
+    backgroundColor: '#DD9944',
+    marginLeft: 10,
+    marginRight: 10,
+    width: 40,
+    height: 25,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  todoDetail: {
+    height: 50,
+    backgroundColor: '#FBEDD3',
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 15,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

@@ -14,7 +14,7 @@ const ToddUpload = props => {
         </Text>
       </View>
       <View style={styles.inputContainer}>
-        <TodoForm />
+        <TodoForm date={props.route.params.date} />
       </View>
     </View>
   );

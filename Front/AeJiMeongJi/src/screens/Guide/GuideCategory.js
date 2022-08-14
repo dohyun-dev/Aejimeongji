@@ -17,7 +17,7 @@ import {Colors} from '../../constants/styles';
 import {SafeAreaView, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 // import {MarkdownView} from 'react-native-markdown-view';
-import Markdown from 'react-native-simple-markdown';
+
 import axios from '../../utils/index';
 
 axios.defaults.withCredentials = true;

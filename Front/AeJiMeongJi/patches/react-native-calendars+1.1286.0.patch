@@ -11,6 +11,25 @@ index d76b2dd..811b929 100644
          <Reservation {...reservationProps} item={item.reservation} date={item.date}/>
        </View>);
      };
+diff --git a/node_modules/react-native-calendars/src/calendar/day/period/index.js b/node_modules/react-native-calendars/src/calendar/day/period/index.js
+index 7c08fde..43efc57 100644
+--- a/node_modules/react-native-calendars/src/calendar/day/period/index.js
++++ b/node_modules/react-native-calendars/src/calendar/day/period/index.js
+@@ -124,12 +124,14 @@ const PeriodDay = (props) => {
+     return (<Component testID={testID} onPress={_onPress} onLongPress={_onLongPress} disabled={marking?.disableTouchEvent} accessible accessibilityRole={marking?.disableTouchEvent ? undefined : 'button'} accessibilityLabel={accessibilityLabel}>
+       <View style={style.current.wrapper}>
+         {renderFillers()}
++        <View style={{height:100}}>
+         <View style={containerStyle}>
+           <Text allowFontScaling={false} style={textStyle}>
+             {String(children)}
+           </Text>
+           <Dot theme={theme} color={marking?.dotColor} marked={marking?.marked}/>
+         </View>
++        </View>
+       </View>
+     </Component>);
+ };
 diff --git a/node_modules/react-native-calendars/src/calendar/header/style.js b/node_modules/react-native-calendars/src/calendar/header/style.js
 index 9d5a139..80e6338 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/style.js
@@ -24,3 +43,16 @@ index 9d5a139..80e6338 100644
              margin: 10
          },
          arrow: {
+diff --git a/node_modules/react-native-calendars/src/calendar/style.js b/node_modules/react-native-calendars/src/calendar/style.js
+index c9af755..10b5852 100644
+--- a/node_modules/react-native-calendars/src/calendar/style.js
++++ b/node_modules/react-native-calendars/src/calendar/style.js
+@@ -16,7 +16,7 @@ export default function getStyle(theme = {}) {
+             flex: 1
+         },
+         monthView: {
+-            backgroundColor: appStyle.calendarBackground
++            backgroundColor: '#FFF8EA'
+         },
+         week: {
+             marginVertical: appStyle.weekVerticalMargin,

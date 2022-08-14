@@ -11,9 +11,15 @@ import {ScrollView} from 'react-native';
 import {Colors} from '../../constants/styles';
 import DetailInfo from '../../components/Place/DetailInfo';
 import PlaceMap from '../../components/Place/PlaceMap';
-import {searchPlace, fetchPlaceDetail, fetchReviews, fetchLiked} from '../../utils/place';
+import {
+  searchPlace,
+  fetchPlaceDetail,
+  fetchReviews,
+  fetchLiked,
+} from '../../utils/place';
 import Review from '../../components/Place/Review';
 import {useNavigation} from '@react-navigation/native';
+import {isLike} from '../../utils/profile';
 
 const renderItem = ({item, index}, parallaxProps) => {
   return (
@@ -40,7 +46,7 @@ const PlaceDetail = ({route}) => {
   const navigation = useNavigation();
 
   const handleLiked = async () => {
-    await fetchLiked(!liked, route.params.id)
+    await fetchLiked(!liked, route.params.id);
     setLiked(cur => !cur);
   };
 
@@ -68,6 +74,9 @@ const PlaceDetail = ({route}) => {
   useLayoutEffect(() => {
     const initialData = async () => {
       const res = await fetchPlaceDetail(route.params.id);
+      const checkIsLiked = await isLike();
+      console.log(checkIsLiked);
+      setLiked(checkIsLiked);
       setImage(res.petplaceImageUrl);
       setPlaceDetail(res);
       setInfoImage(res.petplaceInfoUrl);
@@ -111,8 +120,15 @@ const PlaceDetail = ({route}) => {
         <PlaceMap latitude={latitude} longitude={longitude} />
       </View>
       <View style={styles.reviewContainer}>
-        <FlatList key={'#'} data={reviews} renderItem={Review} numColumns={1} />
+        <FlatList
+          key={'#'}
+          data={reviews}
+          contentContainerStyle={{flexGrow: 1, alignItems: 'center'}}
+          renderItem={Review}
+          numColumns={1}
+        />
         {/* <Review /> */}
+        <View style={styles.margin}></View>
       </View>
     </ScrollView>
   );
@@ -146,4 +162,7 @@ const styles = StyleSheet.create({
     width: responsiveWidth(10),
     height: responsiveHeight(5),
   },
+  margin: {
+    marginVertical: responsiveHeight(2)
+  }
 });

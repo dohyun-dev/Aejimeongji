@@ -136,21 +136,34 @@ export const fetchMoreData = async (category, lat2, lng2, curLastIdx) => {
 };
 
 export const fetchLiked = async (liked, petplaceId) => {
-  const memberId = await getMemberId()
-  const method = !liked ? 'delete' : 'post'
-  const path = `/api/petplace/${petplaceId}/member/${memberId}/bookmark`
+  const memberId = await getMemberId();
+  const method = !liked ? 'delete' : 'post';
+  const path = `/api/petplace/${petplaceId}/member/${memberId}/bookmark`;
   try {
     const res = await axios({
       method,
       url: url + path,
       data: {
         memberId,
-        petplaceId
-      }
+        petplaceId,
+      },
     });
     console.log(res.data);
-
   } catch (error) {
     console.log(error.response);
   }
-}
+};
+
+export const fetchLikedPlace = async () => {
+  const memberId = await getMemberId();
+  const path = `/api/petplace/member/${memberId}`;
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+};

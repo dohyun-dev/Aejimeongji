@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   Alert,
   Modal,
@@ -14,11 +14,31 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
+import {useSelector} from 'react-redux';
 import RunButton from '../../components/ui/RunButton';
 import RunButton2 from '../../components/ui/RunButton2';
+import {getDog} from '../../utils/profile';
 
 const RunningHome = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const dogId = useSelector(state => state.profile.id);
+  const [dogName, setDogName] = useState();
+  const [dogWeight, setDogWeight] = useState();
+  const [dogBreed, setDogBreed] = useState();
+  const [dogImage, setDogImage] = useState();
+  const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
+  useLayoutEffect(() => {
+    const fetchInitialData = async () => {
+      const res = await getDog(dogId);
+      if (res) {
+        setDogName(res.name);
+        setDogWeight(res.weight);
+        setDogBreed(res.breedName);
+        setDogImage(res.imageName);
+      }
+    };
+    fetchInitialData();
+  });
 
   return (
     <View style={styles.rootContainer}>
@@ -34,12 +54,11 @@ const RunningHome = ({navigation}) => {
           <View style={styles.profileBox}>
             <View style={{flexDirection: 'row'}}>
               <View style={styles.profileImg}>
-                {/* <Image
-                  style={{width: '100%', height: '100%'}}
-                  source={require('../../Assets/image/3d_dog.png')}
+                <Image
+                  style={{width: '100%', height: '100%', borderRadius: 100}}
+                  source={{uri: imageurl + dogImage}}
                   resizeMode="cover"
-                /> */}
-                <Text>이미지 들어갈 곳</Text>
+                />
               </View>
               <View>
                 <View style={styles.infoBox}>
@@ -49,12 +68,12 @@ const RunningHome = ({navigation}) => {
                         fontSize: responsiveFontSize(3.5),
                         fontWeight: 'bold',
                       }}>
-                      앵두
+                      {dogName}
                     </Text>
                   </View>
                   <View style={styles.infoCate}>
                     <Text style={{fontSize: responsiveFontSize(1.8)}}>
-                      10살, 5kg, 푸들
+                      {dogWeight}kg, {dogBreed}
                     </Text>
                   </View>
                 </View>
@@ -70,7 +89,9 @@ const RunningHome = ({navigation}) => {
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <RunButton
-                onPress={() => setModalVisible(true)}
+                onPress={() => {
+                  navigation.navigate('RunningProfile', {dogId});
+                }}
                 styel={styles.runLoginButton}>
                 산책 시작하기
               </RunButton>
@@ -86,7 +107,7 @@ const RunningHome = ({navigation}) => {
       </View>
 
       <View style={styles.centeredView}>
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -136,7 +157,7 @@ const RunningHome = ({navigation}) => {
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
       </View>
     </View>
   );

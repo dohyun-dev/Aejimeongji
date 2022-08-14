@@ -7,17 +7,19 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import { Colors } from '../../constants/styles';
-const NoGuide = () => {
+const NoGuide = ({children, navigate}) => {
   const navigation = useNavigation();
-  const goToGuide = () => {
-    navigation.navigate('Guide');
+  const goToSomewhere = () => {
+    navigation.navigate(navigate);
   };
+
+  console.log('noguide');
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>아직 즐겨 찾기 한 가이드가 없어요</Text>
-      <Pressable onPress={goToGuide}>
-        <Text style={styles.goToGuide}>가이드 보러 가기</Text>
+      <Text style={styles.title}>아직 즐겨 찾기 한 {children}가 없어요</Text>
+      <Pressable onPress={goToSomewhere}>
+        <Text style={styles.goToGuide}>{children} 보러 가기</Text>
       </Pressable>
     </View>
   );

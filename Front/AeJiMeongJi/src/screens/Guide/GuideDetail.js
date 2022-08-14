@@ -8,9 +8,10 @@ import {
 import {Colors} from '../../constants/styles';
 import {SafeAreaView, ScrollView} from 'react-native';
 import GuideShare from '../../components/Guide/GuideShare';
-import GuideLike from '../../components/Guide/GuideLike';
+import LikeButton from '../../components/Guide/LikeButton';
 import Markdown from 'react-native-simple-markdown';
 import axios from '../../utils/index';
+import {getMemberId} from '../../utils/auth';
 
 axios.defaults.withCredentials = true;
 const url = 'http://i7d203.p.ssafy.io:8080/api/guide/';
@@ -44,18 +45,27 @@ const GuideDetail = props => {
           <Text
             style={{
               fontSize: responsiveFontSize(4),
+              fontFamily: '강원교육튼튼',
               marginBottom: responsiveHeight(3),
             }}>
             {GuideDetail.title}
           </Text>
           <View style={styles.contentBox}>
-            <Markdown>{GuideDetail.content}</Markdown>
+            <Markdown
+              styles={{
+                text: {
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'IBMPlexSansKR-Regular',
+                },
+              }}>
+              {GuideDetail.content}
+            </Markdown>
           </View>
         </View>
       </ScrollView>
       <View style={styles.footer}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <GuideLike></GuideLike>
+          <LikeButton data={GuideDetail.guideId}></LikeButton>
           <GuideShare></GuideShare>
         </View>
       </View>

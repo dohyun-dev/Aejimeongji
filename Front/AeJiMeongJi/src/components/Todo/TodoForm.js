@@ -9,7 +9,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 const url = 'http://i7d203.p.ssafy.io:8080';
-const TodoForm = () => {
+const TodoForm = props => {
   const navigation = useNavigation();
   const dogId = useSelector(state => state.profile.id);
   const [isHome, setIsHome] = useState(false);
@@ -35,7 +35,7 @@ const TodoForm = () => {
 
     let data = {
       content: content,
-      date: '2022-08-12',
+      date: props.date,
       isActive: isHome,
       isAlert: isAlert,
     };
@@ -48,6 +48,7 @@ const TodoForm = () => {
         if (response.status == 200) {
           console.log('To-Do 등록 성공');
           console.log(response);
+          navigation.navigate('CalendarHome');
         } else {
           console.log('To-Do 등록에 실패했습니다.');
         }

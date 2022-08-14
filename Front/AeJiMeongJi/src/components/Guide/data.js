@@ -20,14 +20,6 @@ const data = [
     title: 'Lorem Ipsum',
     imgUrl: 'https://picsum.photos/id/14/200/300',
   },
-  {
-    title: 'Lorem Ipsum',
-    imgUrl: 'https://picsum.photos/id/15/200/300',
-  },
-  {
-    title: 'Lorem Ipsum',
-    imgUrl: 'https://picsum.photos/id/16/200/300',
-  },
 ];
 
 export default data;

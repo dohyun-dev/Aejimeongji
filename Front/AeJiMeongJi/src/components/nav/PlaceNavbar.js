@@ -17,13 +17,14 @@ import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/styles';
 
 const PlaceNavbar = ({source, children}) => {
-const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <View style={styles.nav}>
-      <Pressable onPress={() => {
-        navigation.navigate('Home')
-      }}>
+      <Pressable
+        onPress={() => {
+          navigation.navigate('Home');
+        }}>
         <Image
           style={styles.profilelogo}
           resizeMode="contain"
@@ -80,19 +81,21 @@ const styles = StyleSheet.create({
     width: responsiveWidth(12),
     height: responsiveWidth(12),
     borderRadius: responsiveWidth(12),
-    marginLeft: responsiveWidth(4)
+    marginLeft: responsiveWidth(4),
   },
   logo: {
     marginTop: 5,
   },
   calendarLogo: {
     width: responsiveWidth(8),
+    height: responsiveHeight(8),
   },
   text: {
     alignItems: 'center',
     flex: 1,
   },
   calendarContainer: {
-    marginRight: responsiveWidth(4)
+    marginRight: responsiveWidth(4),
+    height: responsiveHeight(8),
   },
 });

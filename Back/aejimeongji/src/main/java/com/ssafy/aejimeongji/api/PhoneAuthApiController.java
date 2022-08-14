@@ -4,12 +4,16 @@ import com.ssafy.aejimeongji.api.dto.phoneauth.PhoneAuthVerifyRequest;
 import com.ssafy.aejimeongji.api.dto.phoneauth.PhoneAuthSendRequest;
 import com.ssafy.aejimeongji.api.dto.phoneauth.PhoneAuthSendResponse;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
+import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.PhoneAuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -31,9 +35,15 @@ public class PhoneAuthApiController {
     }
 
     @PostMapping
-    public ResponseEntity<PhoneAuthSendResponse> sendMessage(@RequestBody PhoneAuthSendRequest request) throws CoolsmsException {
+    public ResponseEntity<PhoneAuthSendResponse> sendMessage(@Valid @RequestBody PhoneAuthSendRequest request, BindingResult bindingResult) throws CoolsmsException {
+        validateRequest(bindingResult);
         String phoneUUID = phoneAuthService.sendMessage(request.getPhoneNumber());
         log.info("{}번으로 인증번호가 전송되었습니다.", request.getPhoneNumber());
         return ResponseEntity.ok().body(new PhoneAuthSendResponse("인증번호가 발송되었습니다.", phoneUUID));
+    }
+
+    private void validateRequest(BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new MethodArgumentNotValidException(bindingResult);
     }
 }

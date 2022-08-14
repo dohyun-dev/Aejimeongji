@@ -9,12 +9,15 @@ import com.ssafy.aejimeongji.api.dto.walking.WalkingDto;
 import com.ssafy.aejimeongji.domain.condition.WalkingDogCondition;
 import com.ssafy.aejimeongji.domain.entity.Walking;
 import com.ssafy.aejimeongji.domain.entity.WalkingDog;
+import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.WalkingDogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +43,8 @@ public class WalkingApiController {
     }
 
     @PostMapping("/walking")
-    public ResponseEntity<CreateWalkingResponse> createWalking(@RequestBody CreateWalkingRequest request) {
+    public ResponseEntity<CreateWalkingResponse> createWalking(@Valid @RequestBody CreateWalkingRequest request, BindingResult bindingResult) {
+        validateRequest(bindingResult);
         Walking walking = new Walking(request.getWalkingDistance(), request.getWalkingTime(), request.getWalkingDate());
         Long walkingId = walkingDogService.saveWalking(walking);
         return ResponseEntity.ok().body(new CreateWalkingResponse(walkingId, "산책 정보가 등록되었습니다."));
@@ -56,5 +60,10 @@ public class WalkingApiController {
     public ResponseEntity<ResponseDTO> deleteWalkingDog(@PathVariable Long walkingDogId) {
         walkingDogService.deleteWalkingDog(walkingDogId);
         return ResponseEntity.ok().body(new ResponseDTO("산책 정보가 삭제되었습니다."));
+    }
+
+    private void validateRequest(BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new MethodArgumentNotValidException(bindingResult);
     }
 }

@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect, useEffect} from 'react';
 import {
   Alert,
   Modal,
@@ -19,20 +19,31 @@ import RunButton3 from '../../components/ui/RunButton3';
 import RunningSelect from '../../components/Running/RunningSelect';
 import {fetchDogs} from '../../utils/profile';
 
-const RunningProfile = ({navigation}) => {
+const RunningProfile = ({route, navigation}) => {
   const [profiles, setProfiles] = useState([]);
+  const [dogIds, setDogIds] = useState([route.params.dogId]);
+
   useLayoutEffect(() => {
     const fetchAlldogs = async () => {
       const res = await fetchDogs();
-      setProfiles(res);
+      const newArray = res.filter(item => item.dogId !== route.params.dogId);
+      setProfiles(newArray);
     };
     fetchAlldogs();
   }, []);
-
   console.log(profiles, '프로필');
+
+  console.log(dogIds, '업데이트 되는 값');
+
   const url = 'http://i7d203.p.ssafy.io:8080/api/image/';
   const renderItem = ({item}) => (
-    <RunningSelect id={item.dogId} source={{uri: `${url}${item.imageName}`}} />
+    <RunningSelect
+      id={item.dogId}
+      name={item.name}
+      source={{uri: `${url}${item.imageName}`}}
+      setDogIds={setDogIds}
+      dogIds={dogIds}
+    />
   );
   return (
     <View style={styles.rootContainer}>

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -13,11 +15,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CalendarRequest {
 
+    @NotBlank(message = "내용을 입력해주세요")
     private String content;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    private Boolean isActive;
-    private Boolean isAlert;
+    private Boolean isActive = false;
+    private Boolean isAlert = false;
 
     public Calendar toEntity() {
         return Calendar.builder()

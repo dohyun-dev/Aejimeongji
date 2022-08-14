@@ -49,6 +49,16 @@ public class PetPlaceService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 " + petplaceId + " 는 존재하지 않습니다."));
     }
 
+    // 북마크 조회
+    public Boolean checkBookMark(Long petplaceId, Long memberId) {
+
+        if (bookmarkRepository.findBookmarkByMemberIdAndPetPlaceId(memberId, petplaceId).isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // 멤버 펫플레이스 북마크 목록
     public ScrollResponse<Bookmark> findAllBookMark(Long memberId, BookMarkListCondition condition) {
         log.info("{}", memberId);

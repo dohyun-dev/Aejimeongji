@@ -77,7 +77,7 @@ export default Running;
 const styles = StyleSheet.create({
   //글꼴
   font: {
-    fontFamily: 'ONE Mobile POP',
+    fontFamily: 'Cafe24Ssurround',
     letterSpacing: 4,
     color: Colors.contentText,
   },

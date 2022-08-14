@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-dimensions';
 import RunButton from '../../components/ui/RunButton';
 
-const RunningAlert = () => {
+const RunningAlert = ({data}) => {
   const navigation = useNavigation();
   const createThreeButtonAlert = () =>
     Alert.alert(

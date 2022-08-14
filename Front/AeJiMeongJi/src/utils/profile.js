@@ -386,17 +386,31 @@ export const changeDogPhoto = async ({dogId, image}) => {
 };
 
 export const fetchLikedGuide = async () => {
-  const memberId = await getMemberId()
-  const path=`/api/guide?member=${memberId}`
+  const memberId = await getMemberId();
+  const path = `/api/guide?member=${memberId}`;
 
   try {
     const res = await axios({
       method: 'get',
       url: url + path,
-    })
-    return res.data
-
+    });
+    return res.data;
   } catch (error) {
     console.log(error.response);
   }
-}
+};
+
+export const isLike = async petplaceId => {
+  const memberId = await getMemberId();
+  const path = `/api/petplace/${petplaceId}/member/${memberId}/`;
+
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
