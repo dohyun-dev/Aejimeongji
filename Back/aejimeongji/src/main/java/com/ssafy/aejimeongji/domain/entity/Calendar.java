@@ -44,7 +44,8 @@ public class Calendar extends BaseTimeEntity {
         this.isAlert = isAlert;
     }
 
-    public Calendar(String content, LocalDate date) {
+    public Calendar(Dog dog, String content, LocalDate date) {
+        this.dog = dog;
         this.content = content;
         this.date = date;
         this.isActive = false;
