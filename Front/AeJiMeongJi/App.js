@@ -57,9 +57,10 @@ const AuthenticatedStack = () => {
           headerShown: true,
           headerStyle: styles.profileHeader,
           headerTitleAlign: 'center',
-          headerTitleStyle: {color: 'black'},
+          headerTitleStyle: {color: '#90560D', fontFamily: '강원교육튼튼'},
           headerTintColor: '#90560D',
           headerShadowVisible: false,
+          
         }}>
         <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
