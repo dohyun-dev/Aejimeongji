@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDCCA2',
     color: '#90560D',
     fontSize: responsiveFontSize(1.5),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     width: responsiveWidth(40),
   },
 });

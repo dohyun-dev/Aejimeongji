@@ -13,7 +13,6 @@ import {useNavigation} from '@react-navigation/native';
 import {getMemberId} from '../../utils/auth';
 
 const ProfileItems = ({source, id, purpose, isEditing, name}) => {
-  let img = null;
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -134,7 +133,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: responsiveFontSize(2),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#90560D',
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
 });

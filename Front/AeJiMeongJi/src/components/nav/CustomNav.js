@@ -11,7 +11,6 @@ import {Colors} from '../../constants/styles';
 const CustomNav = ({children, setIsEditing, isEditing, screen}) => {
   const navigation = useNavigation();
   const changeEditHandler = () => {
-    
     if (screen === 'Choice') {
       setIsEditing(cur => !cur);
     }
@@ -76,9 +75,10 @@ const styles = StyleSheet.create({
     height: responsiveHeight(5),
   },
   title: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'black',
     fontSize: responsiveFontSize(2),
+    fontFamily: '강원교육튼튼',
   },
   button: {
     backgroundColor: Colors.back100,
