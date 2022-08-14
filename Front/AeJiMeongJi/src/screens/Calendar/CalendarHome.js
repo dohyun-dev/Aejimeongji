@@ -13,17 +13,32 @@ const CalendarHome = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), 'yyyy-MM-dd'),
   );
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     const now = new Date();
-    setDay(now);
+    console.log(now);
+    setYear(now.getFullYear());
+    setMonth((now.getMonth() + 1).toString());
+    setDay(now.getDate().toString());
+    setDate(
+      now.getFullYear() +
+        '-0' +
+        (now.getMonth() + 1).toString() +
+        '-' +
+        now.getDate().toString(),
+    );
 
-    console.log('찍어보자');
-    {
-      now ? console.log(now) : console.log('gg');
-    }
+    console.log('오늘의 날짜');
   }, []);
+
+  console.log(year);
+  console.log(month);
+  console.log(day);
+  console.log(date);
 
   LocaleConfig.locales['calendarData'] = {
     monthNames: [
@@ -85,27 +100,27 @@ const CalendarHome = ({navigation}) => {
           style={{backgroundColor: '#FFF8EA'}}
           markingType={'period'}
           markedDates={{
-            '2022-08-11': {
-              marked: true,
-              dotColor: '#50cebb',
-              startingDay: true,
-              color: '#51cebb',
-              textColor: 'white',
-              startingDay: true,
-            },
-            '2022-08-12': {
+            // '2022-08-11': {
+            //   marked: true,
+            //   dotColor: '#50cebb',
+            //   startingDay: true,
+            //   color: '#51cebb',
+            //   textColor: 'white',
+            //   startingDay: true,
+            // },
+            [date]: {
               marked: true,
               dotColor: '#50cebb',
               color: '#50cebb',
               textColor: 'white',
             },
-            '2022-08-13': {
-              dotColor: '#50cebb',
+            // '2022-08-13': {
+            //   dotColor: '#50cebb',
 
-              color: '#50cebb',
-              textColor: 'white',
-              endingDay: true,
-            },
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            //   endingDay: true,
+            // },
           }}
           onDayPress={day => {
             setSelectedDate(day.dateString);
