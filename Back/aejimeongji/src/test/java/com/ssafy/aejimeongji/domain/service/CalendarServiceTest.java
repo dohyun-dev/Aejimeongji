@@ -1,5 +1,7 @@
 package com.ssafy.aejimeongji.domain.service;
 
+import com.ssafy.aejimeongji.api.DogApiController;
+import com.ssafy.aejimeongji.api.dto.dog.DogSaveRequest;
 import com.ssafy.aejimeongji.domain.condition.CalendarSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.*;
 import com.ssafy.aejimeongji.domain.entity.image.DogImage;
@@ -11,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -213,5 +217,31 @@ class CalendarServiceTest {
         assertEquals("생일을 축하합니다!", birth);
         assertEquals("1차 예방접종 기간입니다!", first);
         assertEquals("3차 예방접종 기간입니다!", third);
+    }
+
+    @Test
+    void createInjectionInfoTest() {
+        //given
+        Member member = new Member("ssafy@naver.com", "닉네임");
+        DogImage dogImage = new DogImage("filename1", "storeFilename");
+        Breed breed = new Breed("푸들");
+        em.persist(member);
+        em.persist(dogImage);
+        em.persist(breed);
+
+        Dog dog = new Dog("DogTest1", 12.0, LocalDate.now(), Gender.MALE, false, false, LocalDate.now(), member, dogImage, breed);
+        em.persist(dog);
+
+        LocalDate birth = LocalDate.now().minusMonths(8);
+
+        CalendarSearchCondition condition = new CalendarSearchCondition();
+        condition.setDogId(dog.getId());
+
+        //when
+        calendarService.createInjectionInfo(dog, birth);
+        List<Calendar> calendars = calendarService.findCalendars(condition);
+
+        //then
+        assertEquals(13, calendars.size());
     }
 }
