@@ -8,7 +8,7 @@ import Input from './Input';
 import {
   responsiveHeight,
   responsiveWidth,
-  responsiveFontSize
+  responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 
 const SignupForm = () => {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     width: responsiveWidth(50),
-    marginTop: 24,
+    marginTop: responsiveHeight(6),
     alignSelf: 'center',
   },
   input: {

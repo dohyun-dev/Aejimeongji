@@ -82,7 +82,7 @@ export const confirmCertHandler = async (authNumber, phoneUUID) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 };
 

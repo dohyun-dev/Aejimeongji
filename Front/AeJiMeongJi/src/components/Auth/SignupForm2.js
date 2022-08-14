@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     width: responsiveWidth(50),
-    marginTop: 24,
+    marginTop: responsiveHeight(6),
     alignSelf: 'center',
   },
   input: {
