@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.btnBack100,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: '강원교육튼튼' ,
     fontSize: responsiveFontSize(4),
   },
   inputContainer: {

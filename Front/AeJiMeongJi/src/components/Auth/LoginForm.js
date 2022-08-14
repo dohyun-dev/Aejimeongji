@@ -10,7 +10,7 @@ import {authActions} from '../../store/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {profileActions} from '../../store/profile';
 import {fetchDogs} from '../../utils/profile';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     width: responsiveWidth(50),
-    marginTop: 24,
+    marginTop: responsiveHeight(6),
     alignSelf: 'center',
   },
 });
