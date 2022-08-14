@@ -10,7 +10,7 @@ import {Colors} from '../../constants/styles';
 import {SvgUri} from 'react-native-svg';
 import {SafeAreaView} from 'react-native';
 
-const hasTags = ({item}) => {
+const hashTags = ({item}) => {
   return (
     <SafeAreaView style={styles.hashTagContainer}>
       <Text style={styles.hashTag}>#{item} </Text>
@@ -37,11 +37,13 @@ const Review = ({item}) => {
           <Text style={styles.content}>{item.content}</Text>
         </View>
         <View>
-          <FlatList
-            data={item.hashTags}
-            renderItem={hasTags}
-            horizontal={true}
-          />
+          {item?.hashTags?.length > 1 && (
+            <FlatList
+              data={item.hashTags?.slice(0, 3)}
+              renderItem={hashTags}
+              horizontal={true}
+            />
+          )}
         </View>
       </View>
     </View>

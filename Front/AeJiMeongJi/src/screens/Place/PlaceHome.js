@@ -29,7 +29,6 @@ const PlaceHome = () => {
 
   useEffect(() => {
     const InitialData = async () => {
-      console.log(dogId);
       const res = await getDog(dogId);
       setSource(`http://i7d203.p.ssafy.io:8080/api/image/${res.imageName}`);
       setDogInfo(res);
@@ -60,7 +59,7 @@ const PlaceHome = () => {
 
   return (
     <SafeAreaView style={styles.rootContainer}>
-      <PlaceNavbar source={source} />
+      <PlaceNavbar source={source}>플레이스</PlaceNavbar>
       <ScrollView>
         <View>
           <DogInfo source={source} dogInfo={dogInfo} />

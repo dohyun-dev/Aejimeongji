@@ -15,9 +15,7 @@ const CarouselItem = ({category, lat, lng}) => {
 
   const renderItem = ({item, index}, parallaxProps) => {
     const goToDetail = () => {
-      console.log('title 클릭');
       const {id, address} = item;
-      console.log(id, address);
       navigation.navigate('PlaceDetail', {id, address});
     };
     return (
@@ -65,28 +63,32 @@ const CarouselItem = ({category, lat, lng}) => {
   }, []);
 
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.textContainer}>
-        <View style={styles.categoryText}>
-          <Text style={styles.CartegoryTitle}>
-            반려견과 함께 방문할 {category}
-          </Text>
+    <>
+      {placeData.length !== 0 && (
+        <View style={styles.rootContainer}>
+          <View style={styles.textContainer}>
+            <View style={styles.categoryText}>
+              <Text style={styles.CartegoryTitle}>
+                반려견과 함께 방문할 {category}
+              </Text>
+            </View>
+            <Pressable style={styles.detail} onPress={goToCategory}>
+              <Text style={styles.detailText}>전체보기</Text>
+            </Pressable>
+          </View>
+          <Carousel
+            sliderWidth={responsiveWidth(100)}
+            sliderHeight={responsiveHeight(50)}
+            itemWidth={responsiveWidth(33)}
+            data={placeData}
+            renderItem={renderItem}
+            hasParallaxImages={true}
+            showSpinner={true}
+            firstItem={1}
+          />
         </View>
-        <Pressable style={styles.detail} onPress={goToCategory}>
-          <Text style={styles.detailText}>전체보기</Text>
-        </Pressable>
-      </View>
-      <Carousel
-        sliderWidth={responsiveWidth(100)}
-        sliderHeight={responsiveHeight(50)}
-        itemWidth={responsiveWidth(33)}
-        data={placeData}
-        renderItem={renderItem}
-        hasParallaxImages={true}
-        showSpinner={true}
-        firstItem={1}
-      />
-    </View>
+      )}
+    </>
   );
 };
 
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.back100,
     paddingVertical: responsiveHeight(2),
     marginVertical: responsiveHeight(1),
-    borderRadius: responsiveWidth(5)
+    borderRadius: responsiveWidth(5),
   },
   textContainer: {
     flexDirection: 'row',
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     color: 'black',
     // fontWeight: 'bold',
     fontFamily: '강원교육튼튼',
-    fontSize: responsiveFontSize(2)
+    fontSize: responsiveFontSize(2),
   },
   detailText: {
     color: '#90560D',

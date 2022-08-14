@@ -56,9 +56,9 @@ export const searchPlace = async address => {
 
 export const fetchPlace = async (category, lat2, lng2) => {
   console.log(category, 'category');
-  const lat = 37.5665;
-  const lng = 126.978;
-  const dist = 1000;
+  const lat = 36.1064013;
+  const lng = 128.429;
+  const dist = 200;
   const limit = 10;
   const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
 
@@ -74,9 +74,9 @@ export const fetchPlace = async (category, lat2, lng2) => {
 };
 
 export const fetchCategoryPlace = async (category, lat2, lng2) => {
-  const lat = 37.5665;
-  const lng = 126.978;
-  const dist = 1000;
+  const lat = 36.1064013;
+  const lng = 128.429;
+  const dist = 100;
   const limit = 3;
   const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
   try {
@@ -112,6 +112,7 @@ export const fetchReviews = async petplaceId => {
       method: 'get',
       url: url + path,
     });
+    console.log(res.data, 'review');
     return res.data;
   } catch (error) {
     console.log(error.response);
@@ -119,8 +120,8 @@ export const fetchReviews = async petplaceId => {
 };
 
 export const fetchMoreData = async (category, lat2, lng2, curLastIdx) => {
-  const lat = 37.5665;
-  const lng = 126.978;
+  const lat = 36.1064013;
+  const lng = 128.429;
   const dist = 1000;
   const limit = 3;
   const path = `/api/petplace?category=${category}&curLastIdx=${curLastIdx}&limit=${limit}&dist=${dist}&lat=${lat}&lng=${lng}`;
