@@ -10,7 +10,11 @@ import DatePick from '../../components/Profile/DatePick';
 import {useNavigation} from '@react-navigation/native';
 import Weight from '../../components/Profile/Weight';
 import {fetchDog, fetchDogImage} from '../../utils/profile';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 const ProfileHomeScreen2 = ({route}) => {
   const navigation = useNavigation();
@@ -29,7 +33,6 @@ const ProfileHomeScreen2 = ({route}) => {
     const res = await fetchDog(inputValues);
 
     navigation.replace('ProfileChoice');
-
   };
 
   const [inputValues, setInputValues] = useState({
@@ -92,7 +95,7 @@ const ProfileHomeScreen2 = ({route}) => {
             containerStyle={styles.checkBox}
             checked={check}
             onPress={checkHandler}
-            textStyle={{color: '#90560D'}}
+            textStyle={styles.checkBoxText}
             uncheckedColor={'#90560D'}
             checkedColor={'#90560D'}
           />
@@ -121,13 +124,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#603500',
-    fontWeight: 'bold',
-    fontSize: responsiveFontSize(3),
+    // fontWeight: 'bold',
+    fontSize: responsiveFontSize(4),
     marginBottom: responsiveHeight(1),
+    fontFamily: '강원교육튼튼',
   },
   subTitle: {
     color: '#90560D',
     fontSize: responsiveFontSize(1.5),
+    fontFamily: 'IBMPlexSansKR-Regular',
   },
   inputContainer: {
     flex: 6,
@@ -142,6 +147,10 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     backgroundColor: Colors.back100,
+    color: '#90560D',
+  },
+  checkBoxText: {
+    fontFamily: 'IBMPlexSansKR-Regular',
     color: '#90560D',
   },
   buttonContainer: {
