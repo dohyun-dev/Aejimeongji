@@ -90,7 +90,7 @@ const RunningHome = ({navigation}) => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <RunButton
                 onPress={() => {
-                  navigation.navigate('RunningProfile');
+                  navigation.navigate('RunningProfile', {dogId});
                 }}
                 styel={styles.runLoginButton}>
                 산책 시작하기

@@ -26,13 +26,8 @@ const RunningSelect = ({id, source, name, setDogIds, dogIds}) => {
     } else {
       dogIds.push(id);
     }
-    console.log(dogIds, ' 확인');
-    const newDogIds = [...dogIds, id];
-    console.log(newDogIds);
-    setDogIds(newDogIds);
+    setDogIds(dogIds);
   };
-
-  console.log(dogId);
   return (
     <TouchableOpacity onPress={fetchDogId}>
       <View style={{alignItems: 'center'}}>
