@@ -23,9 +23,17 @@ public class LikeService {
     private final GuideBookRepository guideBookRepository;
     private final LikeRepository likeRepository;
 
+    // 좋아요 확인
+    public Boolean isGuideLiked(Long memberId, Long guideId) {
+        if (likeRepository.findByMemberIdAndGuideBookId(memberId, guideId).isPresent())
+            return true;
+        else
+            return false;
+    }
+
     // 좋아요
     public void likeGuideBook(Long memberId, Long guideId) throws IllegalArgumentException {
-        if (likeRepository.existsByMemberId(memberId))
+        if (likeRepository.existsByMemberIdAndGuideBookId(memberId, guideId))
             throw new IllegalArgumentException("이미 좋아요한 가이드입니다.");
         Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
         GuideBook findGuideBook = guideBookRepository.findById(guideId).orElseThrow(() -> new GuideNotFoundException(guideId.toString()));
