@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class LikeApiController {
 
     private final LikeService likeService;
-    private final MemberService memberService;
-    private final GuideBookService guideBookService;
+
+    @GetMapping("/guide/{guideId}/like")
+    public ResponseEntity<Boolean> isGuideLiked(@PathVariable Long memberId, @PathVariable Long guideId) {
+        log.info("사용자 {}의 가이드 {} 좋아요 여부 확인 요청", memberId, guideId);
+        return ResponseEntity.ok().body(likeService.isGuideLiked(memberId, guideId));
+    }
 
     @PostMapping("/guide/{guideId}/like")
     public ResponseEntity<ResponseDTO> likeGuideBook(@PathVariable Long memberId, @PathVariable Long guideId) {
