@@ -28,3 +28,18 @@ export const fetchGuideList = async categoryName => {
   //       response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
   //     });
 };
+
+export const isGuideLiked = async (memberId, guideId) => {
+  const path = ``
+  
+  try {
+    const res = await axios({
+      method:'get',
+      url: url+path
+    })
+    console.log(res.data);
+    return res.data
+  } catch (error) {
+    
+  }
+}
