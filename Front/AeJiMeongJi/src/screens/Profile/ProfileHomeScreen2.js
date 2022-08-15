@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.back100,
   },
   textContainer: {
-    flex: 1,
     marginTop: responsiveHeight(10),
     paddingLeft: responsiveWidth(4),
   },
@@ -135,15 +134,15 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexSansKR-Regular',
   },
   inputContainer: {
-    flex: 6,
+    height: responsiveHeight(60),
   },
   inputSubContainer: {
-    flex: 1,
     alignItems: 'center',
     marginTop: responsiveHeight(4),
+    height: responsiveHeight(20),
   },
   checkBoxContainer: {
-    flex: 1,
+    height: responsiveHeight(10),
   },
   checkBox: {
     backgroundColor: Colors.back100,
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
     color: '#90560D',
   },
   buttonContainer: {
-    flex: 2,
     alignItems: 'center',
   },
   button: {
@@ -163,9 +161,9 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(10),
   },
   weightBox: {
-    flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    height: responsiveHeight(20),
   },
 });

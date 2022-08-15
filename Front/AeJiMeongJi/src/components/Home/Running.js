@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 
 const Running = () => {
@@ -41,8 +46,8 @@ const Running = () => {
       <View style={styles.runEmoji}>
         <Image
           style={{
-            width: '30%',
-            height: '70%',
+            width: responsiveWidth(25),
+            height: responsiveHeight(25),
           }}
           resizeMode="contain"
           source={emoji[current].src}
@@ -83,49 +88,31 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {
     alignSelf: 'center',
   },
 
-  titleText: {
-    fontSize: 14,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.contentText,
-  },
-
-  contentText: {
-    fontSize: 12,
-    lineHeight: 20,
-    letterSpacing: 2,
-    color: Colors.contentText,
-  },
-  contentbox: {
-    flex: 14,
-    justifyContent: 'center',
-    backgroundColor: Colors.back100,
-  },
-
   runningbox: {
-    height: 300,
+    height: responsiveHeight(40),
     alignSelf: 'center',
 
-    width: '80%',
-    marginTop: 20,
-    marginBottom: 20,
+    width: responsiveWidth(80),
+    marginTop: responsiveHeight(3),
+    marginBottom: responsiveHeight(3),
   },
   runTitle: {
-    width: '90%',
-    height: 40,
-    marginTop: 10,
-    marginBottom: 10,
+    width: responsiveWidth(80),
+
+    height: responsiveHeight(5),
+    marginTop: responsiveHeight(2),
+    marginBottom: responsiveHeight(2),
     alignSelf: 'center',
     backgroundColor: Colors.contentBox,
     borderRadius: 10,

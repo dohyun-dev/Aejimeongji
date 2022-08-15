@@ -1,6 +1,13 @@
 import {Avatar} from '@rneui/themed';
 import React, {useRef, useState} from 'react';
-import {Image, Pressable, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  PermissionsAndroid,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -21,44 +28,36 @@ const ProfileImage = ({visible, image, setImage}) => {
 
   const [preview, setPreview] = useState(null);
 
-  // RNF
+  const requestCameraPermission = async () => {
+    console.log('진입');
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: '카메라 접근 권한 요청',
+          message:
+            '반려견 사진을 찍으려면 카메라 접근 권한이 필요 합니다. ' +
+            '접근을 허용하시겠어요?',
+          buttonNeutral: '나중에 묻기',
+          buttonNegative: '취소',
+          buttonPositive: '확인',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        return 'granted';
+      } else {
+        Alert.alert('취소 되었습니다.');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const onPickImage = async res => {
     if (res.didCancel || !res) {
       return;
     }
 
-    // console.log(res.assets[0].base64);
-
-    // const RNFS = require('react-native-fs');
-    // const imagePath = `${
-    //   RNFS.DocumentDirectoryPath
-    // }/${new Date().toISOString()}.jpg`.replace(/:/g, '-');
-    // console.log(imagePath);
-
-    // const move = await RNFS.writeFile(imagePath, res.assets[0].base64, 'base64')
-    // console.log(move);
-
-    // if (Platform.OS === 'ios') {
-    //   RNFS.copyAssetsFileIOS(res.assets[0].uri, imagePath, 0, 0)
-    //     .then(res => {})
-    //     .catch(err => {
-    //       console.log('ERROR: image file write failed!!!');
-    //       console.log(err.message, err.code);
-    //     });
-    // } else if (Platform.OS === 'android') {
-    //   RNFS.copyFile(res.assets[0].uri, imagePath)
-    //     .then(res => {
-    //     })
-    //     .catch(err => {
-    //       console.log('ERROR: image file write failed!!!');
-    //       console.log(err.message, err.code);
-    //     });
-    // }
-
-    // 여기서 axios 요청
-    // console.log(res);
-    // const pickedImage = require(res.assets[0].uri)
     setImage(res.assets[0]);
     setPreview(res.assets[0].uri);
     // setPreview(pickedImage)
@@ -79,7 +78,11 @@ const ProfileImage = ({visible, image, setImage}) => {
   };
 
   const onLaunchCamera = async () => {
-    await launchCamera(imagePickerOption, onPickImage);
+    // 여기서 camera permission 얻은 후 카메라 키기
+    const res = await requestCameraPermission();
+    if (res === 'granted') {
+      await launchCamera(imagePickerOption, onPickImage);
+    }
   };
 
   return (

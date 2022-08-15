@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 
 const Place = () => {
@@ -119,11 +124,11 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {
@@ -132,26 +137,26 @@ const styles = StyleSheet.create({
 
   box: {
     alignSelf: 'center',
-    width: '80%',
-    marginTop: 20,
-    marginBottom: 70,
+    width: responsiveWidth(80),
+    marginTop: responsiveHeight(4),
+    marginBottom: responsiveHeight(4),
   },
   plus: {
     marginTop: 5,
-    maxWidth: '40%',
-    maxHeight: '80%',
-    marginRight: -20,
+    maxWidth: responsiveWidth(30),
+    maxHeight: responsiveHeight(4),
+    marginRight: responsiveWidth(-4),
   },
 
   placebox: {
-    height: 240,
-    width: '100%',
+    height: responsiveHeight(30),
+    width: responsiveWidth(80),
     borderRadius: 20,
-    marginBottom: 20,
+    marginBottom: responsiveHeight(5),
   },
   placesubBox: {
     flexDirection: 'row',
-    marginBottom: -10,
+    marginBottom: responsiveHeight(5),
   },
   placesubcontent: {
     flex: 1,

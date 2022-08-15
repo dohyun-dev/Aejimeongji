@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
 
 import {Colors} from '../../constants/styles';
@@ -42,11 +47,11 @@ const Guide = () => {
             console.log('클릭');
             navigation.navigate('Guide');
           }}
-          style={{width: '100%'}}>
+          style={{width: responsiveWidth(73)}}>
           <Image
             style={{
-              width: '100%',
-              height: '100%',
+              width: responsiveWidth(80),
+              height: responsiveHeight(20),
               borderRadius: 20,
               marginTop: -10,
             }}
@@ -70,11 +75,11 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {
@@ -83,24 +88,24 @@ const styles = StyleSheet.create({
 
   box: {
     alignSelf: 'center',
-    width: '80%',
+    width: responsiveWidth(80),
     marginTop: 0,
-    marginBottom: 70,
+    marginBottom: responsiveHeight(20),
   },
   plus: {
     marginTop: 5,
-    maxWidth: '40%',
-    maxHeight: '80%',
-    marginRight: -20,
+    maxWidth: responsiveWidth(30),
+    maxHeight: responsiveHeight(4),
+    marginRight: responsiveWidth(-4),
   },
 
   guideclickbox: {
-    height: 150,
+    height: responsiveHeight(20),
     alignSelf: 'center',
     backgroundColor: Colors.contentBox,
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20,
+    width: responsiveWidth(80),
+    marginTop: responsiveHeight(3),
+    marginBottom: responsiveHeight(5),
     borderRadius: 20,
     flexDirection: 'row',
     shadowColor: '#000',

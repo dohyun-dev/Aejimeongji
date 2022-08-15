@@ -1,56 +1,65 @@
 import React from 'react';
 import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+import {
   Image,
   StyleSheet,
   View,
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/styles';
 
-const navbar = props => {
+const Navbar = props => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.nav}>
-      <TouchableOpacity
+      <Pressable
         onPress={() => {
-          navigation.navigate('CalendarHome');
-        }}
-        style={{marginLeft: 15, paddingLeft: 24}}>
+          navigation.navigate('Home');
+        }}>
         <Image
           style={styles.profilelogo}
-          resizeMode="cover"
+          resizeMode="contain"
           source={{
-            uri: `http://i7d203.p.ssafy.io:8080/api/image/6dc3b89b-8d61-4672-9be7-26510d2d378e.jpg`,
+            uri: `http://i7d203.p.ssafy.io:8080/api/image/${props.imageName}`,
           }}
         />
-      </TouchableOpacity>
-
-      <Image
-        style={styles.logo}
-        resizeMode="contain"
-        source={require('../../Assets/image/logo2.png')}
-      />
-      <TouchableOpacity
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          navigation.navigate('Home');
+        }}>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require('../../Assets/image/logo2.png')}
+        />
+      </Pressable>
+      <Pressable
         onPress={() => {
           navigation.navigate('CalendarHome');
         }}
-        style={{paddingLeft: 24}}>
+        style={styles.calendarContainer}>
         <Image
           style={styles.calendarLogo}
           resizeMode="contain"
           source={require('../../Assets/image/calendarLogo.png')}
           title="Calendar"
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
 
-export default navbar;
+export default Navbar;
 
 const styles = StyleSheet.create({
   //글꼴
@@ -64,32 +73,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nav: {
-    height: 50,
+    height: responsiveHeight(7),
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
+  // imageContainer: {
+  //   height: responsiveHeight(20),
+  //   width: responsiveHeight(20)
+  // },
   contentbox: {
-    flex: 14,
     justifyContent: 'center',
     backgroundColor: Colors.back100,
   },
   profilelogo: {
-    marginTop: 5,
-
-    marginRight: 30,
-    width: 30,
-    height: '70%',
+    width: responsiveWidth(12),
+    height: responsiveWidth(12),
+    borderRadius: responsiveWidth(12),
+    marginLeft: responsiveWidth(4),
   },
   logo: {
     marginTop: 5,
-    maxWidth: '50%',
-    maxHeight: '60%',
+    maxWidth: responsiveWidth(24),
+    maxHeight: responsiveHeight(7),
   },
   calendarLogo: {
-    marginTop: 5,
-    marginRight: 10,
-    maxWidth: '40%',
-    maxHeight: '70%',
+    width: responsiveWidth(8),
+    height: responsiveHeight(8),
+  },
+  text: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  calendarContainer: {
+    marginRight: responsiveWidth(4),
+    height: responsiveHeight(8),
   },
 });

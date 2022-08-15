@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 
 const Profile = props => {
@@ -24,8 +29,8 @@ const Profile = props => {
           <View style={styles.name1}>
             <Image
               style={{
-                width: '80%',
-                height: '80%',
+                width: responsiveWidth(10),
+                height: responsiveHeight(4),
               }}
               resizeMode="contain"
               source={require('../../Assets/image/name-icon.png')}
@@ -48,8 +53,8 @@ const Profile = props => {
       <View style={styles.profile2}>
         <Image
           style={{
-            width: '100%',
-            height: '100%',
+            width: responsiveWidth(40),
+            height: responsiveHeight(20),
             borderRadius: 100,
             borderColor: Colors.contentText,
             borderWidth: 2,
@@ -78,11 +83,11 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {
@@ -91,22 +96,23 @@ const styles = StyleSheet.create({
 
   profile: {
     flex: 1.3,
-    height: 150,
-    marginTop: 60,
-    marginBottom: 20,
+    height: responsiveHeight(22),
+
+    marginTop: responsiveHeight(10),
+    marginBottom: responsiveHeight(5),
     alignSelf: 'center',
-    width: '80%',
+    width: responsiveWidth(80),
     flexDirection: 'row',
   },
   profile1: {
     flex: 1,
-    width: '50%',
+    width: responsiveWidth(50),
     padding: 10,
   },
   profile1sub1: {
     flex: 2.5,
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: responsiveHeight(3),
     backgroundColor: Colors.contentBox,
     borderColor: Colors.btnBack100,
     borderWidth: 2,
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     justifyContent: 'center',
-    paddingLeft: 5,
+    paddingLeft: responsiveWidth(2),
   },
   name2: {
     flex: 2.5,

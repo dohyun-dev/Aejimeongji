@@ -64,7 +64,7 @@ const CarouselItem = ({category, lat, lng}) => {
 
   return (
     <>
-      {placeData.length !== 0 && (
+      {placeData?.length !== 0 && (
         <View style={styles.rootContainer}>
           <View style={styles.textContainer}>
             <View style={styles.categoryText}>

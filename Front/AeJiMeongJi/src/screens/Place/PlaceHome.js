@@ -18,7 +18,7 @@ import {getDog} from '../../utils/profile';
 import Geolocation from 'react-native-geolocation-service';
 import CarouselList from '../../components/Place/CarouselList';
 import {fetchPlace} from '../../utils/place';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import {responsiveWidth} from 'react-native-responsive-dimensions';
 
 const PlaceHome = () => {
   const dogId = useSelector(state => state.profile.id);
@@ -48,6 +48,7 @@ const PlaceHome = () => {
           Geolocation.getCurrentPosition(pos => {
             // api 호출
             // const res = await 호출()
+            console.log(pos.coords);
             setLocation(pos.coords);
           });
         }
@@ -65,7 +66,9 @@ const PlaceHome = () => {
           <DogInfo source={source} dogInfo={dogInfo} />
         </View>
         <View>
-          <CarouselList lat={location?.latitude} lng={location?.longitude} />
+          {location && (
+            <CarouselList lat={location?.latitude} lng={location?.longitude} />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

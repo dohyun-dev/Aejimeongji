@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {

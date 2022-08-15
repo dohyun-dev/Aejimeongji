@@ -54,11 +54,9 @@ export const searchPlace = async address => {
 //   console.log(res.data);
 // };
 
-export const fetchPlace = async (category, lat2, lng2) => {
+export const fetchPlace = async (category, lat, lng) => {
   console.log(category, 'category');
-  const lat = 36.1064013;
-  const lng = 128.429;
-  const dist = 200;
+  const dist = 1000;
   const limit = 10;
   const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
 
@@ -73,10 +71,8 @@ export const fetchPlace = async (category, lat2, lng2) => {
   }
 };
 
-export const fetchCategoryPlace = async (category, lat2, lng2) => {
-  const lat = 36.1064013;
-  const lng = 128.429;
-  const dist = 100;
+export const fetchCategoryPlace = async (category, lat, lng) => {
+  const dist = 1000;
   const limit = 3;
   const path = `/api/petplace?category=${category}&dist=${dist}&lat=${lat}&limit=${limit}&lng=${lng}`;
   try {
@@ -105,8 +101,7 @@ export const fetchPlaceDetail = async petplaceId => {
 };
 
 export const fetchReviews = async petplaceId => {
-  const id = 101;
-  const path = `/api/petplace/${id}/reviews`;
+  const path = `/api/petplace/${petplaceId}/reviews`;
   try {
     const res = await axios({
       method: 'get',
@@ -119,9 +114,7 @@ export const fetchReviews = async petplaceId => {
   }
 };
 
-export const fetchMoreData = async (category, lat2, lng2, curLastIdx) => {
-  const lat = 36.1064013;
-  const lng = 128.429;
+export const fetchMoreData = async (category, lat, lng, curLastIdx) => {
   const dist = 1000;
   const limit = 3;
   const path = `/api/petplace?category=${category}&curLastIdx=${curLastIdx}&limit=${limit}&dist=${dist}&lat=${lat}&lng=${lng}`;

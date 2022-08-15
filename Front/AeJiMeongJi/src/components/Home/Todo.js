@@ -7,6 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 const Todo = () => {
   const [isPress, setIsPress] = React.useState(false);
@@ -43,18 +48,16 @@ const Todo = () => {
               }}
             />
           )}
-          <Text style={[styles.font, styles.titleText]}>지은이 발표시키기</Text>
+          <Text style={[styles.font, styles.titleText]}>베리 산책하기</Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity style={styles.checkbox} />
+          <Text style={[styles.font, styles.titleText]}>예방접종하기</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style={styles.checkbox} />
           <Text style={[styles.font, styles.titleText]}>
-            도현이 RN 공부시키기
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={styles.checkbox} />
-          <Text style={[styles.font, styles.titleText]}>
-            경열이 스마트워치 연동시키기
+            미용실가서 발톱자르기
           </Text>
         </View>
       </View>
@@ -73,107 +76,39 @@ const styles = StyleSheet.create({
   },
 
   //글자 크기
-  font10: {fontSize: 10},
-  font12: {fontSize: 12},
-  font14: {fontSize: 14},
-  font18: {fontSize: 18},
-  font20: {fontSize: 20},
+  font10: {fontSize: responsiveFontSize(1)},
+  font12: {fontSize: responsiveFontSize(1.3)},
+  font14: {fontSize: responsiveFontSize(1.6)},
+  font18: {fontSize: responsiveFontSize(1.99)},
+  font20: {fontSize: responsiveFontSize(1.9999)},
   line20: {lineHeight: 20},
   line40: {lineHeight: 40},
   self: {
     alignSelf: 'center',
   },
-  mainText: {
-    fontSize: 20,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.contentText,
-  },
-  subText: {
-    fontSize: 18,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.contentText,
-  },
 
   titleText: {
-    fontSize: 14,
+    fontSize: responsiveFontSize(1.6),
     lineHeight: 40,
     letterSpacing: 4,
     color: Colors.contentText,
   },
-  titleText2: {
-    fontSize: 12,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.contentText,
-  },
-  titleText3: {
-    fontSize: 10,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.contentText,
-  },
-  titleText4: {
-    fontSize: 14,
-    lineHeight: 40,
-    letterSpacing: 2,
-    color: Colors.contentText,
-  },
-  contentText: {
-    fontSize: 12,
-    lineHeight: 20,
-    letterSpacing: 2,
-    color: Colors.contentText,
-  },
-  rootContainer: {
-    flex: 1,
-    backgroundColor: Colors.back100,
-  },
 
-  contentbox: {
-    flex: 14,
-    justifyContent: 'center',
-    backgroundColor: Colors.back100,
-  },
-
-  notice: {
-    maxWidth: '20%',
-    maxHeight: '100%',
-  },
-  logo: {
-    marginTop: 50,
-    maxWidth: '60%',
-    maxHeight: '30%',
-  },
-
-  guidebox: {
-    height: 70,
-    alignSelf: 'center',
-    width: '80%',
-    paddingLeft: 20,
-    paddingTop: 10,
-    paddingBottom: 20,
-    paddingRight: 20,
-    marginTop: -10,
-    borderBottomColor: Colors.btnBack100,
-    borderBottomWidth: 1,
-  },
   box: {
     alignSelf: 'center',
     width: '80%',
-    marginTop: 20,
-    marginBottom: 70,
+    marginTop: responsiveHeight(6),
+    marginBottom: responsiveHeight(10),
   },
   todobox: {
-    height: 150,
+    height: responsiveHeight(20),
     alignSelf: 'center',
-    width: '100%',
+    width: responsiveWidth(80),
     backgroundColor: Colors.contentBox,
     borderRadius: 20,
-    paddingLeft: 20,
-    paddingTop: 10,
-    paddingRight: 20,
+    paddingLeft: responsiveWidth(5),
+    paddingTop: responsiveHeight(2),
+    paddingRight: responsiveWidth(5),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -188,10 +123,10 @@ const styles = StyleSheet.create({
     borderColor: Colors.back200,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    marginRight: 10,
-    width: 20,
-    height: 20,
+    marginTop: responsiveHeight(1),
+    marginRight: responsiveWidth(5),
+    width: responsiveWidth(5),
+    height: responsiveHeight(2.5),
     backgroundColor: '#fff',
     borderRadius: 100,
   },
@@ -200,17 +135,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.back200,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    marginRight: 10,
-    width: 20,
-    height: 20,
+    marginTop: responsiveHeight(1),
+    marginRight: responsiveWidth(5),
+    width: responsiveWidth(5),
+    height: responsiveHeight(2.5),
     backgroundColor: Colors.back100,
     borderRadius: 100,
   },
   plus: {
     marginTop: 5,
-    maxWidth: '40%',
-    maxHeight: '80%',
-    marginRight: -20,
+    maxWidth: responsiveWidth(30),
+    maxHeight: responsiveHeight(4),
+    marginRight: responsiveWidth(-4),
   },
 });

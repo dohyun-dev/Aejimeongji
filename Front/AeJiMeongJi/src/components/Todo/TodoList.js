@@ -12,6 +12,11 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
@@ -128,15 +133,23 @@ const TodoList = props => {
             {props.selectedDate.substr(5, 2)}월{' '}
             {props.selectedDate.substr(8, 2)}일
           </Text>
-          <ScrollView style={{width: '100%'}}>
-            <View style={{height: '80%', width: '100%', marginBottom: 100}}>
+          <ScrollView style={{width: responsiveWidth(100)}}>
+            <View
+              style={{
+                height: responsiveHeight(50),
+                width: responsiveWidth(100),
+                marginBottom: 100,
+              }}>
               {todolist.length != 0 ? (
                 <View style={styles.todoContent}>{toDo}</View>
               ) : (
                 <View>
                   {/* <NothingTodo /> */}
                   <Image
-                    style={{height: 400, width: 400}}
+                    style={{
+                      height: responsiveHeight(50),
+                      width: responsiveWidth(100),
+                    }}
                     resizeMode="contain"
                     source={require('../../Assets/image/nothing.gif')}
                   />
@@ -172,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheetContainer: {
-    height: '70%',
+    height: responsiveHeight(70),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFF8EA',
@@ -182,35 +195,35 @@ const styles = StyleSheet.create({
   plusButton: {
     borderWidth: 1,
     position: 'absolute',
-    bottom: 80,
-    right: 20,
+    bottom: responsiveHeight(10),
+    right: responsiveWidth(5),
     alignSelf: 'flex-end',
-    marginTop: 5,
+    marginTop: responsiveHeight(10),
 
-    maxWidth: '10%',
-    maxHeight: '10%',
+    maxWidth: responsiveWidth(12),
+    maxHeight: responsiveHeight(6),
   },
   todoContent: {
-    width: '80%',
-    height: '100%',
-    marginLeft: '10%',
-    marginRight: '10%',
+    width: responsiveWidth(80),
+    height: responsiveHeight(80),
+    marginLeft: responsiveWidth(9),
+    marginRight: responsiveWidth(5),
   },
   todoCategory: {
     backgroundColor: '#DD9944',
     marginLeft: 10,
     marginRight: 10,
-    width: 40,
-    height: 25,
+    width: responsiveWidth(10),
+    height: responsiveHeight(3),
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   todoDetail: {
-    height: 50,
+    height: responsiveHeight(6),
     backgroundColor: '#FBEDD3',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: responsiveHeight(1),
+    marginBottom: responsiveHeight(1),
     borderRadius: 15,
     alignItems: 'center',
     flexDirection: 'row',

@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   btnContainer3: {
     flex: 1,
     width: '70%',
-    marginTop: -100,
+    marginTop: -70,
     alignSelf: 'center',
   },
 });

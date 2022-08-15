@@ -12,6 +12,7 @@ import {Colors} from '../../constants/styles';
 import {fetchCategoryPlace, fetchMoreData} from '../../utils/place';
 
 const PlaceCategory = ({route}) => {
+  console.log(route.params.lat);
   const [data, setData] = useState();
   const [hasNext, setHasNext] = useState(route.params.loadMoreData.hasNext);
   const [curLastIdx, setCurLastIdx] = useState(
@@ -50,7 +51,11 @@ const PlaceCategory = ({route}) => {
 
   useLayoutEffect(() => {
     const initialData = async () => {
-      const res = await fetchCategoryPlace(route.params.category);
+      const res = await fetchCategoryPlace(
+        route.params.category,
+        route.params.lat,
+        route.params.lng,
+      );
       setData(res.data);
       setHasNext(res.hasNext);
       setCurLastIdx(res.curLastIdx);
