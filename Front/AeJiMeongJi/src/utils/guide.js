@@ -30,16 +30,17 @@ export const fetchGuideList = async categoryName => {
 };
 
 export const isGuideLiked = async (memberId, guideId) => {
-  const path = ``
-  
+  const path = `/api/member/${memberId}/guide/${guideId}/like`;
+  console.log(memberId, guideId);
+
   try {
     const res = await axios({
-      method:'get',
-      url: url+path
-    })
-    console.log(res.data);
-    return res.data
+      method: 'get',
+      url: url + path,
+    });
+    console.log(res.data, 'axios안');
+    return res.data;
   } catch (error) {
-    
+    console.log(error.response);
   }
-}
+};

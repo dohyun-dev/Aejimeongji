@@ -22,7 +22,7 @@ import Animated, {
 import {getMemberId} from '../../utils/auth';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../utils/index';
-import { isGuideLiked } from '../../utils/guide';
+import {isGuideLiked} from '../../utils/guide';
 
 const url = 'http://i7d203.p.ssafy.io:8080';
 console.log(new Date());
@@ -35,7 +35,11 @@ export default function GuideLike(props) {
         if (res) {
           setmemberId(res);
           // 멤버 아이디로 좋아요 호출
-          // const isLiked = isGuideLiked(res, props.data)
+          const isLiked = await isGuideLiked(res, props.data);
+          isLiked
+            ? (liked.value = withSpring(1))
+            : (liked.value = withSpring(0));
+
           // liked.value = withSpring(isLiked)
         }
       };
