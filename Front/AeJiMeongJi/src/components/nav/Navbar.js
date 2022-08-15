@@ -23,7 +23,7 @@ const Navbar = props => {
     <View style={styles.nav}>
       <Pressable
         onPress={() => {
-          navigation.navigate('Home');
+          navigation.navigate('ProfileChoice');
         }}>
         <Image
           style={styles.profilelogo}
@@ -78,17 +78,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  // imageContainer: {
-  //   height: responsiveHeight(20),
-  //   width: responsiveHeight(20)
-  // },
+
   contentbox: {
     justifyContent: 'center',
     backgroundColor: Colors.back100,
   },
   profilelogo: {
-    width: responsiveWidth(12),
-    height: responsiveWidth(12),
+    width: responsiveWidth(10),
+    height: responsiveWidth(10),
     borderRadius: responsiveWidth(12),
     marginLeft: responsiveWidth(4),
   },

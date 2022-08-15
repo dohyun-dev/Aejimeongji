@@ -6,15 +6,20 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+
 import {Colors} from '../../constants/styles';
+import {useNavigation} from '@react-navigation/native';
 
 const Place = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.box}>
       <View
@@ -26,18 +31,23 @@ const Place = () => {
         <Text style={[styles.font, styles.font18, styles.line40]}>
           인기 방문 장소
         </Text>
-        <Image
-          style={styles.plus}
-          resizeMode="contain"
-          source={require('../../Assets/image/plus.png')}
-        />
+        <Pressable
+          onPress={() => {
+            navigation.navigate('PlaceHome');
+          }}>
+          <Image
+            style={styles.plus}
+            resizeMode="contain"
+            source={require('../../Assets/image/plus.png')}
+          />
+        </Pressable>
       </View>
 
       <View style={styles.placebox}>
         <Image
           style={{
-            width: '100%',
-            height: 200,
+            width: responsiveWidth(80),
+            height: responsiveHeight(25),
             borderRadius: 20,
           }}
           resizeMode="cover"
@@ -50,17 +60,18 @@ const Place = () => {
               {'  '}테마파크
             </Text>
           </Text>
-          <Text style={{lineHeight: 40, marginRight: 10}}>
+          <Text style={{lineHeight: 40, marginRight: responsiveHeight(2)}}>
             <Text style={{color: 'red'}}>★ </Text>4.3/5
           </Text>
         </View>
       </View>
       <View style={[styles.placebox, styles.placesubBox]}>
-        <View style={[styles.placesubcontent, {marginRight: 5}]}>
+        <View
+          style={[styles.placesubcontent, {marginRight: responsiveHeight(2)}]}>
           <Image
             style={{
-              width: '100%',
-              height: 150,
+              width: responsiveWidth(37),
+              height: responsiveHeight(20),
               borderRadius: 20,
             }}
             resizeMode="cover"
@@ -78,15 +89,16 @@ const Place = () => {
               </Text>
             </Text>
           </View>
-          <Text style={{lineHeight: 20, marginRight: 10}}>
+          <Text style={{lineHeight: 20, marginRight: responsiveHeight(2)}}>
             <Text style={{color: 'red'}}>★ </Text>4.21/5
           </Text>
         </View>
-        <View style={[styles.placesubcontent, {marginLeft: 5}]}>
+        <View
+          style={[styles.placesubcontent, {marginLeft: responsiveHeight(2)}]}>
           <Image
             style={{
-              width: '100%',
-              height: 150,
+              width: responsiveWidth(37),
+              height: responsiveHeight(20),
               borderRadius: 20,
             }}
             resizeMode="cover"
@@ -104,7 +116,7 @@ const Place = () => {
               </Text>
             </Text>
           </View>
-          <Text style={{lineHeight: 20, marginRight: 10}}>
+          <Text style={{lineHeight: 20, marginRight: responsiveHeight(2)}}>
             <Text style={{color: 'red'}}>★ </Text>4.8/5
           </Text>
         </View>

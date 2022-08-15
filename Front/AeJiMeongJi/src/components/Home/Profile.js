@@ -37,7 +37,8 @@ const Profile = props => {
             />
           </View>
           <View style={styles.name2}>
-            <Text style={[styles.font, styles.font18, styles.line40]}>
+            <Text
+              style={[styles.font, styles.font18, styles.line40, styles.mB]}>
               {dogInfo.name}
             </Text>
           </View>
@@ -54,7 +55,7 @@ const Profile = props => {
         <Image
           style={{
             width: responsiveWidth(40),
-            height: responsiveHeight(20),
+            height: responsiveWidth(40),
             borderRadius: 100,
             borderColor: Colors.contentText,
             borderWidth: 2,
@@ -128,6 +129,9 @@ const styles = StyleSheet.create({
     flex: 2.5,
     flexDirection: 'row-reverse',
     justifyContent: 'center',
+  },
+  mB: {
+    marginTop: responsiveHeight(-0.3),
   },
   profile1sub2: {
     flex: 5,

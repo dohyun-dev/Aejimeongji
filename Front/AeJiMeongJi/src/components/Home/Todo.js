@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {
   responsiveHeight,
@@ -13,9 +14,11 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
+import {useNavigation} from '@react-navigation/native';
+
 const Todo = () => {
   const [isPress, setIsPress] = React.useState(false);
-
+  const navigation = useNavigation();
   return (
     <View style={styles.box}>
       <View
@@ -25,11 +28,16 @@ const Todo = () => {
           justifyContent: 'space-between',
         }}>
         <Text style={[styles.font, styles.font18, styles.line40]}>To-do </Text>
-        <Image
-          style={styles.plus}
-          resizeMode="contain"
-          source={require('../../Assets/image/plus.png')}
-        />
+        <Pressable
+          onPress={() => {
+            navigation.navigate('CalendarHome');
+          }}>
+          <Image
+            style={styles.plus}
+            resizeMode="contain"
+            source={require('../../Assets/image/plus.png')}
+          />
+        </Pressable>
       </View>
       <View style={styles.todobox}>
         <View style={{flexDirection: 'row'}}>

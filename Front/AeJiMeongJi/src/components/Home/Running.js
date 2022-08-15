@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {
   responsiveHeight,
@@ -13,8 +14,10 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
+import {useNavigation} from '@react-navigation/native';
 
 const Running = () => {
+  const navigation = useNavigation();
   const current = 3;
   const lastKm = 3.4;
   const num = [0, 2, 5, 7];
@@ -44,14 +47,19 @@ const Running = () => {
         </Text>
       </View>
       <View style={styles.runEmoji}>
-        <Image
-          style={{
-            width: responsiveWidth(25),
-            height: responsiveHeight(25),
-          }}
-          resizeMode="contain"
-          source={emoji[current].src}
-        />
+        <Pressable
+          onPress={() => {
+            navigation.navigate('RunningHome');
+          }}>
+          <Image
+            style={{
+              width: responsiveWidth(25),
+              height: responsiveHeight(25),
+            }}
+            resizeMode="contain"
+            source={emoji[current].src}
+          />
+        </Pressable>
       </View>
       <View style={styles.runData}>
         <Text style={[styles.font, styles.font20, styles.line40]}>
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
   runTitle: {
     width: responsiveWidth(80),
 
-    height: responsiveHeight(5),
+    height: responsiveHeight(6),
     marginTop: responsiveHeight(2),
     marginBottom: responsiveHeight(2),
     alignSelf: 'center',

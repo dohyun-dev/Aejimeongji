@@ -47,11 +47,11 @@ const Guide = () => {
             console.log('클릭');
             navigation.navigate('Guide');
           }}
-          style={{width: responsiveWidth(73)}}>
+          style={{width: responsiveWidth(80)}}>
           <Image
             style={{
               width: responsiveWidth(80),
-              height: responsiveHeight(20),
+              height: responsiveHeight(23),
               borderRadius: 20,
               marginTop: -10,
             }}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   guideclickbox: {
-    height: responsiveHeight(20),
+    height: responsiveHeight(23),
     alignSelf: 'center',
     backgroundColor: Colors.contentBox,
     width: responsiveWidth(80),
