@@ -81,7 +81,7 @@ const TodoList = props => {
           console.log(response.data);
           setTodolist(response.data);
         } else {
-          console.log(error.response + '가이드받기에러');
+          console.log(error.response + 'todo받기에러');
         }
       });
   }, [props.modalVisible]);

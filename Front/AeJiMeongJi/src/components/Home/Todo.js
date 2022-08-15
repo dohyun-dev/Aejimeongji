@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -13,12 +13,41 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+import {useSelector} from 'react-redux';
+import {format, setDay} from 'date-fns';
 import {Colors} from '../../constants/styles';
 import {useNavigation} from '@react-navigation/native';
 
+import axios from 'axios';
+const url = 'http://i7d203.p.ssafy.io:8080';
+
 const Todo = () => {
-  const [isPress, setIsPress] = React.useState(false);
+  const [today, setToday] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const dogId = useSelector(state => state.profile.id);
+  const [isPress1, setIsPress1] = React.useState(false);
+  const [isPress2, setIsPress2] = React.useState(false);
+  const [isPress3, setIsPress3] = React.useState(false);
+  const [todolist, setTodolist] = useState([]);
   const navigation = useNavigation();
+  // console.log('도그아이디');
+  // console.log(dogId);
+  // console.log(today);
+  useEffect(() => {
+    axios
+      .get(url + `/api/dog/${dogId}/calendar?date=${today}&isActive=true`)
+      .then(response => {
+        console.log('reponse찍기');
+        console.log(response);
+        if (response.status == 200) {
+          console.log('오늘의 isActive to-do');
+          console.log(response.data);
+          setTodolist(response.data);
+        } else {
+          console.log(error.response + 'todo받기에러');
+        }
+      });
+  }, []);
+
   return (
     <View style={styles.box}>
       <View
@@ -40,34 +69,64 @@ const Todo = () => {
         </Pressable>
       </View>
       <View style={styles.todobox}>
-        <View style={{flexDirection: 'row'}}>
-          {isPress ? (
-            <TouchableOpacity
-              style={styles.checkbox}
-              onPress={() => {
-                setIsPress(!isPress);
-              }}
-            />
-          ) : (
-            <TouchableOpacity
-              style={styles.checknonbox}
-              onPress={() => {
-                setIsPress(!isPress);
-              }}
-            />
-          )}
-          <Text style={[styles.font, styles.titleText]}>베리 산책하기</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={styles.checkbox} />
-          <Text style={[styles.font, styles.titleText]}>예방접종하기</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={styles.checkbox} />
-          <Text style={[styles.font, styles.titleText]}>
-            미용실가서 발톱자르기
-          </Text>
-        </View>
+        {todolist.length == 0 ? (
+          <Image
+            style={styles.nothing}
+            resizeMode="contain"
+            source={require('../../Assets/image/nothing-todo.jpg')}
+          />
+        ) : (
+          <>
+            {todolist.map((todo, index) => {
+              if (index == 0) {
+                return (
+                  <View key={index} style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={isPress1 ? styles.checkbox : styles.checknonbox}
+                      onPress={() => {
+                        setIsPress1(!isPress1);
+                      }}
+                    />
+
+                    <Text style={[styles.font, styles.titleText]}>
+                      {todo.content}
+                    </Text>
+                  </View>
+                );
+              } else if (index == 1) {
+                return (
+                  <View key={index} style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={isPress2 ? styles.checkbox : styles.checknonbox}
+                      onPress={() => {
+                        setIsPress2(!isPress2);
+                      }}
+                    />
+
+                    <Text style={[styles.font, styles.titleText]}>
+                      {todo.content}
+                    </Text>
+                  </View>
+                );
+              } else if (index == 2) {
+                return (
+                  <View key={index} style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={isPress3 ? styles.checkbox : styles.checknonbox}
+                      onPress={() => {
+                        setIsPress3(!isPress3);
+                      }}
+                    />
+
+                    <Text style={[styles.font, styles.titleText]}>
+                      {todo.content}
+                    </Text>
+                  </View>
+                );
+              }
+            })}
+          </>
+        )}
       </View>
     </View>
   );
@@ -128,27 +187,31 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     borderWidth: 2,
-    borderColor: Colors.back200,
+    borderColor: Colors.btnBack100,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: responsiveHeight(1),
+    marginTop: responsiveHeight(1.3),
     marginRight: responsiveWidth(5),
     width: responsiveWidth(5),
-    height: responsiveHeight(2.5),
+    height: responsiveWidth(5),
     backgroundColor: '#fff',
     borderRadius: 100,
   },
   checknonbox: {
     borderWidth: 2,
-    borderColor: Colors.back200,
+    borderColor: Colors.btnBack100,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: responsiveHeight(1),
+    marginTop: responsiveHeight(1.3),
     marginRight: responsiveWidth(5),
     width: responsiveWidth(5),
-    height: responsiveHeight(2.5),
-    backgroundColor: Colors.back100,
+    height: responsiveWidth(5),
+    backgroundColor: Colors.btnBack100,
     borderRadius: 100,
+  },
+  nothing: {
+    width: responsiveWidth(70),
+    height: responsiveHeight(16),
   },
   plus: {
     marginTop: 5,
