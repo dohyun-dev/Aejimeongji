@@ -28,3 +28,16 @@ export const fetchGuideList = async categoryName => {
   //       response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
   //     });
 };
+
+export const fetchMoreGuide = async (category, curLastIdx, limit) => {
+  const path = `/api/guide?category=${category}&curLastIdx=${curLastIdx}&limit=${limit}`;
+
+  try {
+    const res = await axios({
+      method: 'get',
+      url: url + path,
+    });
+
+    return res;
+  } catch (error) {}
+};

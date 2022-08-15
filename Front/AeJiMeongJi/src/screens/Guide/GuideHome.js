@@ -49,7 +49,7 @@ const GuideHome = ({navigation}) => {
     };
     fetchGuide();
   }, []);
-  console.log(guideList);
+  // console.log(guideList);
 
   return (
     <ScrollView>

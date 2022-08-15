@@ -8,7 +8,8 @@ import {
 } from 'react-native-responsive-dimensions';
 import RunButton from '../../components/ui/RunButton';
 
-const RunningAlert = ({data}) => {
+const RunningAlert = props => {
+  console.log(`running alert에서 찍는`, props);
   const navigation = useNavigation();
   const createThreeButtonAlert = () =>
     Alert.alert(
@@ -23,7 +24,7 @@ const RunningAlert = ({data}) => {
         {
           text: '완료',
           onPress: () => {
-            navigation.navigate('RunningFinish');
+            navigation.navigate('RunningFinish', props.data);
           },
         },
       ],

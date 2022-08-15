@@ -26,7 +26,7 @@ import {Colors} from '../../constants/styles';
 import haversine from 'haversine';
 import Geolocation from 'react-native-geolocation-service';
 // import RunningTimer from '../../components/Running/RunningTimer';
-// import RunningAlert from '../../components/Running/RunningAlert';
+import RunningAlert from '../../components/Running/RunningAlert';
 import {Stopwatch, Timer} from 'react-native-stopwatch-timer';
 import RunButton from '../../components/ui/RunButton';
 import RunningHome from './RunningHome';
@@ -44,6 +44,7 @@ const resetStopwatch = false;
 class RunningGeolocation extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     this.state = {
       start: true,
@@ -59,6 +60,7 @@ class RunningGeolocation extends React.Component {
         latitudeDelta: 0,
         longitudeDelta: 0,
       }),
+      currentTime: 0,
     };
   }
   componentDidMount() {
@@ -108,9 +110,12 @@ class RunningGeolocation extends React.Component {
 
   componentWillUnmount = () => {
     Geolocation.clearWatch(this.watchID);
-    console.log('산책 끝!');
+    console.log(this.state.currentTime);
+    console.log('산책 끝!dd');
   };
-
+  getFormattedTime(time) {
+    this.currentTime = time;
+  }
   //지도 위에 현재 위치
   getMapRegion = () => ({
     latitude: this.state.latitude,
@@ -125,24 +130,6 @@ class RunningGeolocation extends React.Component {
     return haversine(prevLatLng, newLatLng) || 0;
   };
 
-  createThreeButtonAlert = () =>
-    Alert.alert(
-      '산책을 종료하시겠어요?',
-      '산책이 모두 완료되었다면 종료해주세요',
-      [
-        {
-          text: '취소',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: '완료',
-          onPress: () => {
-            this.props.navigation.navigate(RunningHome);
-          },
-        },
-      ],
-    );
   render() {
     return (
       <View style={styles.container}>
@@ -212,6 +199,7 @@ class RunningGeolocation extends React.Component {
               </Text>
             </View>
           </View>
+          <RunningAlert data={this.state.distanceTravelled}></RunningAlert>
           {/* <TouchableHighlight
             onPress={() => this.setState({start: !this.state.start})}>
             <Text style={styles.buttonText}>
@@ -219,12 +207,13 @@ class RunningGeolocation extends React.Component {
             </Text>
           </TouchableHighlight> */}
           <View>
+            <RunButton onPress={() => {}}>정지</RunButton>
             <RunButton
               title={'3-Button Alert'}
-              data={this.componentWillUnmount}
+              data={this.state.distanceTravelled}
               onPress={() => {
                 this.setState({start: !this.state.start});
-                this.props.navigation.navigate(RunningFinish);
+                this.props.navigation.navigate(RunningAlert);
               }}>
               산책종료
             </RunButton>

@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {
   responsiveHeight,
@@ -19,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 // import {MarkdownView} from 'react-native-markdown-view';
 
 import axios from '../../utils/index';
+import {fetchMoreGuide} from '../../utils/guide';
 
 axios.defaults.withCredentials = true;
 const url = 'http://i7d203.p.ssafy.io:8080';
@@ -26,23 +28,55 @@ const imageurl = 'http://i7d203.p.ssafy.io:8080/api/image/';
 
 const GuideCategory = props => {
   const navigation = useNavigation();
-  console.log(props.route.params);
   const [categoryList, setCategoryList] = useState([]);
+  const [hasNext, setHasNext] = useState(true);
+  const [curLastIdx, setCurLastIdx] = useState();
+  const [loading, setLoading] = useState(false);
+  const limit = 5;
+  const loadMore = async () => {
+    console.log('loadmore');
+    if (loading) {
+      return;
+    }
+
+    if (hasNext) {
+      setLoading(true);
+
+      const res = await fetchMoreGuide(props.route.params, curLastIdx, limit);
+      const newData = res.data.data;
+      setCategoryList([...categoryList, ...newData]);
+      setHasNext(res.data.hasNext);
+      setCurLastIdx(res.data.curLastIdx);
+      setLoading(false);
+    }
+  };
+
+  const renderLoader = () => {
+    return (
+      <View style={styles.loaderStyle}>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    );
+  };
+
   const card = props.route.params;
-  console.log(url + '/api/guide?category=' + props.route.params);
 
   useLayoutEffect(() => {
+    console.log('진입');
     const fetchCategory = async () => {
       const res = await axios(
         url + '/api/guide?category=' + props.route.params,
       );
       if (res) {
-        setCategoryList(res.data);
+        console.log(res.data, '데이터');
+        setCategoryList(res.data.data);
+        setHasNext(res.data.hasNext);
+        setCurLastIdx(res.data.curLastIdx);
       }
     };
     fetchCategory();
   }, []);
-  console.log(categoryList.data);
+
   const Item = ({title, thumbnail, guideId}) => (
     <TouchableOpacity
       style={styles.GuideBox}
@@ -52,11 +86,10 @@ const GuideCategory = props => {
       <View style={styles.infoBox}>
         <Text
           style={{
-            fontWeight: 'bold',
+            fontFamily: '강원교육튼튼',
             fontSize: responsiveFontSize(2.6),
           }}>
           {title}
-          {guideId}
         </Text>
       </View>
       <View style={styles.GuideImg}>
@@ -79,7 +112,7 @@ const GuideCategory = props => {
     />
   );
   return (
-    <ScrollView>
+    <View>
       <View style={styles.rootContainer}>
         <View style={styles.GuideTitle}>
           <Text
@@ -93,29 +126,17 @@ const GuideCategory = props => {
 
         <View>
           <FlatList
+            key={'#'}
             data={categoryList}
             renderItem={renderItem}
+            onEndReached={loadMore}
+            numColumns={1}
+            ListFooterComponent={renderLoader}
+            onEndReachedThreshold={0.1}
             keyExtractor={item => item.id}></FlatList>
-
-          <View style={styles.infoBox}>
-            <Text
-              style={{
-                fontFamily: 'IBMPlexSansKR-Regular',
-                fontSize: responsiveFontSize(2.6),
-              }}>
-              {categoryList[1]?.title}
-            </Text>
-          </View>
-          <View style={styles.GuideImg}>
-            <Image
-              style={{width: '100%', height: '100%', borderRadius: 10}}
-              source={{uri: imageurl + categoryList[1]?.thumbnail}}
-              resizeMode="cover"
-            />
-          </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -156,6 +177,10 @@ const styles = StyleSheet.create({
   },
   infoBox: {
     marginLeft: responsiveWidth(10),
+  },
+  loaderStyle: {
+    marginVertical: responsiveHeight(4),
+    alignItems: 'center',
   },
 });
 export default GuideCategory;
