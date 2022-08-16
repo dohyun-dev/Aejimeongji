@@ -118,6 +118,9 @@ class PetPlaceServiceTest {
         Member member = new Member("ssafy@ssafy.com", "1234", "닉네임21", "01012341234", "닉12네임");
         em.persist(member);
 
+        Member member2 = new Member("ssa1fy@ssafy.com", "1234", "닉네임321", "01012344234", "sss");
+        em.persist(member2);
+
         PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
                 , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace1);
@@ -126,18 +129,15 @@ class PetPlaceServiceTest {
                 , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace2);
 
-        Bookmark bookmark1 = new Bookmark(member, petPlace1);
-        em.persist(bookmark1);
-
-        Bookmark bookmark2 = new Bookmark(member, petPlace2);
-        em.persist(bookmark2);
-
         //when
-        bookmarkRepository.save(bookmark1);
-        bookmarkRepository.save(bookmark2);
+        Long id1 = petPlaceService.petPlaceBookMark(member.getId(), petPlace1.getId());
+        petPlaceRepostiory.plusBookMark(id1);
+        Long id2 = petPlaceService.petPlaceBookMark(member2.getId(), petPlace2.getId());
+        Long id3 = petPlaceService.petPlaceBookMark(member.getId(), petPlace2.getId());
+
 
         //then
-        assertEquals(bookmark1.getId(), bookmarkRepository.findById(bookmark1.getId()).get().getId());
+        assertEquals(member, bookmarkRepository.findById(id1).get().getMember());
     }
 
     @Test
@@ -146,6 +146,9 @@ class PetPlaceServiceTest {
         Member member = new Member("ssafy@ssafy.com", "1234", "닉네임21", "01012341234", "닉12네임");
         em.persist(member);
 
+        Member member2 = new Member("ssa1fy@ssafy.com", "1234", "닉네임321", "01012344234", "sss");
+        em.persist(member2);
+
         PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
                 , "전화벊", "카테", null, "d", "d", 0.0, "d");
         em.persist(petPlace1);
@@ -157,6 +160,9 @@ class PetPlaceServiceTest {
         Bookmark bookmark1 = new Bookmark(member, petPlace1);
         em.persist(bookmark1);
 
+        Bookmark bookmark3 = new Bookmark(member2, petPlace1);
+        em.persist(bookmark3);
+
         Bookmark bookmark2 = new Bookmark(member, petPlace2);
         em.persist(bookmark2);
 
@@ -164,11 +170,81 @@ class PetPlaceServiceTest {
         bookmarkRepository.save(bookmark2);
 
         //when
-        Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByMemberIdAndPetPlaceId(member.getId(), petPlace1.getId());
-        Bookmark boomark = bookmark.get();
-        bookmarkRepository.delete(boomark);
+        petPlaceService.cancelPetPlaceBookMark(member.getId(), petPlace1.getId());
 
         //then
         Assertions.assertThrows(IllegalArgumentException.class, () -> petPlaceService.cancelPetPlaceBookMark(member.getId(), petPlace1.getId()));
+    }
+
+    @Test
+    void findPopPetPlaceListTest() {
+        //given
+        PetPlace petPlace1 = new PetPlace("펫플1", "내용", "주소"
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
+        em.persist(petPlace1);
+
+        PetPlace petPlace2 = new PetPlace("펫플2", "내용", "주소"
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
+        em.persist(petPlace2);
+
+        PetPlace petPlace3 = new PetPlace("펫플3", "내용", "주소"
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
+        em.persist(petPlace3);
+
+        PetPlace petPlace4 = new PetPlace("펫플4", "내용", "주소"
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
+        em.persist(petPlace4);
+
+        PetPlace petPlace5 = new PetPlace("펫플5", "내용", "주소"
+                , "전화벊", "카테", null, "d", "d", 0.0, "d");
+        em.persist(petPlace5);
+
+        Member member = new Member("ssafy@ssafy.com", "1234", "닉네임21", "01012341234", "닉12네임");
+        em.persist(member);
+
+        Member member2 = new Member("ssa1fy@ssafy.com", "1234", "닉네임321", "01012344234", "sss");
+        em.persist(member2);
+
+        Member member3 = new Member("ss2afy@ssafy.com", "1234", "닉네1임21", "01012341234", "닉12네45임");
+        em.persist(member3);
+
+        Member member4 = new Member("ssa31fy@ssafy.com", "1234", "닉네4임321", "01012344234", "sss");
+        em.persist(member4);
+
+        Member member5 = new Member("ssaf4y@ssafy.com", "1234", "닉7네임21", "01012341234", "3");
+        em.persist(member5);
+
+        //when
+        petPlaceService.petPlaceBookMark(member.getId(), petPlace1.getId());
+        petPlaceService.petPlaceBookMark(member.getId(), petPlace2.getId());
+        petPlaceService.petPlaceBookMark(member.getId(), petPlace3.getId());
+        petPlaceService.petPlaceBookMark(member.getId(), petPlace4.getId());
+        petPlaceService.petPlaceBookMark(member.getId(), petPlace5.getId());
+
+        petPlaceService.petPlaceBookMark(member2.getId(), petPlace1.getId());
+        petPlaceService.petPlaceBookMark(member2.getId(), petPlace2.getId());
+        petPlaceService.petPlaceBookMark(member2.getId(), petPlace3.getId());
+        petPlaceService.petPlaceBookMark(member2.getId(), petPlace4.getId());
+
+        petPlaceService.petPlaceBookMark(member3.getId(), petPlace1.getId());
+        petPlaceService.petPlaceBookMark(member3.getId(), petPlace2.getId());
+        petPlaceService.petPlaceBookMark(member3.getId(), petPlace3.getId());
+        petPlaceService.petPlaceBookMark(member3.getId(), petPlace4.getId());
+
+        petPlaceService.petPlaceBookMark(member4.getId(), petPlace1.getId());
+        petPlaceService.petPlaceBookMark(member4.getId(), petPlace2.getId());
+        petPlaceService.petPlaceBookMark(member4.getId(), petPlace3.getId());
+        petPlaceService.petPlaceBookMark(member4.getId(), petPlace4.getId());
+
+        petPlaceService.petPlaceBookMark(member5.getId(), petPlace1.getId());
+        petPlaceService.petPlaceBookMark(member5.getId(), petPlace2.getId());
+        petPlaceService.petPlaceBookMark(member5.getId(), petPlace3.getId());
+        petPlaceService.petPlaceBookMark(member5.getId(), petPlace4.getId());
+
+        List<PetPlace> popPetPlaceList = petPlaceService.findPopPetPlaceList();
+
+        //then
+        assertEquals(3, popPetPlaceList.size());
+
     }
 }
