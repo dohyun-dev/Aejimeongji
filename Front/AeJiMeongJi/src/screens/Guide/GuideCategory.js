@@ -65,7 +65,7 @@ const GuideCategory = props => {
     console.log('진입');
     const fetchCategory = async () => {
       const res = await axios(
-        url + '/api/guide?category=' + props.route.params,
+        url + `/api/guide?category=${props.route.params}&limit=25`,
       );
       if (res) {
         console.log(res.data, '데이터');
@@ -129,10 +129,10 @@ const GuideCategory = props => {
             key={'#'}
             data={categoryList}
             renderItem={renderItem}
-            onEndReached={loadMore}
+            // onEndReached={loadMore}
             numColumns={1}
-            ListFooterComponent={renderLoader}
-            onEndReachedThreshold={0.1}
+            // ListFooterComponent={renderLoader}
+            // onEndReachedThreshold={0.1}
             keyExtractor={item => item.id}></FlatList>
         </View>
       </View>

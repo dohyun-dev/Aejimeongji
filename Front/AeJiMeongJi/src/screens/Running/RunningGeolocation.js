@@ -199,6 +199,7 @@ class RunningGeolocation extends React.Component {
               </Text>
             </View>
           </View>
+          {/* tiem /// 마지막 time 잡아서 */}
           <RunningAlert data={this.state.distanceTravelled}></RunningAlert>
           {/* <TouchableHighlight
             onPress={() => this.setState({start: !this.state.start})}>
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
   info: {
     backgroundColor: Colors.back100,
     width: responsiveWidth(100),
-    height: responsiveHeight(29),
+    height: responsiveHeight(70),
   },
   timeContainer: {
     padding: responsiveHeight(1.5),

@@ -32,8 +32,16 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="RunningHome" component={RunningHome} />
       <Stack.Screen name="RunningInfo" component={RunningInfo} />
       <Stack.Screen name="RunningProfile" component={RunningProfile} />
-      <Stack.Screen name="RunningFinish" component={RunningFinish} />
-      <Stack.Screen name="RunningGeolocation" component={RunningGeolocation2} />
+      <Stack.Screen
+        name="RunningFinish"
+        component={RunningFinish}
+        options={{unmountOnBlur: true}}
+      />
+      <Stack.Screen
+        name="RunningGeolocation"
+        component={RunningGeolocation2}
+        options={{unmountOnBlur: true}}
+      />
       <Stack.Screen name="Home" component={MainHome} />
 
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
@@ -60,7 +68,6 @@ const AuthenticatedStack = () => {
           headerTitleStyle: {color: '#90560D', fontFamily: '강원교육튼튼'},
           headerTintColor: '#90560D',
           headerShadowVisible: false,
-          
         }}>
         <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />

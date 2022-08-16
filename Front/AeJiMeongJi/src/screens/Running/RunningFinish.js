@@ -9,7 +9,8 @@ import RunButton from '../../components/ui/RunButton';
 import RunButton2 from '../../components/ui/RunButton2';
 import {Colors} from '../../constants/styles';
 
-const RunningFinish = ({navigation}) => {
+const RunningFinish = ({navigation, route}) => {
+  console.log(route, '제발');
   return (
     <View style={styles.Container}>
       <Text

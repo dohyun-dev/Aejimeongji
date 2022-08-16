@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Alert,
+  Button,
   PermissionsAndroid,
   Platform,
   Pressable,
@@ -41,7 +42,7 @@ const RunningGeolocation2 = () => {
   // 3. Metric Unit
   const [MetricUnit, setMetricUnit] = useState('Kilometers');
   const [position, setPosition] = useState(null);
-  const [routeCoordinates, setRouteCoordinates] = useState([]);
+  const [routeCoordinates, setRouteCoordinates] = useState();
   const [addNum, setAddNum] = useState(0.01);
   const [prevLatLng, setPrevLatLng] = useState({});
   const [distanceTravelled, setDistanceTravelled] = useState(0);
@@ -67,13 +68,13 @@ const RunningGeolocation2 = () => {
     watchId.current = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        console.log(position, '포지션');
 
         const newCoordinate = {
-          latitude: latitude + addNum,
-          longitude: longitude + addNum,
+          latitude: latitude,
+          longitude: longitude,
         };
         coordinate.timing(newCoordinate).start();
+        console.log(newCoordinate);
         setPosition({latitude, longitude});
         setRouteCoordinates(cur => cur.concat([newCoordinate]));
         setPrevLatLng(newCoordinate);
@@ -104,12 +105,12 @@ const RunningGeolocation2 = () => {
   };
 
   // function to remove location updates api
-  const removeLocationUpdates = useCallback(() => {
-    if (watchId.current !== null) {
-      Geolocation.clearWatch(watchId.current);
-      watchId.current = null;
-    }
-  });
+  // const removeLocationUpdates = useCallback(() => {
+  //   if (watchId.current !== null) {
+  //     Geolocation.clearWatch(watchId.current);
+  //     watchId.current = null;
+  //   }
+  // });
 
   // get current location
   const getLocation = async () => {
@@ -158,7 +159,9 @@ const RunningGeolocation2 = () => {
     getLocationUpdates();
   }, []);
 
-  useEffect(() => {}, [position]);
+  useEffect(() => {
+    getLocationUpdates();
+  }, [position]);
 
   useEffect(() => {
     navigation.addListener('beforeRemove', backButtonCallback);
@@ -174,11 +177,11 @@ const RunningGeolocation2 = () => {
   }, [navigation]);
 
   // useEffect triggered whenever the screen is out of focus
-  useEffect(() => {
-    navigation.addListener('blur', event => {
-      removeLocationUpdates();
-    });
-  }, [navigation]);
+  // useEffect(() => {
+  //   navigation.addListener('blur', event => {
+  //     removeLocationUpdates();
+  //   });
+  // }, [navigation]);
   const backButtonCallback = useCallback(
     event => {
       // prevent default behavior
@@ -217,26 +220,32 @@ const RunningGeolocation2 = () => {
           followUserLocation
           loadingEnabled
           style={{flex: 1, opacity: 0.6}}>
+          <Polyline coordinates={routeCoordinates} strokeWidth={3} />
           <Marker.Animated
             ref={marker => {
               marker;
             }}
             coordinate={coordinate}
           />
-          <Circle
+          {/* <Circle
             center={{
               latitude: initial?.latitude || 37.78825,
               longitude: initial?.longitude || -122.4324,
             }}
             radius={4}
             fillColor="red"
-          />
-          <Polyline coordinates={routeCoordinates} strokeWidth={3} />
+          /> */}
+          {/* <Button
+            title="넘기기"
+            onPress={() => {
+              navigation.navigate('RunningFinish', distanceTravelled);
+            }}></Button> */}
         </MapView>
       </View>
     </View>
   );
 };
+``;
 
 const colors = {
   // Home Screen

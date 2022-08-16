@@ -18,10 +18,13 @@ import {Colors} from '../../constants/styles';
 import RunButton3 from '../../components/ui/RunButton3';
 import RunningSelect from '../../components/Running/RunningSelect';
 import {fetchDogs} from '../../utils/profile';
+import {useDispatch} from 'react-redux';
+import {profileActions} from '../../store/profile';
 
 const RunningProfile = ({route, navigation}) => {
   const [profiles, setProfiles] = useState([]);
   const [dogIds, setDogIds] = useState([route.params.dogId]);
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     const fetchAlldogs = async () => {
@@ -60,6 +63,7 @@ const RunningProfile = ({route, navigation}) => {
         />
         <RunButton3
           onPress={() => {
+            dispatch(profileActions.saveDogIds(dogIds));
             navigation.navigate('RunningGeolocation');
           }}
           style={{width: 50}}>
