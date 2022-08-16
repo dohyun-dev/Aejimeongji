@@ -2,11 +2,9 @@ package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.api.dto.ScrollResponse;
-import com.ssafy.aejimeongji.api.dto.walking.CreateWalkingRequest;
-import com.ssafy.aejimeongji.api.dto.walking.CreateWalkingResponse;
-import com.ssafy.aejimeongji.api.dto.walking.MappingWalkingDogRequest;
-import com.ssafy.aejimeongji.api.dto.walking.WalkingDto;
+import com.ssafy.aejimeongji.api.dto.walking.*;
 import com.ssafy.aejimeongji.domain.condition.WalkingDogCondition;
+import com.ssafy.aejimeongji.domain.condition.WalkingSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Walking;
 import com.ssafy.aejimeongji.domain.entity.WalkingDog;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
@@ -42,6 +40,15 @@ public class WalkingApiController {
         return ResponseEntity.ok().body(new WalkingDto(walkingDogService.walkingDogDetail(walkingDogId)));
     }
 
+    @GetMapping("/walking")
+    public ResponseEntity<?> getWalkingDate(@ModelAttribute WalkingSearchCondition condition) {
+        if (condition.getLastweek() != null && condition.getLastweek().equals(true)) {
+            return ResponseEntity.ok().body(new WalkingDistanceResponse(walkingDogService.getLastweekTotalDistance(condition.getDog())));
+        } else {
+            return getCurWeekResponse(condition.getDog());
+        }
+    }
+
     @PostMapping("/walking")
     public ResponseEntity<CreateWalkingResponse> createWalking(@Valid @RequestBody CreateWalkingRequest request, BindingResult bindingResult) {
         validateRequest(bindingResult);
@@ -65,5 +72,22 @@ public class WalkingApiController {
     private void validateRequest(BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             throw new MethodArgumentNotValidException(bindingResult);
+    }
+
+    private ResponseEntity<WalkingInfoReponse> getCurWeekResponse(Long dogId) {
+        List<WalkingDog> result = walkingDogService.getCurWeekWalkingsInfo(dogId);
+        if (result.isEmpty())
+            return ResponseEntity.ok().body(new WalkingInfoReponse(0, 0, 0));
+        else {
+            double totalDistance = 0.0;
+            int totalMinute = 0;
+
+            for (int i = 0; i < result.size(); i++) {
+                totalDistance += result.get(i).getWalking().getDistance();
+                String[] split = result.get(i).getWalking().getWalkingTime().split(":");
+                totalMinute += (Integer.parseInt(split[0]) * 60) + Integer.parseInt(split[1]);
+            }
+            return ResponseEntity.ok().body(new WalkingInfoReponse(result.size(), totalDistance, totalMinute));
+        }
     }
 }
