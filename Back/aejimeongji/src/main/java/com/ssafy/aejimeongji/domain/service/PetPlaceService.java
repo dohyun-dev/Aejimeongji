@@ -16,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -76,6 +78,7 @@ public class PetPlaceService {
         }
 
         Bookmark bookmark = bookmarkRepository.save(new Bookmark(memberService.findMember(memberId), findPetPlace(petplaceId)));
+        petPlaceRepostiory.plusBookMark(petplaceId);
         return bookmark.getId();
     }
 
@@ -86,8 +89,19 @@ public class PetPlaceService {
         if (bookmark.isEmpty()) {
             throw new IllegalArgumentException("아직 북마크 하지 않았습니다.");
         }
+        petPlaceRepostiory.minusBookMark(petplaceId);
         bookmarkRepository.delete(bookmark.get());
     }
+
+    public List<PetPlace> findPopPetPlaceList() {
+        List<PetPlace> placeList = petPlaceRepostiory.popPetPlaceList();
+        Collections.shuffle(placeList);
+        List<PetPlace> result = placeList.stream()
+                .limit(3)
+                .collect(Collectors.toList());
+        return result;
+    }
+
 
     private void removeData(List<PetPlace> data) {
         List<PetPlace> list = new ArrayList<>(data);
