@@ -77,8 +77,6 @@ const TodoList = props => {
         console.log('reponse찍기');
         console.log(response);
         if (response.status == 200) {
-          console.log('오늘의 to-do');
-          console.log(response.data);
           setTodolist(response.data);
         } else {
           console.log(error.response + 'todo받기에러');
@@ -95,9 +93,20 @@ const TodoList = props => {
   const toDo = todolist.map((todo, index) => {
     return (
       <View style={styles.todoDetail} key={index}>
-        <View style={styles.todoCategory}>
-          <Text style={{fontFamily: '강원교육튼튼', paddingTop: 3}}>할일</Text>
-        </View>
+        {todo.isInjection ? (
+          <View style={styles.todoCategory1}>
+            <Text style={{fontFamily: '강원교육튼튼', paddingTop: 3}}>
+              접종
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.todoCategory2}>
+            <Text style={{fontFamily: '강원교육튼튼', paddingTop: 3}}>
+              할일
+            </Text>
+          </View>
+        )}
+
         <Text style={{fontFamily: 'IBMPlexSansKR-Regular'}}>
           {todo.content}
         </Text>
@@ -208,7 +217,17 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(9),
     marginRight: responsiveWidth(5),
   },
-  todoCategory: {
+  todoCategory1: {
+    backgroundColor: '#AFD485',
+    marginLeft: 10,
+    marginRight: 10,
+    width: responsiveWidth(10),
+    height: responsiveHeight(3),
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  todoCategory2: {
     backgroundColor: '#DD9944',
     marginLeft: 10,
     marginRight: 10,
