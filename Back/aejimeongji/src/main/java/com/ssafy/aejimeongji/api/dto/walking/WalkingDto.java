@@ -19,8 +19,8 @@ public class WalkingDto {
     private Long walkingId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일", timezone = "Asia/seoul")
     private LocalDateTime walkingDate;
-    private String walkingTime;
-    private double walkingDistance;
+    private Double walkingTime;
+    private Double walkingDistance;
     private String walkingCalories;
 
     public WalkingDto(WalkingDog walkingDog) {

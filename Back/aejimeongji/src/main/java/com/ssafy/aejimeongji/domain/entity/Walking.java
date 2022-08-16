@@ -18,11 +18,11 @@ public class Walking {
 
     private double distance;
 
-    private String walkingTime;
+    private double walkingTime;
 
     private LocalDateTime walkingDate;
 
-    public Walking(double distance, String walkingTime, LocalDateTime walkingDate) {
+    public Walking(double distance, double walkingTime, LocalDateTime walkingDate) {
         this.distance = distance;
         this.walkingTime = walkingTime;
         this.walkingDate = walkingDate;
