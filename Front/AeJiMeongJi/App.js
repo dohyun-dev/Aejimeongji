@@ -33,7 +33,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="RunningInfo" component={RunningInfo} />
       <Stack.Screen name="RunningProfile" component={RunningProfile} />
       <Stack.Screen name="RunningFinish" component={RunningFinish} />
-      <Stack.Screen name="RunningGeolocation" component={RunningGeolocation} />
+      <Stack.Screen name="RunningGeolocation" component={RunningGeolocation2} />
       <Stack.Screen name="Home" component={MainHome} />
 
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
@@ -120,6 +120,7 @@ import PlaceHome from './src/screens/Place/PlaceHome';
 import PlaceCategory from './src/screens/Place/PlaceCategory';
 import PlaceDetail from './src/screens/Place/PlaceDetail';
 import MyPage from './src/screens/Profile/MyPage';
+import RunningGeolocation2 from './src/screens/Running/RunningGeolocation2';
 export default function App() {
   return (
     <Provider store={store}>
