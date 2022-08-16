@@ -17,7 +17,12 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -48,9 +53,14 @@ public class WalkingDogService {
     }
 
     public ScrollResponse<WalkingDog> getWalkingDogList(Long dogId, WalkingDogCondition condition) {
-        Slice<WalkingDog> result = walkingDogRepository.findByDogId(dogId, condition.getCurLastIdx(), PageRequest.of(0, condition.getLimit()));
-        List<WalkingDog> data = result.getContent();
-        return new ScrollResponse<WalkingDog>(data, result.hasNext(), data.get(data.size()-1).getId(), condition.getLimit());
+        if (condition.getDate() == null) {
+            Slice<WalkingDog> result = walkingDogRepository.findByDogId(dogId, condition.getCurLastIdx(), PageRequest.of(0, condition.getLimit()));
+            List<WalkingDog> data = result.getContent();
+            return new ScrollResponse<WalkingDog>(data, result.hasNext(), data.get(data.size()-1).getId(), condition.getLimit());
+        } else {
+            List<WalkingDog> data = walkingDogRepository.findWalkings(dogId, condition.getDate().atTime(0, 0, 0));
+            return new ScrollResponse<WalkingDog>(data, false, Long.MAX_VALUE, Integer.MAX_VALUE);
+        }
     }
 
     public WalkingDog walkingDogDetail(Long walkingDogId) {
@@ -63,5 +73,28 @@ public class WalkingDogService {
         WalkingDog walkingDog = walkingDogRepository.findById(walkingDogId)
                 .orElseThrow(() -> new IllegalArgumentException("요청하신 정보가 존재하지 않습니다."));
         walkingDogRepository.delete(walkingDog);
+    }
+
+    public double getLastweekTotalDistance(Long dogId) {
+        return walkingDogRepository.getLastWeekWalkingDistance(dogId, getLastWeekMondayLocaldate(), getCurWeekMondayLocaldateTime());
+    }
+
+    public List<WalkingDog> getCurWeekWalkingsInfo(Long dogId) {
+        return walkingDogRepository.getcurWeekWalkingInfo(dogId, getCurWeekMondayLocaldateTime());
+    }
+
+    private LocalDateTime getCurWeekMondayLocaldateTime() {
+        Calendar cal = Calendar.getInstance(Locale.KOREA);
+        cal.setTime(new Date());
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(0, 0, 0);
+    }
+
+    private LocalDateTime getLastWeekMondayLocaldate() {
+        Calendar cal = Calendar.getInstance(Locale.KOREA);
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -7);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(0, 0, 0);
     }
 }
