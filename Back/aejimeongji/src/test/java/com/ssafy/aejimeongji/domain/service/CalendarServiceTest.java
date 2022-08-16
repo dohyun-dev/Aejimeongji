@@ -96,7 +96,7 @@ class CalendarServiceTest {
         Calendar calendar3 = new Calendar(dog1,  "내용3" , LocalDate.of(2022,8, 7), true, false);
         em.persist(calendar3);
 
-        assertEquals(12, calendarRepository.findAll().size());
+        assertEquals(3, calendarRepository.findAll().size());
 
 
         CalendarSearchCondition condition1 = new CalendarSearchCondition();
@@ -204,14 +204,27 @@ class CalendarServiceTest {
             values.add(12 - date.getMonthValue() + 4);
         }
 
+        Member member = new Member("ssafy@naver.com", "닉네임");
+        DogImage dogImage = new DogImage("filename1", "storeFilename");
+        Breed breed = new Breed("test12465");
+        em.persist(member);
+        em.persist(dogImage);
+        em.persist(breed);
+
+        Dog dog1 = new Dog("DogTest1", 12.0, LocalDate.of(2018, date.getMonthValue(), date.getDayOfMonth()), Gender.MALE, false, false, LocalDate.now(), member, dogImage, breed);
+        em.persist(dog1);
+
+        Dog dog2 = new Dog("DogTest1", 12.0, LocalDate.of(date.getYear(), values.get(0), date.getDayOfMonth()), Gender.MALE, false, false, LocalDate.now(), member, dogImage, breed);
+        em.persist(dog2);
+
+        Dog dog3 = new Dog("DogTest1", 12.0, LocalDate.of(date.getYear() - 2, date.getMonthValue() - 4, date.getDayOfMonth()), Gender.MALE, false, false, LocalDate.now(), member, dogImage, breed);
+        em.persist(dog3);
+
 
         //when
-        LocalDate birthday = LocalDate.of(2018, date.getMonthValue(), date.getDayOfMonth());
-        String birth = calendarService.findMessages(birthday);
-        LocalDate firstday = LocalDate.of(date.getYear(), values.get(0), date.getDayOfMonth());
-        String first = calendarService.findMessages(firstday);
-        LocalDate thirdday = LocalDate.of(date.getYear() - 2, date.getMonthValue() - 4, date.getDayOfMonth());
-        String third = calendarService.findMessages(thirdday);
+        String birth = calendarService.findMessages(dog1.getId());
+        String first = calendarService.findMessages(dog2.getId());
+        String third = calendarService.findMessages(dog3.getId());
 
         //then
         assertEquals("생일을 축하합니다!", birth);
