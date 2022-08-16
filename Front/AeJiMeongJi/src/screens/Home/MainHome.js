@@ -28,7 +28,7 @@ const url = 'http://i7d203.p.ssafy.io:8080';
 
 const MainHome = ({navigation}) => {
   const [dogInfo, setDogInfo] = useState({});
-  const [id, setId] = useState();
+  const [message, setMessage] = useState('');
 
   const dogId = useSelector(state => state.profile.id);
 
@@ -39,14 +39,19 @@ const MainHome = ({navigation}) => {
       axios
         .get(url + `/api/member/${res}/dog/${dogId}/profile`)
         .then(response => {
-          console.log('reponse찍기');
-          console.log(response);
           if (response.status == 200) {
             setDogInfo(response.data);
           } else {
             console.log(error.response + '회원정보받기에러');
           }
         });
+      axios.get(url + `/api/messages/${dogId}`).then(response => {
+        if (response.status == 200) {
+          setMessage(response.data.message);
+        } else {
+          console.log(error.response + '예방접종메세지받기에러');
+        }
+      });
     };
     getMember();
   }, []);
@@ -66,7 +71,7 @@ const MainHome = ({navigation}) => {
                 source={require('../../Assets/image/notice-logo.png')}
               />
               <Text style={[styles.font, styles.font14, styles.line40]}>
-                예방접종한 지 일년이 지났어요!
+                {message}
               </Text>
             </View>
           </View>
@@ -119,6 +124,7 @@ const styles = StyleSheet.create({
   notice: {
     maxWidth: responsiveWidth(10),
     maxHeight: responsiveHeight(5),
+    marginRight: responsiveHeight(2),
   },
 
   guidebox: {
