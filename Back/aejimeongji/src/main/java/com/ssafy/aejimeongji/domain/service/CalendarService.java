@@ -14,14 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -98,8 +94,9 @@ public class CalendarService {
     }
 
     // messages
-    public String findMessages(LocalDate birthday) {
+    public String findMessages(Long dogId) {
 
+        LocalDate birthday = dogRepository.findById(dogId).get().getBirthday();
         LocalDate nowDate = LocalDate.now();
         Period diff = Period.between(birthday, nowDate);
 
