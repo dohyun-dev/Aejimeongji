@@ -29,9 +29,7 @@ const Todo = () => {
   const [isPress3, setIsPress3] = React.useState(false);
   const [todolist, setTodolist] = useState([]);
   const navigation = useNavigation();
-  // console.log('도그아이디');
-  // console.log(dogId);
-  // console.log(today);
+
   useEffect(() => {
     axios
       .get(url + `/api/dog/${dogId}/calendar?date=${today}&isActive=true`)

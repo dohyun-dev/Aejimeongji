@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -15,14 +15,18 @@ import {
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
 
+const url = 'http://i7d203.p.ssafy.io:8080';
 const Running = () => {
   const navigation = useNavigation();
-  const current = 3;
-  const lastKm = 3.4;
-  const num = [0, 2, 5, 7];
-  const min = [12, 20, 43];
-  const km = [1.3, 1.8, 2.3];
+  const dogId = useSelector(state => state.profile.id);
+  const [lastKm, setLastKm] = useState('');
+  const [runningDate, setRunningDate] = useState({});
+
+  let current = 0;
+
   const emoji = [
     {
       src: require(`../../Assets/image/emoij/cry.png`),
@@ -37,6 +41,45 @@ const Running = () => {
       src: require(`../../Assets/image/emoij/love.png`),
     },
   ];
+
+  useEffect(() => {
+    axios.get(url + `/api/walking?dog=${dogId}`).then(response => {
+      if (response.status == 200) {
+        setRunningDate(response.data);
+
+        switch (response.data.totalCount) {
+          case 0:
+            current = 0;
+            break;
+          case 1:
+          case 2:
+          case 3:
+            current = 1;
+            break;
+          case 4:
+          case 5:
+          case 6:
+            current = 2;
+            break;
+          case 7:
+            current = 3;
+            break;
+        }
+      } else {
+        console.log(response.status + '이번주 산책 정보 가져오기 에러');
+      }
+    });
+
+    axios
+      .get(url + `/api/walking?dog=${dogId}&lastweek=true`)
+      .then(response => {
+        if (response.status == 200) {
+          setLastKm(response.data.tatalDistance / 1000);
+        } else {
+          console.log('지난주 산책 정보 가져오기 에러');
+        }
+      });
+  }, []);
 
   return (
     <View style={styles.runningbox}>
@@ -64,19 +107,27 @@ const Running = () => {
       <View style={styles.runData}>
         <Text style={[styles.font, styles.font20, styles.line40]}>
           이번주 산책횟수{' '}
-          <Text style={{color: Colors.btnBack100}}> {num[current]}</Text>
+          <Text style={{color: Colors.btnBack100}}>
+            {' '}
+            {runningDate.totalCount}
+          </Text>
           <Text>회</Text>
         </Text>
-        {num[current] == 0 ? (
+        {runningDate.totalCount == 0 ? (
           <Text style={[styles.font, styles.font18, styles.line40]}>
             산책이 필요해요😂
           </Text>
         ) : (
           <Text style={[styles.font, styles.font18, styles.line40]}>
             합산기록{'  '}
-            <Text style={{color: Colors.btnBack100}}> {min[current - 1]}</Text>
+            <Text style={{color: Colors.btnBack100}}>
+              {' '}
+              {runningDate.totalMinute}
+            </Text>
             <Text> 분{'  '}</Text>
-            <Text style={{color: Colors.btnBack100}}>{km[current - 1]}</Text>
+            <Text style={{color: Colors.btnBack100}}>
+              {(runningDate.totalDistance / 1000).toFixed(2)}
+            </Text>
             <Text> km</Text>
           </Text>
         )}
