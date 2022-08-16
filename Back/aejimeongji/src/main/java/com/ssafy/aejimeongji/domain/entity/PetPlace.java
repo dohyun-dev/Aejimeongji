@@ -29,6 +29,7 @@ public class PetPlace {
     private Point point;
     private String homePage;
     private String openingHours;
+    private int bookmarkCount = 0;
 
     @Embedded
     private PetplaceImageSet petplaceImageSet;
