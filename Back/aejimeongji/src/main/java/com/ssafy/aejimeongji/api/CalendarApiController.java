@@ -59,9 +59,9 @@ public class CalendarApiController {
         return ResponseEntity.ok(new ResponseDTO("삭제가 완료되었습니다."));
     }
 
-    @GetMapping("/messages/{birthday}")
-    public ResponseEntity<?> getMessages(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
-        return ResponseEntity.ok(new ResponseDTO(calendarService.findMessages(birthday)));
+    @GetMapping("/messages/{dogId}")
+    public ResponseEntity<?> getMessages(@PathVariable Long dogId) {
+        return ResponseEntity.ok(new ResponseDTO(calendarService.findMessages(dogId)));
     }
 
     private void validRequest(BindingResult bindingResult) {
