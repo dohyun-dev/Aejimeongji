@@ -13,7 +13,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 @SpringBootTest
 @Transactional
@@ -59,6 +62,18 @@ class WalkingDogServiceTest {
         Assertions.assertThat(findWalkingDog.getDog()).isEqualTo(dog);
         Assertions.assertThat(findWalkingDog.getCalories()).isEqualTo(12);
         Assertions.assertThat(findWalkingDog.getWalking()).isEqualTo(walking);
+    }
+
+    @Test
+    void getLastweekTotalDistance() {
+        java.util.Calendar cal = java.util.Calendar.getInstance(Locale.KOREA);
+        cal.setTime(new Date());
+        System.out.println("오늘 cal = " + cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        System.out.println("월요일 cal = " + cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        cal.add(Calendar.DATE, -7);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        System.out.println("지난주 월요일 cal = " + cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
 //    @Test
