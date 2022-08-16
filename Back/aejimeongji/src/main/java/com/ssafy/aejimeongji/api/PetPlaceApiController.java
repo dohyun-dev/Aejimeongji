@@ -79,4 +79,10 @@ public class PetPlaceApiController {
         log.info("{}번 회원의 북마크 리스트에 {}번 펫플레이스 존재 여부 조회", memberId, petplaceId);
         return ResponseEntity.ok(petPlaceService.checkBookMark(petplaceId, memberId));
     }
+
+    @GetMapping("/pop")
+    public ResponseEntity<List<PetPlace>> getPopPlace() {
+        log.info("북마크가 5개 이상인 펫플레이스 목록 중 3개");
+        return ResponseEntity.ok(petPlaceService.findPopPetPlaceList());
+    }
 }
