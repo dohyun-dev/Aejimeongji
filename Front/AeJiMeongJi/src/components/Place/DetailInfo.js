@@ -14,7 +14,7 @@ const DetailInfo = ({placeDetail}) => {
       <View style={styles.textContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
-            {placeDetail?.name ? placeDetail.name : '타이틀'}
+            {placeDetail?.name ? placeDetail.name : ''}
           </Text>
         </View>
         <View style={styles.ratingContainer}>

@@ -58,11 +58,22 @@ const HomeStack = ({navigation}) => {
         component={PlaceCategory}
         options={{unmountOnBlur: true}}
       />
-      <Stack.Screen
-        name="PlaceDetail"
-        component={PlaceDetail}
-        options={{unmountOnBlur: true}}
-      />
+      <Stack.Group
+        screenOptions={{
+          headerShown: true,
+          headerStyle: styles.profileHeader,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {color: '#90560D', fontFamily: '강원교육튼튼'},
+          headerTintColor: '#90560D',
+          headerShadowVisible: false,
+        }}>
+        <Stack.Screen
+          name="PlaceDetail"
+          component={PlaceDetail}
+          options={{unmountOnBlur: true}}
+        />
+      </Stack.Group>
+
       <Stack.Screen name="RunningHome" component={RunningHome} />
       <Stack.Screen name="RunningInfo" component={RunningInfo} />
       <Stack.Screen name="RunningProfile" component={RunningProfile} />

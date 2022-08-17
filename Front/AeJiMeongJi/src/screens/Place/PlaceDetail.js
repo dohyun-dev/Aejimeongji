@@ -79,7 +79,7 @@ const PlaceDetail = ({route}) => {
       setLiked(checkIsLiked);
       setImage(res.petplaceImageUrl);
       setPlaceDetail(res);
-      setInfoImage(res.petplaceInfoUrl);
+      // setInfoImage(res.petplaceInfoUrl);
       const reviewData = await fetchReviews(route.params.id);
       setReviews(reviewData);
     };
@@ -92,7 +92,15 @@ const PlaceDetail = ({route}) => {
     };
     initialData();
     getLocation();
-  }, []);
+
+    return () => {
+      setLiked()
+      setImage()
+      setPlaceDetail()
+      setReviews()
+    }
+
+  }, [route.params.id]);
 
   return (
     <ScrollView style={styles.rootContainer}>
