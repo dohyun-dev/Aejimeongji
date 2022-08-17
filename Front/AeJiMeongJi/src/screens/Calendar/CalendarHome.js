@@ -24,7 +24,6 @@ const CalendarHome = ({navigation}) => {
 
   useEffect(() => {
     const now = new Date();
-    console.log(now);
     setYear(now.getFullYear());
     setMonth((now.getMonth() + 1).toString());
     setDay(now.getDate().toString());

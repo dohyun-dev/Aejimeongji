@@ -28,6 +28,7 @@ const TodoList = props => {
 
   const dogId = useSelector(state => state.profile.id);
   const [todolist, setTodolist] = useState([]);
+  const [runningllist, setRunningllist] = useState([]);
 
   const {modalVisible, setModalVisible} = props;
   const screenHeight = Dimensions.get('screen').height;
@@ -71,15 +72,29 @@ const TodoList = props => {
       resetBottomSheet.start();
     }
 
+    console.log('데이터선택');
+    console.log(props.selectedDate);
+    axios
+      .get(url + `/api/dog/${dogId}/walkingdog?date=${props.selectedDate}`)
+      .then(response => {
+        if (response.status == 200) {
+          console.log('산책데이터받기');
+          console.log(response.data.data);
+          setRunningllist(response.data);
+        } else {
+          console.log(response.status + '산책데이터받기에러');
+        }
+      });
+
     axios
       .get(url + `/api/dog/${dogId}/calendar?date=${props.selectedDate}`)
       .then(response => {
-        console.log('reponse찍기');
+        console.log('todo list 받기');
         console.log(response);
         if (response.status == 200) {
           setTodolist(response.data);
         } else {
-          console.log(error.response + 'todo받기에러');
+          console.log(response.status + 'todo받기에러');
         }
       });
   }, [props.modalVisible]);
