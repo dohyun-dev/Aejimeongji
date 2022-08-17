@@ -8,6 +8,8 @@ import com.ssafy.aejimeongji.domain.condition.WalkingSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Walking;
 import com.ssafy.aejimeongji.domain.entity.WalkingDog;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
+import com.ssafy.aejimeongji.domain.repository.WalkingDogRepository;
+import com.ssafy.aejimeongji.domain.repository.customrepository.WalkingDogRepositoryCustomImpl;
 import com.ssafy.aejimeongji.domain.service.WalkingDogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +28,13 @@ import java.util.stream.Collectors;
 public class WalkingApiController {
 
     private final WalkingDogService walkingDogService;
+    private final WalkingDogRepositoryCustomImpl walkingDogRepository;
 
     @GetMapping("/dog/{dogId}/walkingdog")
-    public ResponseEntity<ScrollResponse<WalkingDto>> getWalkingData(@PathVariable Long dogId, @ModelAttribute WalkingDogCondition condition) {
+    public ResponseEntity<ScrollResponse<?>> getWalkingData(@PathVariable Long dogId, @ModelAttribute WalkingDogCondition condition) {
         log.debug("condition {}", condition);
         ScrollResponse<WalkingDog> walkingDogList = walkingDogService.getWalkingDogList(dogId, condition);
-        List<WalkingDto> data = walkingDogList.getData().stream().map(WalkingDto::new).collect(Collectors.toList());
+        List<WalkingResponse> data = walkingDogList.getData().stream().map(WalkingResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(new ScrollResponse<>(data, walkingDogList.getHasNext(), walkingDogList.getCurLastIdx(), walkingDogList.getLimit()));
     }
 
@@ -43,9 +46,9 @@ public class WalkingApiController {
     @GetMapping("/walking")
     public ResponseEntity<?> getWalkingDate(@ModelAttribute WalkingSearchCondition condition) {
         if (condition.getLastweek() != null && condition.getLastweek().equals(true)) {
-            return ResponseEntity.ok().body(new WalkingDistanceResponse(walkingDogService.getLastweekTotalDistance(condition.getDog())));
+            return ResponseEntity.ok().body(walkingDogRepository.getLastWeekWalkingDistance(condition.getDog()));
         } else {
-            return getCurWeekResponse(condition.getDog());
+            return ResponseEntity.ok().body(walkingDogRepository.getCurWeekWalkingInfo(condition.getDog()));
         }
     }
 
@@ -72,22 +75,5 @@ public class WalkingApiController {
     private void validateRequest(BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             throw new MethodArgumentNotValidException(bindingResult);
-    }
-
-    private ResponseEntity<WalkingInfoReponse> getCurWeekResponse(Long dogId) {
-        List<WalkingDog> result = walkingDogService.getCurWeekWalkingsInfo(dogId);
-        if (result.isEmpty())
-            return ResponseEntity.ok().body(new WalkingInfoReponse(0, 0, 0));
-        else {
-            double totalDistance = 0.0;
-            int totalMinute = 0;
-
-            for (int i = 0; i < result.size(); i++) {
-                totalDistance += result.get(i).getWalking().getDistance();
-                String[] split = result.get(i).getWalking().getWalkingTime().split(":");
-                totalMinute += (Integer.parseInt(split[0]) * 60) + Integer.parseInt(split[1]);
-            }
-            return ResponseEntity.ok().body(new WalkingInfoReponse(result.size(), totalDistance, totalMinute));
-        }
     }
 }
