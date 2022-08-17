@@ -80,7 +80,7 @@ const TodoList = props => {
         if (response.status == 200) {
           console.log('산책데이터받기');
           console.log(response.data.data);
-          setRunningllist(response.data);
+          setRunningllist(response.data.data);
         } else {
           console.log(response.status + '산책데이터받기에러');
         }
@@ -129,6 +129,27 @@ const TodoList = props => {
     );
   });
 
+  const running = runningllist.map((running, index) => {
+    return (
+      <View style={styles.todoDetail} key={index}>
+        <View style={styles.todoCategory3}>
+          <Text style={{fontFamily: '강원교육튼튼', paddingTop: 3}}>산책</Text>
+        </View>
+        <Text
+          style={{
+            fontFamily: '강원교육튼튼',
+          }}>
+          {running.walkingDate}
+          {'   '}
+        </Text>
+        <Text style={{fontFamily: 'IBMPlexSansKR-Regular'}}>
+          {running.walkingTime}분 {(running.walkingDistance / 1000).toFixed(2)}
+          km
+        </Text>
+      </View>
+    );
+  });
+
   return (
     <Modal
       visible={modalVisible}
@@ -165,7 +186,12 @@ const TodoList = props => {
                 marginBottom: 100,
               }}>
               {todolist.length != 0 ? (
-                <View style={styles.todoContent}>{toDo}</View>
+                <>
+                  <View style={styles.todoContent}>
+                    {running}
+                    {toDo}
+                  </View>
+                </>
               ) : (
                 <View>
                   {/* <NothingTodo /> */}
@@ -244,6 +270,16 @@ const styles = StyleSheet.create({
   },
   todoCategory2: {
     backgroundColor: '#DD9944',
+    marginLeft: 10,
+    marginRight: 10,
+    width: responsiveWidth(10),
+    height: responsiveHeight(3),
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  todoCategory3: {
+    backgroundColor: '#B8E9FF',
     marginLeft: 10,
     marginRight: 10,
     width: responsiveWidth(10),
