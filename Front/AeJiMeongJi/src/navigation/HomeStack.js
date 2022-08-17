@@ -24,6 +24,7 @@ import RunningGeolocation from '../screens/Running/RunningGeolocation';
 import MyPage from '../screens/Profile/MyPage';
 import MyInfoScreen from '../screens/Profile/MyInfoScreen';
 import {StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,8 +33,12 @@ const Stack = createNativeStackNavigator();
 //  없는 경우 => 프로필 생성
 
 const HomeStack = ({navigation}) => {
+  const dogId = useSelector(state => state.profile.id);
+
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName={dogId !== '' ? 'Home' : 'ProfileChoice'}>
       <Stack.Screen name="ProfileChoice" component={ProfileChoiceScreen} />
       <Stack.Screen name="Home" component={MainHome} />
       <Stack.Screen name="CalendarHome" component={CalendarHome} />
@@ -43,9 +48,21 @@ const HomeStack = ({navigation}) => {
       <Stack.Screen name="MyInfo" component={MyInfoScreen} />
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
       <Stack.Screen name="ProfileHome2" component={ProfileHomeScreen2} />
-      <Stack.Screen name="PlaceHome" component={PlaceHome} />
-      <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
-      <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
+      <Stack.Screen
+        name="PlaceHome"
+        component={PlaceHome}
+        options={{unmountOnBlur: true}}
+      />
+      <Stack.Screen
+        name="PlaceCategory"
+        component={PlaceCategory}
+        options={{unmountOnBlur: true}}
+      />
+      <Stack.Screen
+        name="PlaceDetail"
+        component={PlaceDetail}
+        options={{unmountOnBlur: true}}
+      />
       <Stack.Screen name="RunningHome" component={RunningHome} />
       <Stack.Screen name="RunningInfo" component={RunningInfo} />
       <Stack.Screen name="RunningProfile" component={RunningProfile} />
