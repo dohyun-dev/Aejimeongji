@@ -41,8 +41,8 @@ const HomeStack = ({navigation}) => {
       <Stack.Screen name="MyPage" component={MyPage} />
       <Stack.Screen name="ProfileChange" component={ProfileEditScreen} />
       <Stack.Screen name="MyInfo" component={MyInfoScreen} />
-      <Stack.Screen name="profileHome" component={ProfileHomeScreen} />
-      <Stack.Screen name="profileHome2" component={ProfileHomeScreen2} />
+      <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
+      <Stack.Screen name="ProfileHome2" component={ProfileHomeScreen2} />
       <Stack.Screen name="PlaceHome" component={PlaceHome} />
       <Stack.Screen name="PlaceCategory" component={PlaceCategory} />
       <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
