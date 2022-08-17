@@ -209,7 +209,7 @@ class RunningGeolocation extends React.Component {
               {!this.state.start ? '재시작' : '일시정지'}
             </Text>
           </TouchableHighlight> */}
-          <View>
+          {/* <View>
             <RunButton onPress={() => {}}>정지</RunButton>
             <RunButton
               title={'3-Button Alert'}
@@ -223,7 +223,7 @@ class RunningGeolocation extends React.Component {
               }}>
               산책종료
             </RunButton>
-          </View>
+          </View> */}
           {/* <RunningAlert data={this.componentWillUnmount}></RunningAlert> */}
         </View>
       </View>
