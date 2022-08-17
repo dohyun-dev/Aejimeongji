@@ -31,7 +31,7 @@ class WalkingDogServiceTest {
 
     @Test
     void saveWalking() {
-        Walking walking = new Walking(1000, "10:20:11.1234", LocalDateTime.now());
+        Walking walking = new Walking(1000, 1000, LocalDateTime.now());
         Long saveId = walkingDogService.saveWalking(walking);
 
         Walking findWalking = walkingRepository.findById(saveId).get();
@@ -51,7 +51,7 @@ class WalkingDogServiceTest {
         em.persist(breed);
         Dog dog = new Dog("강아지", 12, LocalDate.now(), Gender.MALE, true, true, LocalDate.now(), member, dogImage, breed);
         em.persist(dog);
-        Walking walking = new Walking(1000, "10:20:11.1234", LocalDateTime.now());
+        Walking walking = new Walking(1000, 1000, LocalDateTime.now());
         Long saveId = walkingDogService.saveWalking(walking);
 
         // when
