@@ -91,12 +91,7 @@ const RunningFinish = ({navigation, route}) => {
             styel={styles.runLoginButton}>
             산책 완료
           </RunButton>
-          <RunButton2
-            onPress={() => {
-              navigation.navigate('RunningInfo');
-            }}>
-            산책 이력
-          </RunButton2>
+          <RunButton2 onPress={fetchData}>산책 이력</RunButton2>
         </View>
       </View>
     </View>
