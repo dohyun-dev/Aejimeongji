@@ -20,10 +20,11 @@ public interface WalkingDogRepository extends JpaRepository<WalkingDog, Long>, W
             "order by wd.id desc")
     Slice<WalkingDog> findByDogId(@Param("dogId") Long dogId, @Param("curLastIdx") Long curLastIdx, Pageable request);
 
-    @Query("select wd from WalkingDog wd " +
-            "join fetch wd.dog d join fetch wd.walking w " +
-            "where d.id = :dogId and :date in w.walkingDate")
-    List<WalkingDog> findWalkings(@Param("dogId") Long dogId, @Param("date") LocalDateTime date);
+    @Query(value = "select * from walkingdog wd " +
+            "join dog d on wd.dog_id = d.id " +
+            "join walking w on w.id = wd.walking_id " +
+            "where d.id = :dogId and DATE(w.walking_date) = :date", nativeQuery = true)
+    List<WalkingDog> findWalkings(@Param("dogId") Long dogId, @Param("date") String date);
 
     @Query("select sum(wd.walking.distance) " +
             "from WalkingDog wd " +

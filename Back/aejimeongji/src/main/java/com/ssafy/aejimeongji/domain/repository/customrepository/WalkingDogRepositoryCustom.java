@@ -1,10 +1,9 @@
 package com.ssafy.aejimeongji.domain.repository.customrepository;
 
-import com.ssafy.aejimeongji.domain.entity.WalkingDog;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import com.ssafy.aejimeongji.api.dto.walking.WalkingDistanceResponse;
+import com.ssafy.aejimeongji.api.dto.walking.WalkingInfoReponse;
 
 public interface WalkingDogRepositoryCustom {
-    List<WalkingDog> getcurWeekWalkingInfo(Long dogId, LocalDateTime curMonday);
+    WalkingInfoReponse getCurWeekWalkingInfo(Long dogId);
+    WalkingDistanceResponse getLastWeekWalkingDistance(Long dogId);
 }
