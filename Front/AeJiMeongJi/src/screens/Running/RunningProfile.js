@@ -38,6 +38,11 @@ const RunningProfile = ({route, navigation}) => {
 
   console.log(dogIds, '업데이트 되는 값');
 
+  const fetchDogIds = async () => {
+    dispatch(profileActions.saveDogIds(dogIds));
+    navigation.navigate('RunningGeolocation');
+  };
+
   const url = 'http://i7d203.p.ssafy.io:8080/api/image/';
   const renderItem = ({item}) => (
     <RunningSelect
@@ -61,12 +66,7 @@ const RunningProfile = ({route, navigation}) => {
           style={styles.flatlist}
           columnWrapperStyle={{justifyContent: 'center', alignItems: 'center'}}
         />
-        <RunButton3
-          onPress={() => {
-            dispatch(profileActions.saveDogIds(dogIds));
-            navigation.navigate('RunningGeolocation');
-          }}
-          style={{width: 50}}>
+        <RunButton3 onPress={fetchDogIds} style={{width: responsiveWidth(10)}}>
           선택완료
         </RunButton3>
       </View>
