@@ -11,8 +11,7 @@ import {Colors} from '../../constants/styles';
 import {fetchRunningData, fetchCalData} from '../../utils/guide.js';
 import {useSelector} from 'react-redux';
 const RunningFinish = ({navigation, route}) => {
-  // const dogIds = useSelector(state => state.profile.ids);
-  const dogIds = [1, 7, 8, 9];
+  const dogIds = useSelector(state => state.profile.ids);
 
   const fetchData = async identifier => {
     const walkingDistance = parseFloat(route.params.distance).toFixed(2);
