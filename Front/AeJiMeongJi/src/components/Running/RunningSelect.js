@@ -24,10 +24,10 @@ const RunningSelect = ({id, source, name, setDogIds, dogIds}) => {
   const fetchDogId = () => {
     if (dogIds.includes(id) === true) {
       dogIds = dogIds.filter(item => item !== id);
-      setSelect(false)
+      setSelect(false);
     } else {
       dogIds.push(id);
-      setSelect(true)
+      setSelect(true);
     }
     setDogIds(dogIds);
     console.log(dogIds);
@@ -53,7 +53,11 @@ const RunningSelect = ({id, source, name, setDogIds, dogIds}) => {
   return (
     <TouchableOpacity onPress={fetchDogId}>
       <View style={{alignItems: 'center'}}>
-        <Image style={[styles.image, isSelect && styles.selected ]} source={source} resizeMode="cover" />
+        <Image
+          style={[styles.image, isSelect && styles.selected]}
+          source={source}
+          resizeMode="cover"
+        />
         <Text
           style={{
             fontSize: responsiveFontSize(2),
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   selected: {
-    
-  }
+    opacity: 0.2,
+  },
 });
 export default RunningSelect;

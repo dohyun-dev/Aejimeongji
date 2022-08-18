@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   ProfileSelect: {
     backgroundColor: Colors.back200,
-    height: responsiveHeight(50),
+    height: responsiveHeight(55),
     width: responsiveWidth(80),
     justifyContent: 'center',
     borderRadius: 20,
