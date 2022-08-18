@@ -52,12 +52,12 @@ const HomeStack = ({navigation}) => {
       <Stack.Screen
         name="PlaceHome"
         component={PlaceHome}
-        options={{unmountOnBlur: true}}
+        // options={{unmountOnBlur: true}}
       />
       <Stack.Screen
         name="PlaceCategory"
         component={PlaceCategory}
-        options={{unmountOnBlur: true}}
+        // options={{unmountOnBlur: true}}
       />
       <Stack.Group
         screenOptions={{
@@ -71,10 +71,9 @@ const HomeStack = ({navigation}) => {
         <Stack.Screen
           name="PlaceDetail"
           component={PlaceDetail}
-          options={{unmountOnBlur: true}}
+          // options={{unmountOnBlur: true}}
         />
       </Stack.Group>
-
       <Stack.Screen name="RunningHome" component={RunningHome} />
       <Stack.Screen name="RunningInfo" component={RunningInfo} />
       <Stack.Screen name="RunningProfile" component={RunningProfile} />
