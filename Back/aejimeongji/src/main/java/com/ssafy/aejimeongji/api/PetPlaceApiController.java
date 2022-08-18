@@ -37,7 +37,7 @@ public class PetPlaceApiController {
             return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         } else {
             ScrollResponse<PetPlace> result = petPlaceService.searchPetPlaceAll(condition);
-            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p)).collect(Collectors.toList());
+            List<PetPlaceResponse> data = result.getData().stream().map(p -> new PetPlaceResponse(p)).sorted(Comparator.comparing(PetPlaceResponse::getDistance)).collect(Collectors.toList());
             return ResponseEntity.ok(new ScrollResponse<>(data, result.getHasNext(), result.getCurLastIdx(), result.getLimit()));
         }
     }
