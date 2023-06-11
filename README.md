@@ -1,10 +1,5 @@
 ## 🐶 반려동물 길잡이 어플리케이션 애지멍지
-
-[<img src="file:///C:/Users/multicampus/Downloads/smallLogo.png" title="" alt="타이틀이미지" width="311">](https://user-images.githubusercontent.com/55949647/154088644-8ae7ec32-04bb-4fc3-810a-c2111ec2afb8.png)
-
------
-
-
+![smallLogo](https://github.com/dohyun-dev/Aejimeongji/assets/88278345/a081009b-3f0d-4ab4-94b6-f0430bf4b61e)
 
 ## 1. 애지멍지 소개 영상
 
@@ -278,13 +273,8 @@
  ┃ ┗ 📜running.js
 ```
 
-
-
 ### ERD
-
-![image-20220819091207982](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20220819091207982.png)
-
-
+![Untitled](https://github.com/dohyun-dev/Aejimeongji/assets/88278345/3eed0736-3728-4cee-9d1b-4ac97950935c)
 
 ----
 
@@ -296,18 +286,9 @@
 - MatterMost
 - Webex
 
-
-
 ---
-
-
 
 ## 기타 자료
 
 [API 명세](https://www.notion.so/API-afc6b28c4dcb4b578e6917125f4577aa)
-
-[Swagger]([Swagger UI](http://i7d203.p.ssafy.io:8080/swagger-ui/#/))
-
-[Jira]([SSAFY](https://jira.ssafy.com/projects/S07P12D203/summary))
-
 [Notion ](https://www.notion.so/2-0d4019a2cdec49369f1b0fa7481b8360)
