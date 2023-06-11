@@ -135,11 +135,8 @@
 
 ---
 
-## 시스템 구성도
-
-![image-20220819091149404](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20220819091149404.png)
-
-
+## 아키텍처 구성도
+![KakaoTalk_20221125_105050725](https://github.com/dohyun-dev/Aejimeongji/assets/88278345/5a6eb82e-da64-40e5-97fd-6a9b25e46c24)
 
 ---
 
