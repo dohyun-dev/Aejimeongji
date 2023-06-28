@@ -16,8 +16,7 @@ import java.util.UUID;
 @Component
 public class ImageUtil {
 
-    @Value("${file.dir}")
-    private String fileDir;
+    private String fileDir = "/spring";
 
     public String getFullPath(String imageName) {
         return fileDir + imageName;
