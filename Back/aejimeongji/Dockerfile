@@ -1,7 +1,7 @@
 FROM openjdk:11-jdk
 
-ARG JAR_FILE=./build/libs/*.jar
+ARG JAR_FILE=build/libs/*.jar
 
-COPY ${JAR_FILE} springbootap.jar
+COPY ${JAR_FILE} server.jar
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=aws", "-Duser.timezone=Asia/Seoul", "-jar", "/springbootap.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=Asia/Seoul", "-jar", "/server.jar"]
