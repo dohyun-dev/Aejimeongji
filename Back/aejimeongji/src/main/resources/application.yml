@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active:
+      - dev
+    group:
+      dev:
+        - db-dev
+      prod:
+        - db-prod
+      test:
+        - db-test
+    include:
+      - db
+      - auth

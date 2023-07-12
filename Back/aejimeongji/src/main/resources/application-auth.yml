@@ -1,0 +1,11 @@
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
+    bean: jasyptStringEncryptor
+
+file.dir: ~/spring
+jwt.secretKey: jwt.secretKey
+
+coolsms:
+  apiKey: asdfsdacvzxvsdafdwqreqw
+  apiSecret: asdfsdafzxcvasdfdsafsd
