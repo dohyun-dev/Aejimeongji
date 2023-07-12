@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active:
+      - test
+    group:
+      test:
+        - db-test
+    include:
+      - db
+      - auth
