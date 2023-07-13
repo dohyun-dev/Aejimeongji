@@ -45,7 +45,7 @@ spring:
   datasource:
     url: jdbc:mysql://mysql:3306/aejimeongji
     username: ENC(bRdQh0yTV/2bjCLiyjtqQw==)
-    password: ENC(ChrtKWCvlRCddol33RoIJQ==)
+    password: ENC(2PE7Z8B5Zq9QPLb8IYyMTQ==)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 --- # test
