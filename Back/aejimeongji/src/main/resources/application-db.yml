@@ -43,7 +43,7 @@ spring:
     activate:
       on-profile: db-prod
   datasource:
-    url: jdbc:mysql://172.17.0.1:3306/aejimeongji
+    url: jdbc:mysql://172.17.0.1:3306/aejimeongji?userSSL=false
     username: ENC(8MlMNhsZsrKRq25QQny+sw==)
     password: ENC(2PE7Z8B5Zq9QPLb8IYyMTQ==)
     driver-class-name: com.mysql.cj.jdbc.Driver
