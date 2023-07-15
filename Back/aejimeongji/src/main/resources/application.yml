@@ -12,4 +12,3 @@ spring:
     include:
       - db
       - auth
-      - monitoring
