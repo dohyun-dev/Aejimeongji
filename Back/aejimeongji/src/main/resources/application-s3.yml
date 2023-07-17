@@ -1,0 +1,24 @@
+cloud:
+  aws:
+    s3:
+      bucket: ENC(xIUQF/1KhSp+KczSlUa4szAtSoXn3Tlmo9l+MTDBVQ0=)
+      dir: /aejimeongji
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      access-key: ENC(B3MAzJx9ME4tgfJDN1TzViMBQnie6OOUCo3ogONTrWY=)
+      secret-key: ENC(jILKGCZp1JmZxJTFxNmT+2LFL9Ryku4lZdTlEAqrBD9UllpF3aX0SDLau6lBepSNoD9jUDRrzCQ=)
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB

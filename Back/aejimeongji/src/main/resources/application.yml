@@ -13,3 +13,4 @@ spring:
       - db
       - auth
       - monitoring
+      - s3
