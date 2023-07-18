@@ -12,3 +12,5 @@ spring:
     include:
       - db
       - auth
+      - monitoring
+      - s3

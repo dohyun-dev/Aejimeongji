@@ -55,6 +55,13 @@ dependencies {
 	// 암호화 라이브러리
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 
+	// 모니터링
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+	// S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'com.h2database:h2'
