@@ -1,15 +1,14 @@
 cloud:
   aws:
     s3:
-      bucket: ENC(xIUQF/1KhSp+KczSlUa4szAtSoXn3Tlmo9l+MTDBVQ0=)
-      dir: /aejimeongji
+      bucket: ENC(Y9/m8FGlrTWFDRn9zth7Ye3JycfihVDMKlhMgAMR5es=)
     region:
       static: ap-northeast-2
     stack:
       auto: false
     credentials:
-      access-key: ENC(B3MAzJx9ME4tgfJDN1TzViMBQnie6OOUCo3ogONTrWY=)
-      secret-key: ENC(jILKGCZp1JmZxJTFxNmT+2LFL9Ryku4lZdTlEAqrBD9UllpF3aX0SDLau6lBepSNoD9jUDRrzCQ=)
+      access-key: ENC(f/BFp0lc1SBw4Y6Dtd9NpQ8Ot14rW324W5kGCfF7EyI=)
+      secret-key: ENC(SBAHhq7tWmzSwmLH+ZkSs14R8bggsVbMy1CpcF5rW1cvi/8iiSk2n7n7qeZpQp9oFGEJOV54xR0=)
 
 logging:
   level:
