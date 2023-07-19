@@ -1,8 +1,8 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.ScrollResponse;
-import com.ssafy.aejimeongji.api.dto.petPlace.PetPlaceResponse;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.ScrollResponse;
+import com.ssafy.aejimeongji.dto.petPlace.PetPlaceResponse;
 import com.ssafy.aejimeongji.domain.condition.BookMarkListCondition;
 import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;

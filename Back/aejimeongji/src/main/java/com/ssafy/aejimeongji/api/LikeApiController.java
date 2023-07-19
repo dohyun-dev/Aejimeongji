@@ -1,11 +1,7 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.entity.GuideBook;
-import com.ssafy.aejimeongji.domain.entity.Member;
-import com.ssafy.aejimeongji.domain.service.GuideBookService;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
 import com.ssafy.aejimeongji.domain.service.LikeService;
-import com.ssafy.aejimeongji.domain.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

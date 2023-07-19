@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.Breed.BreedResponse;
+import com.ssafy.aejimeongji.dto.Breed.BreedResponse;
 import com.ssafy.aejimeongji.domain.entity.Breed;
 import com.ssafy.aejimeongji.domain.service.BreedService;
 import lombok.RequiredArgsConstructor;

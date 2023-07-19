@@ -1,7 +1,7 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ScrollResponse;
-import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookResponse;
+import com.ssafy.aejimeongji.dto.ScrollResponse;
+import com.ssafy.aejimeongji.dto.guidebook.GuideBookResponse;
 import com.ssafy.aejimeongji.domain.condition.GuideSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Category;
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @RestController

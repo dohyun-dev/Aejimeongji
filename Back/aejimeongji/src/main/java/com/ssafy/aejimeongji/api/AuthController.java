@@ -1,12 +1,12 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ErrorDTO;
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.login.IssueRequest;
-import com.ssafy.aejimeongji.api.dto.login.IssueResponse;
-import com.ssafy.aejimeongji.api.dto.login.LoginRequest;
-import com.ssafy.aejimeongji.api.dto.login.LoginResponse;
-import com.ssafy.aejimeongji.api.dto.member.DuplicationCheckResponse;
+import com.ssafy.aejimeongji.dto.ErrorDTO;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.login.IssueRequest;
+import com.ssafy.aejimeongji.dto.login.IssueResponse;
+import com.ssafy.aejimeongji.dto.login.LoginRequest;
+import com.ssafy.aejimeongji.dto.login.LoginResponse;
+import com.ssafy.aejimeongji.dto.member.DuplicationCheckResponse;
 import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.entity.Member;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;

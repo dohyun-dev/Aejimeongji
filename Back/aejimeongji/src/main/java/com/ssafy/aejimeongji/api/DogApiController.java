@@ -1,9 +1,9 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.dog.DogProfileResponse;
-import com.ssafy.aejimeongji.api.dto.dog.DogSaveRequest;
-import com.ssafy.aejimeongji.api.dto.dog.DogUpdateRequest;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.dog.DogProfileResponse;
+import com.ssafy.aejimeongji.dto.dog.DogSaveRequest;
+import com.ssafy.aejimeongji.dto.dog.DogUpdateRequest;
 import com.ssafy.aejimeongji.domain.entity.Breed;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.image.DogImage;

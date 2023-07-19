@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.api.advice;
 
-import com.ssafy.aejimeongji.api.dto.ErrorDTO;
+import com.ssafy.aejimeongji.dto.ErrorDTO;
 import com.ssafy.aejimeongji.domain.exception.auth.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

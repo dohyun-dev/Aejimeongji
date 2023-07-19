@@ -1,7 +1,6 @@
 package com.ssafy.aejimeongji.domain.service;
 
-import com.ssafy.aejimeongji.api.dto.ScrollResponse;
-import com.ssafy.aejimeongji.api.dto.walking.WalkingInfoReponse;
+import com.ssafy.aejimeongji.dto.ScrollResponse;
 import com.ssafy.aejimeongji.domain.condition.WalkingDogCondition;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.Walking;
@@ -18,12 +17,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 

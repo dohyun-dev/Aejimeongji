@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.domain.service;
 
-import com.ssafy.aejimeongji.api.dto.ScrollResponse;
+import com.ssafy.aejimeongji.dto.ScrollResponse;
 import com.ssafy.aejimeongji.domain.condition.BookMarkListCondition;
 import com.ssafy.aejimeongji.domain.condition.PetPlaceSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Bookmark;
