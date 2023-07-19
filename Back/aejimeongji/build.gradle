@@ -57,10 +57,14 @@ dependencies {
 
 	// 모니터링
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
 	// S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// mapper
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
