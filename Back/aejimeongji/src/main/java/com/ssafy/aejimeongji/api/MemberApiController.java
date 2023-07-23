@@ -1,11 +1,9 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.member.DuplicationCheckResponse;
-import com.ssafy.aejimeongji.api.dto.member.MemberModifyRequest;
-import com.ssafy.aejimeongji.api.dto.member.MemberProfileResponse;
-import com.ssafy.aejimeongji.api.dto.member.MemberSignUpRequest;
-import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.member.MemberModifyRequest;
+import com.ssafy.aejimeongji.dto.member.MemberProfileResponse;
+import com.ssafy.aejimeongji.dto.member.MemberSignUpRequest;
 import com.ssafy.aejimeongji.domain.entity.Member;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.MemberService;

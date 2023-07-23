@@ -1,7 +1,7 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookRequest;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.guidebook.GuideBookRequest;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;

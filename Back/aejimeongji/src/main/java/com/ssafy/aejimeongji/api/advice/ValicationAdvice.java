@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.api.advice;
 
-import com.ssafy.aejimeongji.api.dto.ValidationResponse;
+import com.ssafy.aejimeongji.dto.ValidationResponse;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

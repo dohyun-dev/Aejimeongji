@@ -1,16 +1,15 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.ScrollResponse;
-import com.ssafy.aejimeongji.api.dto.walking.*;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.ScrollResponse;
 import com.ssafy.aejimeongji.domain.condition.WalkingDogCondition;
 import com.ssafy.aejimeongji.domain.condition.WalkingSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Walking;
 import com.ssafy.aejimeongji.domain.entity.WalkingDog;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
-import com.ssafy.aejimeongji.domain.repository.WalkingDogRepository;
 import com.ssafy.aejimeongji.domain.repository.customrepository.WalkingDogRepositoryCustomImpl;
 import com.ssafy.aejimeongji.domain.service.WalkingDogService;
+import com.ssafy.aejimeongji.dto.walking.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.api.advice;
 
-import com.ssafy.aejimeongji.api.dto.ErrorDTO;
+import com.ssafy.aejimeongji.dto.ErrorDTO;
 import com.ssafy.aejimeongji.domain.exception.CalendarNotFoundException;
 import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
 import com.ssafy.aejimeongji.domain.exception.GuideNotFoundException;

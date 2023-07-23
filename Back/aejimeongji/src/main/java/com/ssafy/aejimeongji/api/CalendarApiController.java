@@ -1,21 +1,19 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.calendar.CalendarResponse;
-import com.ssafy.aejimeongji.api.dto.calendar.CalendarRequest;
-import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.calendar.TodosResponse;
+import com.ssafy.aejimeongji.dto.calendar.CalendarResponse;
+import com.ssafy.aejimeongji.dto.calendar.CalendarRequest;
+import com.ssafy.aejimeongji.dto.ResponseDTO;
+import com.ssafy.aejimeongji.dto.calendar.TodosResponse;
 import com.ssafy.aejimeongji.domain.condition.CalendarSearchCondition;
 import com.ssafy.aejimeongji.domain.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

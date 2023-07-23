@@ -3,8 +3,8 @@ package com.ssafy.aejimeongji.domain.repository.customrepository;
 import com.querydsl.jpa.JPQLQueryFactory;
 import com.ssafy.aejimeongji.api.dto.walking.QWalkingDistanceResponse;
 import com.ssafy.aejimeongji.api.dto.walking.QWalkingInfoReponse;
-import com.ssafy.aejimeongji.api.dto.walking.WalkingDistanceResponse;
-import com.ssafy.aejimeongji.api.dto.walking.WalkingInfoReponse;
+import com.ssafy.aejimeongji.dto.walking.WalkingDistanceResponse;
+import com.ssafy.aejimeongji.dto.walking.WalkingInfoReponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

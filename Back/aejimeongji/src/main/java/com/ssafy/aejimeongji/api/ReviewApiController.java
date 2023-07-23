@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.review.ReviewResponse;
+import com.ssafy.aejimeongji.dto.review.ReviewResponse;
 import com.ssafy.aejimeongji.domain.entity.Review;
 import com.ssafy.aejimeongji.domain.service.ReviewService;
 import lombok.RequiredArgsConstructor;
