@@ -1,7 +1,7 @@
 package com.ssafy.aejimeongji.domain.member.presentation;
 
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomMethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.guide.application.dto.GuideBookRequest;
 import com.ssafy.aejimeongji.domain.guide.application.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
@@ -46,19 +46,19 @@ public class AdminApiController {
 
     private void validateRequest(GuideBookRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
 
         log.info("{} {}", request.getWeightMin(), request.getWeightMax());
         if (request.getMonthMin() > request.getMonthMax()) {
             bindingResult.reject("weightMin", "최소 개월이 최대 개월보다 클 수 없습니다.");
             bindingResult.reject("weightMax", "최대 개월이 최소 개월보다 작을 수 없습니다.");
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
         }
 
         if (request.getMonthMin() > request.getMonthMax()) {
             bindingResult.reject("monthMin", "최소 뭄무게가 최대 몸무게보다 클 수 없습니다.");
             bindingResult.reject("monthMax", "최대 몸무게가 최소 몸무게보다 작을 수 없습니다.");
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
         }
     }
 }
