@@ -1,8 +1,8 @@
 package com.ssafy.aejimeongji.domain.auth.application.service;
 
 import com.ssafy.aejimeongji.domain.auth.application.util.TokenProvider;
-import com.ssafy.aejimeongji.domain.common.exception.auth.LoginException;
-import com.ssafy.aejimeongji.domain.common.exception.auth.RefreshTokenNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.member.application.dto.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.member.domain.Member;
 import com.ssafy.aejimeongji.domain.member.domain.repository.MemberRepository;
@@ -27,35 +27,43 @@ public class AuthService {
     }
 
     @Transactional
-    public Long  login(String email, String inputPassword) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new LoginException());
+    public Long login(String email, String inputPassword) {
+        Member member = memberRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new CustomException(CustomError.LOGIN_FAILURE));
+
         if(!member.matchPassword(passwordEncoder, inputPassword)) {
             log.debug("로그인 실패");
-            throw new LoginException();
+            throw new CustomException(CustomError.LOGIN_FAILURE);
         }
+
         return member.getId();
     }
 
     @Transactional
     public String createRefreshToken(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new LoginException());
+        Member member = memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new CustomException(CustomError.LOGIN_FAILURE));
+
         String refreshToken = tokenProvider.createRefreshToken(member);
         member.createRefreshToken(refreshToken);
         return refreshToken;
     }
 
     public String createNewAccessToken(String refreshToken) {
-        Member member = memberRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new RefreshTokenNotFoundException());
+        Member member = memberRepository
+                .findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new CustomException(CustomError.LOGIN_FAILURE));
         String newAccessToken = tokenProvider.createAccessToken(member);
         return newAccessToken;
     }
 
     @Transactional
     public void logout(String refreshToken) {
-        Member member = memberRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("JWT 토큰이 유효하지 않습니다."));
+        Member member = memberRepository
+                .findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new CustomException(CustomError.LOGIN_FAILURE));
         member.deleteRefreshToken();
     }
 }

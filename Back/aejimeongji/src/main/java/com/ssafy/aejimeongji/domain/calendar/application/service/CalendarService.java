@@ -3,8 +3,8 @@ package com.ssafy.aejimeongji.domain.calendar.application.service;
 import com.ssafy.aejimeongji.domain.calendar.application.dto.CalendarSearchCondition;
 import com.ssafy.aejimeongji.domain.calendar.domain.Calendar;
 import com.ssafy.aejimeongji.domain.calendar.domain.repository.CalendarRepository;
-import com.ssafy.aejimeongji.domain.common.exception.CalendarNotFoundException;
-import com.ssafy.aejimeongji.domain.common.exception.DogNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.dog.domain.Dog;
 import com.ssafy.aejimeongji.domain.dog.domain.repository.DogRepository;
 import com.ssafy.aejimeongji.domain.dog.domain.repository.MessagesRepository;
@@ -32,7 +32,9 @@ public class CalendarService {
     private final MessagesRepository messagesRepository;
 
     public Calendar findTodo(Long calendarId) {
-        return calendarRepository.findById(calendarId).orElseThrow(() -> new CalendarNotFoundException(calendarId.toString()));
+        return calendarRepository
+                .findById(calendarId)
+                .orElseThrow(() -> new CustomException(CustomError.CALENDAR_NOT_FOUND));
     }
 
     public List<Calendar> findCalendars(CalendarSearchCondition condition) {
@@ -41,7 +43,9 @@ public class CalendarService {
 
     @Transactional
     public Long saveCalender(Long dogId, Calendar calendar) {
-        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new DogNotFoundException(dogId.toString()));
+        Dog dog = dogRepository
+                .findById(dogId)
+                .orElseThrow(() -> new CustomException(CustomError.DOG_NOT_FOUND));
         calendar.setDog(dog);
         return calendarRepository.save(calendar).getId();
     }

@@ -1,7 +1,7 @@
 package com.ssafy.aejimeongji.domain.guide.application.service;
 
-import com.ssafy.aejimeongji.domain.common.exception.GuideNotFoundException;
-import com.ssafy.aejimeongji.domain.common.exception.MemberNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.guide.domain.GuideBook;
 import com.ssafy.aejimeongji.domain.guide.domain.Like;
 import com.ssafy.aejimeongji.domain.guide.domain.repository.GuideBookRepository;
@@ -34,15 +34,24 @@ public class LikeService {
     // 좋아요
     public void likeGuideBook(Long memberId, Long guideId) throws IllegalArgumentException {
         if (likeRepository.existsByMemberIdAndGuideBookId(memberId, guideId))
-            throw new IllegalArgumentException("이미 좋아요한 가이드입니다.");
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
-        GuideBook findGuideBook = guideBookRepository.findById(guideId).orElseThrow(() -> new GuideNotFoundException(guideId.toString()));
+            throw new CustomException(CustomError.DUPLICATED_LIKE_GUIDE);
+
+        Member findMember = memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new CustomException(CustomError.MEMBER_NOT_FOUND));
+
+        GuideBook findGuideBook = guideBookRepository
+                .findById(guideId)
+                .orElseThrow(() -> new CustomException(CustomError.GUIDE_NOT_FOUND));
+
         likeRepository.save(new Like(findMember, findGuideBook));
     }
 
     // 좋아요 취소
     public void unlikeGuideBook(Long memberId, Long guideId) throws IllegalArgumentException {
-        Like like = likeRepository.findByMemberIdAndGuideBookId(memberId, guideId).orElseThrow(() -> new IllegalArgumentException("아직 좋아요하지 않은 가이드입니다."));
+        Like like = likeRepository
+                .findByMemberIdAndGuideBookId(memberId, guideId)
+                .orElseThrow(() -> new CustomException(CustomError.NOT_LIKED_GUIDE));
         likeRepository.delete(like);
     }
 }
