@@ -1,7 +1,8 @@
 package com.ssafy.aejimeongji.domain.auth.interceptor;
 
 import com.ssafy.aejimeongji.domain.auth.application.util.TokenProvider;
-import com.ssafy.aejimeongji.domain.common.exception.auth.ForbiddenException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.member.domain.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,8 +22,10 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String accessToken = tokenProvider.resolveToken(request).substring(7);;
-        if (tokenProvider.getClaims(accessToken).get("role").toString().equals(Role.ROLE_ADMIN))
-            return true;
-        throw new ForbiddenException();
+
+        if (!tokenProvider.getClaims(accessToken).get("role").toString().equals(Role.ROLE_ADMIN))
+            throw new CustomException(CustomError.FORBIDDEN);
+
+        return true;
     }
 }

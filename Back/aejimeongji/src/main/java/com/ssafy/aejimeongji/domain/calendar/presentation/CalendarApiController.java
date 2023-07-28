@@ -6,11 +6,9 @@ import com.ssafy.aejimeongji.domain.calendar.application.dto.CalendarSearchCondi
 import com.ssafy.aejimeongji.domain.calendar.application.dto.TodosResponse;
 import com.ssafy.aejimeongji.domain.calendar.application.service.CalendarService;
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,17 +34,15 @@ public class CalendarApiController {
     }
 
     @PostMapping("/dog/{dogId}/calendar")
-    public ResponseEntity<ResponseDTO> saveCalendar(@PathVariable Long dogId, @Valid @RequestBody CalendarRequest request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDTO> saveCalendar(@PathVariable Long dogId, @Valid @RequestBody CalendarRequest request) {
         log.info("{}번 강아지 프로필 캘린더 저장", dogId);
-        validRequest(bindingResult);
         calendarService.saveCalender(dogId, request.toEntity());
         return ResponseEntity.ok(new ResponseDTO("등록이 완료되었습니다."));
     }
 
     @PutMapping("/calendar/{calendarId}")
-    public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId, @Valid @RequestBody CalendarRequest request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId, @Valid @RequestBody CalendarRequest request) {
         log.info("{}번 강아지 프로필 캘린더 수정", calendarId);
-        validRequest(bindingResult);
         calendarService.updateCalendar(calendarId, request.toEntity());
         return ResponseEntity.ok(new ResponseDTO("수정이 완료되었습니다."));
     }
@@ -60,11 +56,5 @@ public class CalendarApiController {
     @GetMapping("/messages/{dogId}")
     public ResponseEntity<?> getMessages(@PathVariable Long dogId) {
         return ResponseEntity.ok(new ResponseDTO(calendarService.findMessages(dogId)));
-    }
-
-    private void validRequest(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new MethodArgumentNotValidException(bindingResult);
-        }
     }
 }

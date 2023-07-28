@@ -1,8 +1,9 @@
 package com.ssafy.aejimeongji.domain.auth.application.service;
 
-import com.ssafy.aejimeongji.domain.auth.domain.PhoneAuthRepository;
 import com.ssafy.aejimeongji.domain.auth.domain.PhoneAuth;
-import com.ssafy.aejimeongji.domain.common.exception.auth.ExpireAuthNumberException;
+import com.ssafy.aejimeongji.domain.auth.domain.PhoneAuthRepository;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -32,15 +33,20 @@ public class PhoneAuthService {
     }
 
     @Transactional
-    public String sendMessage(String phoneNumber) throws CoolsmsException {
+    public String sendMessage(String phoneNumber) {
         String authNumber = makeAuthNumber();
-        coolSms.send(makeParams(phoneNumber, authNumber));
+        try {
+            coolSms.send(makeParams(phoneNumber, authNumber));
+        } catch (CoolsmsException e) {
+            throw new CustomException(CustomError.PHONE_AUTH_SEND_FAILURE);
+        }
         return phoneAuthRepository.save(new PhoneAuth(authNumber)).getId().toString();
     }
 
-    public boolean verifyAuthNumber(String phoneUUID, String authNumber) throws ExpireAuthNumberException {
-        PhoneAuth phoneAuth = phoneAuthRepository.findById(phoneUUID).orElseThrow(() ->
-            new ExpireAuthNumberException(Long.parseLong(phoneUUID))
+    public boolean verifyAuthNumber(String phoneUUID, String authNumber) {
+        PhoneAuth phoneAuth = phoneAuthRepository.findById(phoneUUID)
+                .orElseThrow(() ->
+            new CustomException(CustomError.PHONE_AUTH_EXPIRE)
         );
         return authNumber.equals(phoneAuth.getAuthNumber()) ? true : false;
     }

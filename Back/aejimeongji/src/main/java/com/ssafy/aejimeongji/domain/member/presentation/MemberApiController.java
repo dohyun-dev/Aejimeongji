@@ -1,7 +1,6 @@
 package com.ssafy.aejimeongji.domain.member.presentation;
 
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.member.application.dto.MemberModifyRequest;
 import com.ssafy.aejimeongji.domain.member.application.dto.MemberProfileResponse;
 import com.ssafy.aejimeongji.domain.member.application.dto.MemberSignUpRequest;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,17 +31,15 @@ public class MemberApiController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseDTO> signup(@Valid @RequestBody MemberSignUpRequest request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDTO> signup(@Valid @RequestBody MemberSignUpRequest request) {
         log.info("회원가입 요청");
-        validateRequest(bindingResult);
         memberService.joinMember(request.convertMember(passwordEncoder));
         return ResponseEntity.ok(new ResponseDTO("회원가입이 완료되었습니다."));
     }
 
     @PutMapping("/member/{memberId}")
-    public ResponseEntity<ResponseDTO> modifyProfile(@PathVariable Long memberId, @Valid @RequestBody MemberModifyRequest request, BindingResult bindingResult) {
+    public ResponseEntity<ResponseDTO> modifyProfile(@PathVariable Long memberId, @Valid @RequestBody MemberModifyRequest request) {
         log.info("회원정보수정 요청 = {}", memberId);
-        validateRequest(bindingResult);
         memberService.updateMember(memberId, request.getNickname(), request.getPassword(), request.getPhoneNumber());
         return ResponseEntity.ok(new ResponseDTO("회원 정보 수정이 완료되었습니다."));
     }
@@ -53,10 +49,5 @@ public class MemberApiController {
         log.info("회원탈퇴 요청 = {}", memberId);
         memberService.deleteMember(memberId);
         return ResponseEntity.ok(new ResponseDTO("회원탈퇴가 완료되었습니다."));
-    }
-
-    private void validateRequest(BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new MethodArgumentNotValidException(bindingResult);
     }
 }

@@ -2,7 +2,7 @@ package com.ssafy.aejimeongji.domain.dog.presentation;
 
 import com.ssafy.aejimeongji.domain.calendar.application.service.CalendarService;
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomMethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.dog.application.dto.DogProfileResponse;
 import com.ssafy.aejimeongji.domain.dog.application.dto.DogSaveRequest;
 import com.ssafy.aejimeongji.domain.dog.application.dto.DogUpdateRequest;
@@ -110,10 +110,10 @@ public class DogApiController {
 
     private void valideteRequest(LocalDate birthday, LocalDate adoptionDay, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
         if (adoptionDay.isBefore(birthday)) {
             bindingResult.reject("adoptionDay", String.format("입양일 %s일이 생일 %s일보다 빠르면 안돼요!", adoptionDay, birthday));
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
         }
     }
 }

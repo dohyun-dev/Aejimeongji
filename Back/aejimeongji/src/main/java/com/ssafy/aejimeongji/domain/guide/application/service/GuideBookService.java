@@ -1,7 +1,7 @@
 package com.ssafy.aejimeongji.domain.guide.application.service;
 
-import com.ssafy.aejimeongji.domain.common.exception.DogNotFoundException;
-import com.ssafy.aejimeongji.domain.common.exception.GuideNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.dog.domain.Dog;
 import com.ssafy.aejimeongji.domain.dog.domain.repository.DogRepository;
 import com.ssafy.aejimeongji.domain.file.GuideThumbnail;
@@ -39,7 +39,9 @@ public class GuideBookService {
 
     // 맞춤 가이드 조회
     public Map<String, List<GuideBook>> customizedGuideBookList(Long dogId) {
-        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new DogNotFoundException(dogId.toString()));
+        Dog dog = dogRepository
+                .findById(dogId)
+                .orElseThrow(() -> new CustomException(CustomError.GUIDE_NOT_FOUND));
 
         List<GuideBook> fixedGuideBookList = randomFixedGuide(fixedGuideBookList());
         List<GuideBook> ageGuideBookList = randomAgeGuide(ageCustomizedGuideBookList(dog));
@@ -88,7 +90,9 @@ public class GuideBookService {
 
     // 가이드 상세 조회
     public GuideBook findGuideBook(Long guideBookId) {
-        return guideBookRepository.findById(guideBookId).orElseThrow(() -> new GuideNotFoundException(guideBookId.toString()));
+        return guideBookRepository
+                .findById(guideBookId)
+                .orElseThrow(() -> new CustomException(CustomError.GUIDE_NOT_FOUND));
     }
 
     // 강아지 홈 고정 가이드 목록 조회

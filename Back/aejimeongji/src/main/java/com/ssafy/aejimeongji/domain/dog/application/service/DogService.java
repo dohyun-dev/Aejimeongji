@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.domain.dog.application.service;
 
-import com.ssafy.aejimeongji.domain.common.exception.DogNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.dog.domain.Breed;
 import com.ssafy.aejimeongji.domain.dog.domain.Dog;
 import com.ssafy.aejimeongji.domain.dog.domain.repository.DogRepository;
@@ -30,7 +31,9 @@ public class DogService {
 
     // 강아지 프로필 상세 조회
     public Dog findDog(Long dogId) {
-        return dogRepository.findById(dogId).orElseThrow(() -> new DogNotFoundException(dogId.toString()));
+        return dogRepository
+                .findById(dogId)
+                .orElseThrow(() -> new CustomException(CustomError.DOG_NOT_FOUND));
     }
 
     // 강아지 프로필 등록

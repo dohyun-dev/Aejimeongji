@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.domain.member.application.service;
 
-import com.ssafy.aejimeongji.domain.common.exception.MemberNotFoundException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.member.domain.Member;
 import com.ssafy.aejimeongji.domain.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,9 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public Member findMember(Long memberId) {
-        return memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberNotFoundException(memberId));
+        return memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new CustomException(CustomError.MEMBER_NOT_FOUND));
     }
 
     @Transactional

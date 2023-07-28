@@ -2,11 +2,10 @@ package com.ssafy.aejimeongji.domain.walking.presentation;
 
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
 import com.ssafy.aejimeongji.domain.common.application.dto.ScrollResponse;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomMethodArgumentNotValidException;
 import com.ssafy.aejimeongji.domain.dog.application.service.WalkingDogService;
-import com.ssafy.aejimeongji.domain.walking.domain.Walking;
-import com.ssafy.aejimeongji.domain.walking.application.dto.WalkingSearchCondition;
 import com.ssafy.aejimeongji.domain.walking.application.dto.*;
+import com.ssafy.aejimeongji.domain.walking.domain.Walking;
 import com.ssafy.aejimeongji.domain.walking.domain.WalkingDog;
 import com.ssafy.aejimeongji.domain.walking.domain.repository.WalkingDogRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +71,6 @@ public class WalkingApiController {
 
     private void validateRequest(BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new MethodArgumentNotValidException(bindingResult);
+            throw new CustomMethodArgumentNotValidException(bindingResult);
     }
 }

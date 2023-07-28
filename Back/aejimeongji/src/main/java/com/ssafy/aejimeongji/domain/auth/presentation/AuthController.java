@@ -6,16 +6,15 @@ import com.ssafy.aejimeongji.domain.auth.application.dto.LoginRequest;
 import com.ssafy.aejimeongji.domain.auth.application.dto.LoginResponse;
 import com.ssafy.aejimeongji.domain.auth.application.service.AuthService;
 import com.ssafy.aejimeongji.domain.auth.application.util.TokenProvider;
-import com.ssafy.aejimeongji.domain.common.application.dto.ErrorDTO;
 import com.ssafy.aejimeongji.domain.common.application.dto.ResponseDTO;
-import com.ssafy.aejimeongji.domain.common.exception.MethodArgumentNotValidException;
+import com.ssafy.aejimeongji.domain.common.exception.CustomError;
+import com.ssafy.aejimeongji.domain.common.exception.CustomException;
 import com.ssafy.aejimeongji.domain.member.application.dto.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.member.application.dto.DuplicationCheckResponse;
 import com.ssafy.aejimeongji.domain.member.application.service.MemberService;
 import com.ssafy.aejimeongji.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -40,9 +39,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult) {
         log.info("로그인 요청");
-
-        validateRequest(bindingResult);
-
         Long memberId = authService.login(request.getEmail(), request.getPassword());
         String refreshToken = authService.createRefreshToken(memberId);
         Member member = memberService.findMember(memberId);
@@ -60,8 +56,7 @@ public class AuthController {
 
 
     @PostMapping("/duplicationcheck")
-    public ResponseEntity<DuplicationCheckResponse> checkDuplicated(@Valid @RequestBody DuplicatedCheckCondition condition, BindingResult bindingResult) {
-        validateRequest(bindingResult);
+    public ResponseEntity<DuplicationCheckResponse> checkDuplicated(@Valid @RequestBody DuplicatedCheckCondition condition) {
         boolean resultStatus = authService.duplicatedCheck(condition);
         String message = makeDuplicateCheckResponseMessage(condition, resultStatus);
         if (resultStatus)
@@ -74,13 +69,13 @@ public class AuthController {
         String refreshToken = request.getRefreshToken();
         log.debug("refreshToken = {}", request.getRefreshToken());
 
-        if (StringUtils.hasText(refreshToken) && tokenProvider.validateToken(refreshToken)) {
-            log.info("토큰 유효함");
-            String newAccessToken = authService.createNewAccessToken(refreshToken);
-            return ResponseEntity.ok().body(new IssueResponse("토큰이 재발급 되었습니다.", newAccessToken));
+        if (!StringUtils.hasText(refreshToken) || !tokenProvider.validateToken(refreshToken)) {
+            log.info("토큰 유효하지 않음");
+            throw new CustomException(CustomError.LOGIN_FAILURE);
         }
-        log.info("토큰 유효하지 않음");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDTO(401, "토큰이 유효하지 않습니다."));
+        log.info("토큰 유효함");
+        String newAccessToken = authService.createNewAccessToken(refreshToken);
+        return ResponseEntity.ok().body(new IssueResponse("토큰이 재발급 되었습니다.", newAccessToken));
     }
 
     private String makeDuplicateCheckResponseMessage(DuplicatedCheckCondition condition, boolean resultStatus) {
@@ -91,10 +86,5 @@ public class AuthController {
 
     private String addMessage(DuplicatedCheckCondition condition) {
         return condition.getEmail() != null ? "이메일입니다." : "닉네임입니다.";
-    }
-
-    private void validateRequest(BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new MethodArgumentNotValidException(bindingResult);
     }
 }
