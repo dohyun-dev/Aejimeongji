@@ -9,24 +9,25 @@ import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Random;
 
+//@Service
 @Slf4j
 @Transactional(readOnly = true)
 public class PhoneAuthServiceV1 implements PhoneAuthService {
-
-    private final String apiKey;
-    private final String apiSecret;
     private final PhoneAuthRepository phoneAuthRepository;
     private final Message coolSms;
-    private final Random rand  = new Random();
+    private static final Random rand  = new Random();
 
-    public PhoneAuthServiceV1(@Value("${coolsms.apiKey}") String apiKey, @Value("${coolsms.apiSecret}") String apiSecret, PhoneAuthRepository phoneAuthRepository) {
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
+    public PhoneAuthServiceV1(
+            @Value("${coolSms.apiKey}") String apiKey,
+            @Value("${coolSms.apiSecret}") String apiSecret,
+            PhoneAuthRepository phoneAuthRepository
+    ) {
         this.phoneAuthRepository = phoneAuthRepository;
         this.coolSms = new Message(apiKey, apiSecret);
     }
