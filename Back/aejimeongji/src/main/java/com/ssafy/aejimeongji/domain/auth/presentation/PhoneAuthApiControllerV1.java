@@ -28,14 +28,18 @@ public class PhoneAuthApiControllerV1 {
     @PostMapping("/verify")
     public ResponseEntity<ResponseDTO> confirmAuthNumber(@RequestBody PhoneAuthVerifyRequest request) {
         boolean result = phoneAuthService.verifyAuthNumber(request.getPhoneUUID(), request.getAuthNumber());
-        if (!result)
+        if (!result) {
+            log.info("{}번 UUID에서 인증이 실패되었습니다.", request.getPhoneUUID());
             throw new CustomException(CustomError.PHONE_AUTH_FAILURE);
-        return ResponseEntity.ok().body(new ResponseDTO("인증이 완료되었습니다."));
+        }
+        log.info("{}번 UUID에서 인증이 완료되었습니다.", request.getPhoneUUID());
+        return ResponseEntity.ok().body(new ResponseDTO("인증되었습니다."));
     }
 
     @PostMapping
     public ResponseEntity<PhoneAuthSendResponse> sendMessage(@Valid @RequestBody PhoneAuthSendRequest request) {
         String phoneUUID = phoneAuthService.sendMessage(request.getRecipientNumber());
+        log.info("{}번으로 인증번호가 전송되었습니다.", request.getRecipientNumber());
         return ResponseEntity.ok().body(new PhoneAuthSendResponse("인증번호가 발송되었습니다.", phoneUUID));
     }
 }
