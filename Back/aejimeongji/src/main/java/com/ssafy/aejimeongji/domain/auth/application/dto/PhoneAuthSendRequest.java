@@ -9,5 +9,5 @@ import javax.validation.constraints.Pattern;
 public class PhoneAuthSendRequest {
     @NotBlank(message = "휴대폰 번호를 입력해주세요.")
     @Pattern(regexp = "([0-9]{11})", message = "-를 빼고 입력해주세요")
-    private String phoneNumber;
+    private String recipientNumber;
 }
