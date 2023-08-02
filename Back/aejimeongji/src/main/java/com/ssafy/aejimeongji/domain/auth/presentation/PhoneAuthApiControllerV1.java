@@ -19,27 +19,23 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/phoneauth")
+@RequestMapping("/api/v1/phone-auth")
 @RequiredArgsConstructor
-public class PhoneAuthApiController {
+public class PhoneAuthApiControllerV1 {
 
     private final PhoneAuthService phoneAuthService;
 
     @PostMapping("/verify")
     public ResponseEntity<ResponseDTO> confirmAuthNumber(@RequestBody PhoneAuthVerifyRequest request) {
         boolean result = phoneAuthService.verifyAuthNumber(request.getPhoneUUID(), request.getAuthNumber());
-        if (!result) {
-            log.info("{}번 UUID에서 인증이 실패되었습니다.", request.getPhoneUUID());
+        if (!result)
             throw new CustomException(CustomError.PHONE_AUTH_FAILURE);
-        }
-        log.info("{}번 UUID에서 인증이 완료되었습니다.", request.getPhoneUUID());
-        return ResponseEntity.ok().body(new ResponseDTO("인증되었습니다."));
+        return ResponseEntity.ok().body(new ResponseDTO("인증이 완료되었습니다."));
     }
 
     @PostMapping
     public ResponseEntity<PhoneAuthSendResponse> sendMessage(@Valid @RequestBody PhoneAuthSendRequest request) {
-        String phoneUUID = phoneAuthService.sendMessage(request.getPhoneNumber());
-        log.info("{}번으로 인증번호가 전송되었습니다.", request.getPhoneNumber());
+        String phoneUUID = phoneAuthService.sendMessage(request.getRecipientNumber());
         return ResponseEntity.ok().body(new PhoneAuthSendResponse("인증번호가 발송되었습니다.", phoneUUID));
     }
 }

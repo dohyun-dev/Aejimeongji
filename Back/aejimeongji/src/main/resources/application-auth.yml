@@ -6,6 +6,7 @@ jasypt:
 file.dir: ~/spring
 jwt.secretKey: jwt.secretKey
 
-coolsms:
-  apiKey: asdfsdacvzxvsdafdwqreqw
-  apiSecret: asdfsdafzxcvasdfdsafsd
+coolSms:
+  apiKey: ENC(6tDCSfkyJUn0Qpv86DBl7IseQJXO5gBPLVkSvHh4C+8=)
+  apiSecret: ENC(hjL2h/NaVZUPQCEc4YahXYT43xzac7PP3huVHZCyou22MlG+gWd1WidF3omSnOQd)
+  senderNumber: ENC(Ak+KgqZgc8qXxQdYDdtf79SRXKv7zjG0)

@@ -5,7 +5,9 @@ spring:
     group:
       test:
         - db-test
+        - kafka-test
     include:
       - db
       - auth
       - s3
+      - kafka
