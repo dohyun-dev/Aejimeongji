@@ -66,6 +66,10 @@ dependencies {
 	// mapper
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'com.h2database:h2'
