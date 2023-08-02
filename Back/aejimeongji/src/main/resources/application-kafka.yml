@@ -1,0 +1,18 @@
+spring:
+  kafka:
+    bootstrap-servers: kafka-1:9092, kafka-2:9092, kafka-3:9092
+    consumer:
+      group-id: spring-app
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+---
+spring:
+  config:
+    activate:
+      on-profile: kafka-test
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers:localhost:9092}
