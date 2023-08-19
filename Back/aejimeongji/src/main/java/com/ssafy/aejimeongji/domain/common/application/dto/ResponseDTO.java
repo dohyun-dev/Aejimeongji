@@ -8,4 +8,8 @@ import lombok.Data;
 public class ResponseDTO {
 
     private String message;
+
+    public ResponseDTO(ResponseMessage message) {
+        this.message = message.getMessage();
+    }
 }
