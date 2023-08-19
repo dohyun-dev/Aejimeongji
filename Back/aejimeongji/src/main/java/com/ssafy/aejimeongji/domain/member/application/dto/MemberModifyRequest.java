@@ -22,4 +22,12 @@ public class MemberModifyRequest {
     @NotBlank(message = "휴대폰 번호를 입력해주세요.")
     @Pattern(regexp = "([0-9]{11})", message = "-를 빼고 입력해주세요")
     private String phoneNumber;
+
+    public MemberDto toDto() {
+        return MemberDto.builder()
+                .nickname(nickname)
+                .password(password)
+                .phoneNumber(phoneNumber)
+                .build();
+    }
 }

@@ -24,11 +24,19 @@ public class MemberProfileResponse {
         memberId = member.getId();
         email = member.getEmail();
         nickname = member.getNickname();
-        phoneNumber = convertFormmatNumber(member.getPhoneNumber());
+        phoneNumber = convertFormatNumber(member.getPhoneNumber());
         createdDate = member.getCreatedDate();
     }
 
-    private String convertFormmatNumber(String phoneNumber) {
+    public MemberProfileResponse(MemberDto member) {
+        memberId = member.getId();
+        email = member.getEmail();
+        nickname = member.getNickname();
+        phoneNumber = convertFormatNumber(member.getPhoneNumber());
+        createdDate = member.getCreatedDate();
+    }
+
+    private String convertFormatNumber(String phoneNumber) {
         if (StringUtils.hasText(phoneNumber))
             return phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7, 11);;
         return phoneNumber;

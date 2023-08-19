@@ -35,4 +35,14 @@ public class MemberSignUpRequest {
     public Member convertMember(PasswordEncoder passwordEncoder) {
         return new Member(getEmail(), passwordEncoder.encode(getPassword()), getUsername(), getPhoneNumber(), getNickname());
     }
+
+    public MemberDto toDto() {
+        return MemberDto.builder()
+                .email(email)
+                .password(password)
+                .username(username)
+                .phoneNumber(phoneNumber)
+                .nickname(nickname)
+                .build();
+    }
 }
